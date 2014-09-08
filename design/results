@@ -1,0 +1,51 @@
+<mockup version="1.0" skin="wireframe" fontFace="Balsamiq Sans" measuredW="920" measuredH="581" mockupW="900" mockupH="557">
+  <controls>
+    <control controlID="36" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="20" y="24" w="900" h="557" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>A%20Web%20Page%0Ahttp%3A//</text>
+      </controlProperties>
+    </control>
+    <control controlID="39" controlTypeID="com.balsamiq.mockups::Image" x="216" y="120" w="149" h="101" measuredW="77" measuredH="79" zOrder="1" locked="false" isInGroup="-1"/>
+    <control controlID="43" controlTypeID="__group__" x="380" y="120" w="363" h="101" measuredW="363" measuredH="101" zOrder="2" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="0" w="363" h="101" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="43"/>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::TextInput" x="22" y="38" w="232" h="-1" measuredW="45" measuredH="24" zOrder="1" locked="false" isInGroup="43">
+          <controlProperties>
+            <text>Name</text>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Button" x="269" y="38" w="74" h="27" measuredW="62" measuredH="24" zOrder="2" locked="false" isInGroup="43">
+          <controlProperties>
+            <text>Search</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="50" controlTypeID="__group__" x="216" y="236" w="527" h="109" measuredW="527" measuredH="109" zOrder="3" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="0" w="527" h="109" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="50"/>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Title" x="36" y="10" w="417" h="-1" measuredW="175" measuredH="43" zOrder="1" locked="false" isInGroup="50">
+          <controlProperties>
+            <text>Facebook</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="51" controlTypeID="__group__" x="216" y="360" w="527" h="109" measuredW="527" measuredH="109" zOrder="4" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="0" w="527" h="109" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="51"/>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Title" x="36" y="10" w="417" h="-1" measuredW="123" measuredH="43" zOrder="1" locked="false" isInGroup="51">
+          <controlProperties>
+            <text>GitHub</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="52" controlTypeID="com.balsamiq.mockups::Paragraph" x="342" y="484" w="-1" h="-1" measuredW="275" measuredH="80" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>center</align>
+        <text>Etc.</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
