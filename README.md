@@ -25,4 +25,29 @@ The project requirements presented during the first lecture.
 
 ## Technology Stack
 
+### Frontend
+- Angularjs
+	- Bower?
+- Bootstrap
+- Require.js?
 
+#### Testing
+- Jasmine Angular unit testing 
+
+### Backend
+- Python
+	- Virtualenv
+	- Pip
+
+- [Flask](http://www.flask.pocoo.org)
+	- [Flask-PyMongo](http://flask-pymongo.readthedocs.org/en/latest/)
+	- [Flask RESTful](http://flask-restful.readthedocs.org/en/latest/)
+
+- [OpenReplica](http://openreplica.org/)
+
+#### Database
+- [MongoDB](http://www.mongodb.org/)
+
+#### Testing
+- Python Unittest
+- Flask RESTful testsuite
