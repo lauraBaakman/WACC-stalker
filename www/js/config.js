@@ -5,7 +5,7 @@
 // directory.
 requirejs.config({
     baseUrl: 'js/lib',
-    // Paths are from baseUrl e.g. js/lib/../app
+    // Paths are relative to baseUrl e.g. js/lib/../app
     paths: {
         app: '../app',
         jquery: 'jquery-1.11.1',
