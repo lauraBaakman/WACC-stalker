@@ -9,7 +9,8 @@ requirejs.config({
     paths: {
         app: '../app',
         jquery: 'jquery-1.11.1',
-        bootstrap: 'bootstrap'
+        bootstrap: 'bootstrap',
+        angular: 'angular'
     },
     shim: {
     	'bootstrap': {
@@ -21,4 +22,4 @@ requirejs.config({
 
 // Start loading the main app file. Put all of
 // your application logic in there.
-requirejs(['jquery', 'bootstrap', 'app/main']);
+requirejs(['angular', 'jquery', 'bootstrap', 'app/main']);
