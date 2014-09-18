@@ -51,7 +51,6 @@ The project requirements presented during the first lecture.
 #### Testing
 - Python Unittest
 - Flask RESTful testsuite
-- 
 
 # APIs
 
