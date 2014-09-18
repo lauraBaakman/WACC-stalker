@@ -3,7 +3,7 @@ define(['./module'], function (directives) {
     directives.directive('search', [function ($scope) {
     	return {
     		restrict: 'E',
-    		templateUrl: '../views/test.html',
+    		templateUrl: '../views/search.html',
     		controller: function() {
     			this.message = "Beste";
 
