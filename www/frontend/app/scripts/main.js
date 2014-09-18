@@ -1,27 +1,31 @@
-// For any third party dependencies, like jQuery, place them in the lib folder.
+/**
+ * configure RequireJS
+ * prefer named modules to long paths, especially for version mgt
+ * or 3rd party libraries
+ */
+require.config({
 
-// Configure loading modules from the lib directory,
-// except for 'app' ones, which are in a sibling
-// directory.
-requirejs.config({
     paths: {
-        angular: '../vendor/angular',
-        jquery: '../vendor/jquery-1.11.1',
-        bootstrap: '../vendor/bootstrap',
-        domReady: '../vendor/domReady'
+        'angular': '../vendor/angular/angular',
+        'angular-route': '../vendor/angular-route/angular-route',
+        'domReady': '../vendor/requirejs-domready/domReady'
     },
+
+    /**
+     * for libs that either do not support AMD out of the box, or
+     * require some fine tuning to dependency mgt'
+     */
     shim: {
-        angular: {
-            deps: ['jquery'],
+        'angular': {
             exports: 'angular'
         },
-    	bootstrap: {
-    		deps: ['jquery']
-    	}
-    }
+        'angular-route': {
+            deps: ['angular']
+        }
+    },
 
+    deps: [
+        // kick start application... see bootstrap.js
+        './bootstrap'
+    ]
 });
-
-// Start loading the main app file. Put all of
-// your application logic in there.
-requirejs(['angular', 'jquery', 'bootstrap', 'domReady']);

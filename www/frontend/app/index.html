@@ -1,30 +1,22 @@
-<!DOCTYPE html>
-<html lang="en" ng-app="stalker">
-
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>WACC Stalker</title>
-
-    <!-- Bootstrap -->
-    <link type="text/css" href="styles/css/bootstrap.css" rel="stylesheet">
-    <link type="text/css" href="styles/css/bootstrap-theme.css" rel="stylesheet">
-    <link type="text/css" href="styles/css/font-awesome.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <title>My AngularJS AngularJS + RequireJS App</title>
+  <link rel="stylesheet" href="styles/css/bootstrap.css">
+  <link rel="stylesheet" href="styles/css/bootstrap-theme.css">
+  <link rel="stylesheet" href="styles/css/font-awesome.css">
 </head>
-
 <body>
-    <div class='container'>
-        <div class='row'>
-            <div class="column-lg-1">
-                <h1>Stalker</h1>
-            </div>
-            <search></search>
-        </div>
-    </div>
+  <ul class="menu">
+    <li><a href="#/view1">view1</a></li>
+    <li><a href="#/view2">view2</a></li>
+  </ul>
 
-    <!-- Require.js -->
-    <script data-main="scripts/main" src="vendor/require.js"></script>
+  <div data-ng-view></div>
+
+  <div>Angular Require seed app: v<span app-version></span></div>
+
+  <script src="vendor/requirejs/require.js" data-main="scripts/main.js"></script>
 </body>
-
 </html>

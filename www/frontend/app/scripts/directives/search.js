@@ -1,11 +1,17 @@
-define(['directives/directives'], function(directives) {
-	directives.directive('search', ['$rootScope', function($rootScope) {
-		return {
-			restrict: 'E',
-			templateUrl: '../../views/search.html',
-			controller: function() {
+define(['./module'], function (directives) {
+    'use strict';
+    directives.directive('search', [function ($scope) {
+    	return {
+    		restrict: 'E',
+    		templateUrl: '../views/test.html',
+    		controller: function() {
+    			this.message = "Beste";
 
-			}
-		};
-	}]);
+    			this.sayMessage = function() {
+    				return this.message;
+    			};
+    		},
+    		controllerAs: 'searchCtrl'
+    	};
+    }]);
 });
