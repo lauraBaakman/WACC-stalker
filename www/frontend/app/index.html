@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,11 +11,34 @@
     <link type="text/css" href="styles/css/bootstrap.css" rel="stylesheet">
     <link type="text/css" href="styles/css/bootstrap-theme.css" rel="stylesheet">
     <link type="text/css" href="styles/css/font-awesom.css" rel="stylesheet">
-  </head>
-  <body>
-    <h1>Hello, world!</h1>
-    
+</head>
+
+<body>
+    <div class='container'>
+        <div class='row'>
+            <div class="column-lg-1">
+                <h1>Stalker</h1>
+            </div>
+            <form name="searchForm" role="form">
+                <div class="form-group column-lg-5">
+                    <label for="searchName">Name</label>
+                    <input type="text" class="form-control" id="searchName" placeholder="Enter the name of the person you are looking for">
+                </div>
+
+                <div class="form-group column-lg-5">
+                    <label for="searchEmail">Email</label>
+                    <input type="email" class="form-control" id="searchEmail" placeholder="Enter the email address of the person you are looking for">
+                </div>
+
+                <div class="column-lg-2">
+                    <button type="submit" class="btn btn-default">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Require.js -->
     <script data-main="scrips/main" src="scripts/vendor/require.js"></script>
-  </body>
+</body>
+
 </html>
