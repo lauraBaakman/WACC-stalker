@@ -9,6 +9,7 @@ require.config({
         'angular': '../vendor/angular/angular',
         'angular-route': '../vendor/angular-route/angular-route',
         'domReady': '../vendor/requirejs-domready/domReady',
+        'jquery': '../vendor/jquery/jquery-1.11.1'
     },
 
     /**
@@ -17,13 +18,13 @@ require.config({
      */
     shim: {
         'angular': {
-            exports: 'angular'
+            exports: 'angular',
+            deps: ['jquery']
         },
         'angular-route': {
             deps: ['angular']
-        },
+        }
     },
-
     deps: [
         // kick start application... see bootstrap.js
         './bootstrap'
