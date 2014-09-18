@@ -1,17 +1,18 @@
 <div class="debug">
     <p>Result: {{result}}</p>
-    <p>Email valid: {{searchForm.searchEmail.$valid}}</p>
-    <p>Email invalid: {{searchForm.searchEmail.$invalid}}</p>
+    <p>Name valid: {{searchForm.searchName.$valid}}</p>
+    <p>Name invalid: {{searchForm.searchName.$invalid}}</p>
+    <p>Name dirty: {{searchForm.searchName.$dirty}}</p>
 </div>
 
 <form name="searchForm" role="form" ng-submit="searchCtrl.searchSubmit()" class="row">
     <div class="form-group col-sm-5">
-        <label for="searchName">Name</label>
+        <label for="searchName" class="control-label">Name</label>
         <input type="text" class="form-control" name="searchName" id="searchName" ng-model="searchCtrl.search.name" placeholder="" novalidate>
     </div>
 
     <div class="form-group col-sm-5">
-        <label for="searchEmail">Email</label>
+        <label for="searchEmail" class="control-label">Email</label>
         <input type="email" class="form-control" name="searchEmail" id="searchEmail" ng-model="searchCtrl.search.email" placeholder="" novalidate>
     </div>
 
