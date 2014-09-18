@@ -12,9 +12,9 @@ requirejs.config({
     },
     shim: {
         angular: {
-            deps: ['jquery']
+            deps: ['jquery'],
             exports: 'angular'
-        }
+        },
     	bootstrap: {
     		deps: ['jquery']
     	}
