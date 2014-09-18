@@ -3,15 +3,15 @@
 <form name="searchForm" role="form" ng-submit="searchCtrl.searchSubmit()" class="row">
     <div class="form-group col-sm-5">
         <label for="searchName">Name</label>
-        <input type="text" class="form-control" name="searchName" id="searchName" ng-model="searchCtrl.search.name" placeholder="Enter the name of the person you are looking for" novalidate>
+        <input type="text" class="form-control" name="searchName" id="searchName" ng-model="searchCtrl.search.name" placeholder="" novalidate>
     </div>
 
     <div class="form-group col-sm-5">
         <label for="searchEmail">Email</label>
-        <input type="email" class="form-control" name="searchEmail" id="searchEmail" ng-model="searchCtrl.search.email" placeholder="Enter the email address of the person you are looking for" novalidate>
+        <input type="email" class="form-control" name="searchEmail" id="searchEmail" ng-model="searchCtrl.search.email" placeholder="" novalidate>
     </div>
 
-    <div class="col-sm-2">
+    <div class="col-sm-2 pull-down">
         <button type="submit" class="btn btn-block btn-default">Search</button>
     </div>
 </form>

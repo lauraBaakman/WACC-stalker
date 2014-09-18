@@ -7,6 +7,10 @@ define(['./module'], function (directives) {
     		controller: function() {
     			this.search = {};
 
+                $('.pull-down').each(function() {
+                    $(this).css('margin-top', $(this).prev().height()-$(this).height());
+                });
+
     			this.sayMessage = function() {
     				return this.message;
     			};
