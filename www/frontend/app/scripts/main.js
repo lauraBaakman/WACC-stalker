@@ -5,10 +5,10 @@
 // directory.
 requirejs.config({
     paths: {
-        angular: 'vendor/angular.min',
-        jquery: 'vendor/jquery-1.11.1',
-        bootstrap: 'vendor/bootstrap',
-        domReady: 'vendor/domReady'
+        angular: '../vendor/angular',
+        jquery: '../vendor/jquery-1.11.1',
+        bootstrap: '../vendor/bootstrap',
+        domReady: '../vendor/domReady'
     },
     shim: {
         angular: {
