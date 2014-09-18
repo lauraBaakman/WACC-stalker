@@ -1,15 +1,14 @@
 <p>Result:</p>
-<p>{{search}}</p>
 
-<form name="searchForm" role="form">
+<form name="searchForm" role="form" ng-submit="searchCtrl.searchSubmit()">
     <div class="form-group column-lg-5">
         <label for="searchName">Name</label>
-        <input type="text" class="form-control" id="searchName" ng-model="search.name" placeholder="Enter the name of the person you are looking for" novalidate>
+        <input type="text" class="form-control" name="searchName" id="searchName" ng-model="searchCtrl.search.name" placeholder="Enter the name of the person you are looking for" novalidate>
     </div>
 
     <div class="form-group column-lg-5">
         <label for="searchEmail">Email</label>
-        <input type="email" class="form-control" id="searchEmail" ng-model="search.email" placeholder="Enter the email address of the person you are looking for" novalidate>
+        <input type="email" class="form-control" name="searchEmail" id="searchEmail" ng-model="searchCtrl.search.email" placeholder="Enter the email address of the person you are looking for" novalidate>
     </div>
 
     <div class="column-lg-2">

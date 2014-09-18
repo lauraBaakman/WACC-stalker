@@ -6,5 +6,4 @@
 define([
 	'./app-version',
     './search',
-    './showErrors',
 ], function() {});

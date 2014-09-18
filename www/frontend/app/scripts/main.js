@@ -8,7 +8,7 @@ require.config({
     paths: {
         'angular': '../vendor/angular/angular',
         'angular-route': '../vendor/angular-route/angular-route',
-        'domReady': '../vendor/requirejs-domready/domReady'
+        'domReady': '../vendor/requirejs-domready/domReady',
     },
 
     /**
@@ -21,7 +21,7 @@ require.config({
         },
         'angular-route': {
             deps: ['angular']
-        }
+        },
     },
 
     deps: [

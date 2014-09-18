@@ -5,11 +5,18 @@ define(['./module'], function (directives) {
     		restrict: 'E',
     		templateUrl: '../views/search.html',
     		controller: function() {
-    			this.message = "Beste";
+    			this.search = {};
 
     			this.sayMessage = function() {
     				return this.message;
     			};
+
+                this.searchSubmit = function(){
+                    alert("Submitting the form!");
+
+                    // reset the this.search after submit to clear the form
+                    this.search = {};
+                };
     		},
     		controllerAs: 'searchCtrl'
     	};
