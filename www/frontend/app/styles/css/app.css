@@ -1,3 +1,10 @@
+.alert-link {
+	cursor: pointer;
+}
+
+
+
+/* DEBUG CLASSES */
 .debug {
 	background:red;
 	font-size:100%;

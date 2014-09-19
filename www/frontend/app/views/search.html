@@ -1,10 +1,3 @@
-<div class="debug">
-    <p>Result: {{result}}</p>
-    <p>Name valid: {{searchForm.searchName.$valid}}</p>
-    <p>Name invalid: {{searchForm.searchName.$invalid}}</p>
-    <p>Name dirty: {{searchForm.searchName.$dirty}}</p>
-</div>
-
 <form name="searchForm" role="form" ng-submit="searchCtrl.searchSubmit()" class="row">
     <div class="form-group col-sm-5">
         <label for="searchName" class="control-label">Name</label>
@@ -20,3 +13,8 @@
         <button type="submit" class="btn btn-block btn-default">Search</button>
     </div>
 </form>
+
+<div ng-show="searchCtrl.error" class="col-xs-12 alert alert-warning" role="alert">
+    <strong>Warning!</strong>{{searchCtrl.error}}
+    <span ng-click="searchCtrl.searchSubmit(true)" class="alert-link">Continue anyway.</span>
+</div>
