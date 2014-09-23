@@ -1,12 +1,17 @@
-<form name="searchForm" role="form" ng-submit="searchCtrl.searchSubmit()" class="row" ng-init="searchCtrl.init()">
+<p>
+DEBUG: MODEL: {{search}}, <br/>
+PRISTINE: {{searchForm.$pristine}}
+</p>
+
+<form name="searchForm" role="form" ng-submit="searchCtrl.searchSubmit()" class="row" novalidate>
     <div class="form-group col-sm-5">
         <label for="searchName" class="control-label">Name</label>
-        <input type="text" class="form-control" name="searchName" id="searchName" ng-model="searchCtrl.search.name" placeholder="" novalidate>
+        <input type="text" class="form-control" id="searchName" ng-model="search.name" placeholder="" novalidate>
     </div>
 
     <div class="form-group col-sm-5">
         <label for="searchEmail" class="control-label">Email</label>
-        <input type="email" class="form-control" name="searchEmail" id="searchEmail" ng-model="searchCtrl.search.email" placeholder="" novalidate>
+        <input type="email" class="form-control" id="searchEmail" ng-model="search.email" placeholder="" novalidate>
     </div>
 
     <div class="col-sm-2 pull-down">
@@ -14,7 +19,7 @@
     </div>
 </form>
 
-<div ng-show="!searchCtrl.error.isEmpty()" class="col-xs-12 alert alert-warning" role="alert">
-    <strong>Warning!</strong>{{searchCtrl.error}}
+<div ng-show="!error.isEmpty()" class="col-xs-12 alert alert-warning" role="alert">
+    <strong>Warning!</strong>{{error}}
     <span ng-hide="searchCtrl.isSearchEmpty()" ng-click="searchCtrl.searchSubmit(true)" class="alert-link">Continue anyway.</span>
 </div>
