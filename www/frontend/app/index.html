@@ -3,26 +3,30 @@
 
 <head>
     <meta charset="utf-8">
-    <title>My AngularJS AngularJS + RequireJS App</title>
+    <!-- Needed for HTML5 url mode. See routes.js -->
+    <base href="/">
+
+    <title>WACC Stalker</title>
+
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="styles/css/bootstrap.css">
     <link rel="stylesheet" href="styles/css/bootstrap-theme.css">
+
+    <!-- Font-Awesome CSS -->
     <link rel="stylesheet" href="styles/css/font-awesome.css">
+
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="styles/css/app.css">
 </head>
 
 <body>
-    <div class="container-fluid">
-        <ul class="menu">
-            <li><a href="#/view1">view1</a>
-            </li>
-            <li><a href="#/view2">view2</a>
-            </li>
-        </ul>
-
-        <div data-ng-view></div>
-
-        <div>Angular Require seed app: v
-            <span app-version></span>
+    <div class="container">
+        <div class="header">
+            <h1>WACC - Stalker</h1>    
+        </div>
+        
+        <div data-ng-view>
+            <!-- Gets populated by partial views -->
         </div>
     </div>
 

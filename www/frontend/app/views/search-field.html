@@ -1,0 +1,20 @@
+<form name="searchForm" role="form" ng-submit="searchCtrl.searchSubmit()" class="row" ng-init="searchCtrl.init()">
+    <div class="form-group col-sm-5">
+        <label for="searchName" class="control-label">Name</label>
+        <input type="text" class="form-control" name="searchName" id="searchName" ng-model="searchCtrl.search.name" placeholder="" novalidate>
+    </div>
+
+    <div class="form-group col-sm-5">
+        <label for="searchEmail" class="control-label">Email</label>
+        <input type="email" class="form-control" name="searchEmail" id="searchEmail" ng-model="searchCtrl.search.email" placeholder="" novalidate>
+    </div>
+
+    <div class="col-sm-2 pull-down">
+        <button type="submit" class="btn btn-block btn-default">Search</button>
+    </div>
+</form>
+
+<div ng-show="!searchCtrl.error.isEmpty()" class="col-xs-12 alert alert-warning" role="alert">
+    <strong>Warning!</strong>{{searchCtrl.error}}
+    <span ng-hide="searchCtrl.isSearchEmpty()" ng-click="searchCtrl.searchSubmit(true)" class="alert-link">Continue anyway.</span>
+</div>

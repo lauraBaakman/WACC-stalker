@@ -14,6 +14,11 @@ define([
      * place operations that need to initialize prior to app start here
      * using the `run` function on the top-level module
      */
+     String.prototype.isEmpty = function() {
+        return (this.length === 0 || !this.trim());
+     };
+
+     console.log(String);
 
     require(['domReady!'], function (document) {
         ng.bootstrap(document, ['app']);

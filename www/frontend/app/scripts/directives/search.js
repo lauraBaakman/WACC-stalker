@@ -1,12 +1,29 @@
 define(['./module'], function(directives) {
     'use strict';
     directives.directive('search', [
+
         function($scope) {
             return {
                 restrict: 'E',
-                templateUrl: '../views/search.html',
+                templateUrl: '../views/search-field.html',
                 controller: function($scope) {
-                    this.search = {};
+                    // Initialization: They need to be empty strings ("") so we can use
+                    // String.isEmpty(), which is a non-native function and defined 
+                    // in scripts/bootstrap.js
+                    this.init = function() {
+                        this.search = {
+                            name: "",
+                            email: ""
+                        };
+
+                        // Error message
+                        this.error = "";
+                    }
+
+                    // Check if all the fields are empty
+                    this.isSearchEmpty = function() {
+                        return (this.search.name.isEmpty() && this.search.email.isEmpty());
+                    };
 
                     // Align the submit button to the input fields
                     $('.pull-down').each(function() {
@@ -32,24 +49,29 @@ define(['./module'], function(directives) {
 
                     this.resetForm = function() {
                         // $scope.searchForm.$setPristine();
-                        this.search = {};
-                        $("form").children('.form-group').
-                        removeClass('has-success').
-                        removeClass('has-error');
+                        // Reset on the model
+                        this.init();
+
+                        // Reset on the css
+                        $('form').children('.form-group')
+                            .removeClass('has-success')
+                            .removeClass('has-error');
                     };
 
                     this.searchSubmit = function(noCheck) {
                         noCheck = typeof noCheck !== 'undefined' ? noCheck : false;
-                        if (noCheck) {
+                        if (noCheck) { // Submit without validation
                             console.log('Submitting!');
                             this.resetForm();
-                        } else {
-
-                            if (!this.search.name) {
-                                this.error = "We need a name for some social networks";
+                        } else { // Submit with validation
+                            if(this.isSearchEmpty()) {
+                                this.error = " We need at least a name or an email address in order to search.";
+                                console.log('no name and no email');
+                            } else if (this.search.name.isEmpty()) {
+                                this.error = " We need a name for some social networks.";
                                 console.log('no name');
-                            } else if (!this.search.email) {
-                                this.error = "We need an email address for some social networks.";
+                            } else if (this.search.email.isEmpty()) {
+                                this.error = " We need an email address for some social networks.";
                                 console.log('no email');
                             } else {
                                 console.log('Submitting!');
