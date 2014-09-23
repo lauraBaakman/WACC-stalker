@@ -1,14 +1,14 @@
 define(['./module'], function(directives) {
     'use strict';
-    directives.directive('search', [
+    directives.directive('facebook', [
 
         function($scope) {
             return {
                 restrict: 'E',
-                templateUrl: '../views/search-field.html',
+                templateUrl: '../views/facebook-results.html',
                 controller: function($scope) {
                     // NOTE: Dummy results object
-                    this.results = {
+                    this.resultsAPI = {
                         "data": [{
                             "name": "Rick Van der Veen",
                             "id": "629307900522293"
@@ -27,9 +27,14 @@ define(['./module'], function(directives) {
                         }]
                     };
 
-                    
-                }
+                    $scope.results = this.resultsAPI.data;
+
+                    this.search = function(id) {
+                    	
+                    };
+                },
+                controllerAs: 'facebookCtrl'
             };
-        };
+        }
     ]);
 });
