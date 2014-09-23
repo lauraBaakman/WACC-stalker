@@ -50,7 +50,7 @@ define(['./module'], function(directives) {
 
                     // Remove error class on focus
                     $("input").focus(function(event) {
-                        // Huh?
+                        // Clear error
                         $scope.error = "";
 
                         $(this).parent().removeClass('has-error');
