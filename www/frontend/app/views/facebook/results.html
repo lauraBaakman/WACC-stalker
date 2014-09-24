@@ -1,0 +1,15 @@
+<h3>Facebook - Results</h3>
+
+<table ng-show="ctrl.hasResults()" class="table table-striped">
+	<tr>
+		<th class="col-sm-11">Name</th> <th class="col-sm-1">Search</th>
+	</tr>
+	<tr ng-repeat="result in results | limitTo:10">
+		<td>{{result.name}}</td> <td><button ng-click="ctrl.detailsCall(result.id)" class="btn btn-default">Go!</button>
+	</tr>
+</table>
+
+<div ng-hide="ctrl.hasResults()">
+	<h4>No results</h4>
+</div>
+

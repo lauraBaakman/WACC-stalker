@@ -1,19 +1,18 @@
 define(['./module'], function(directives) {
     'use strict';
-    directives.directive('search', [
-
-        function($scope) {
+    directives.directive('search', ['searchService',
+        function(searchService, $scope) {
             return {
                 restrict: 'E',
                 templateUrl: '../views/search-field.html',
-                controller: function($scope) {
+                controller: function(searchService, $scope) {
                     // Initialization: They need to be empty strings ("") so we can use
                     // String.isEmpty(), which is a non-native function and defined 
                     // in scripts/bootstrap.js
                     var search = {
                         name: "",
                         email: ""
-                    }
+                    };
 
                     $scope.search = angular.copy(search);
 
@@ -84,12 +83,14 @@ define(['./module'], function(directives) {
                             console.log('Submitting!');
                             this.resetForm();
                         }
-                    }
+                    };
 
                     this.searchSubmit = function(noCheck) {
                         noCheck = typeof noCheck !== 'undefined' ? noCheck : false;
                         if (noCheck) { // Submit without validation
                             console.log('Submitting!');
+                            console.log(searchService);
+                            searchService.broadcast({"name": "Rick van Veen", "email": "r.van.veen133@gmail.com"});
                             this.resetForm();
                         } else { // Submit with validation
                             this.validate();
