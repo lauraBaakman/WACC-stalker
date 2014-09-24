@@ -1,0 +1,11 @@
+<div class="row">
+<h2>Facebook results</h2>
+<table class="table table-striped">
+	<tr>
+		<th class="col-sm-11">Name</th> <th class="col-sm-1">Search</th>
+	</tr>
+	<tr ng-repeat="result in results">
+		<td>{{result.name}}</td> <td><button ng-click="facebookCtrl.search(result.id)" class="btn btn-default">Go!</button>
+	</tr>
+</table>
+<div>
