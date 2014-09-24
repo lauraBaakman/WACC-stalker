@@ -6,6 +6,7 @@ define([
     'angular',
     'angular-route',
     'jquery',
+    'bootstrap-pagination',
     './controllers/index',
     './directives/index',
     './filters/index',
@@ -18,6 +19,7 @@ define([
         'app.directives',
         'app.filters',
         'app.services',
+        'ui.bootstrap',
         'ngRoute'
     ]);
 });

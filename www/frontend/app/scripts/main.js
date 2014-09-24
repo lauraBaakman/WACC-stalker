@@ -10,6 +10,7 @@ require.config({
         'angular-route': '../vendor/angular-route/angular-route',
         'domReady': '../vendor/requirejs-domready/domReady',
         'jquery': '../vendor/jquery/jquery-1.11.1',
+        'bootstrap-pagination': '../vendor/bootstrap-pagination/ui-bootstrap-custom-tpls-0.10.0'
     },
 
     /**
@@ -24,6 +25,9 @@ require.config({
         'angular-route': {
             deps: ['angular']
         },
+        'bootstrap-pagination': {
+            deps: ['angular']
+        }
     },
     deps: [
         // kick start application... see bootstrap.js
