@@ -7,6 +7,7 @@ define(['./module'], function(directives) {
                 templateUrl: '../views/search.html',
                 controller: function($scope) {
                     this.search = {};
+                    this.error = {};
 
                     // Align the submit button to the input fields
                     $('.pull-down').each(function() {
@@ -33,6 +34,7 @@ define(['./module'], function(directives) {
                     this.resetForm = function() {
                         // $scope.searchForm.$setPristine();
                         this.search = {};
+                        this.error = {};
                         $("form").children('.form-group').
                         removeClass('has-success').
                         removeClass('has-error');

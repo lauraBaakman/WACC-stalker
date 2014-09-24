@@ -14,6 +14,11 @@
     </div>
 </form>
 
+<div class="debug">
+	Error: {{searchCtrl.error !== 'undefined'}}
+</div>
+
+
 <div ng-show="searchCtrl.error" class="col-xs-12 alert alert-warning" role="alert">
     <strong>Warning!</strong>{{searchCtrl.error}}
     <span ng-click="searchCtrl.searchSubmit(true)" class="alert-link">Continue anyway.</span>
