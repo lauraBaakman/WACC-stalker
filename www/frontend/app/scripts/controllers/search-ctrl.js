@@ -21,11 +21,11 @@ define(['./module'], function(controllers) {
             };
 
             this.isEnabled = function(medium) {
-            	var directive = this.directives[medium];
+            	var directive = directives[medium];
                 if(directive !== null) {
                 	return directive.enabled;
                 } 
-                directive = this.directives.social[medium];
+                directive = directives.social[medium];
                 if(directive !== null) {
                 	return directive.enabled;
                 }
@@ -33,14 +33,12 @@ define(['./module'], function(controllers) {
             };
 
             this.setEnabled = function(medium, bool) {
-                var directive = this.directives[medium];
-                alert(directive);
+                var directive = directives[medium];
                 if(directive !== null) {
                 	directive.enabled = bool;
                 	return true;
                 }
-                directive = this.directives.social[medium];
-                alert(directive);
+                directive = directives.social[medium];
                 if(directive !== null) {
                 	directive.enabled = bool;
                 	return true;

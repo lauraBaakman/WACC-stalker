@@ -1,11 +1,5 @@
 <div ng-controller="SearchCtrl as ctrl">
     <h2>Search page</h2>
-
-
-
-    <!--<search-field></search-field>-->
-    {{ctrl.directives.social["facebook"]}} 
-    {{ctrl.setEnabled("facebook", true)}}
-    <!--{{ctrl.setEnabled("search", true)}}-->
-
+   
+    <search-field ng-show="ctrl.isEnabled('search')"></search-field>
 </div>
