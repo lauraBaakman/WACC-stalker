@@ -15,6 +15,13 @@ define([
      * using the `run` function on the top-level module
      */
 
+     // TODO: Move
+     String.prototype.isEmpty = function() {
+        return (this.length === 0 || !this.trim());
+     };
+
+     console.log(String);
+
     require(['domReady!'], function (document) {
         ng.bootstrap(document, ['app']);
     });
