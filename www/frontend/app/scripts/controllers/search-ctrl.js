@@ -1,7 +1,6 @@
 define(['./module'], function(controllers) {
     'use strict';
     controllers.controller('SearchCtrl', [
-
         function($scope) {
             // Controller controls the search, login carousel and when to show which 
             // social media directives
@@ -45,6 +44,8 @@ define(['./module'], function(controllers) {
                 }
                 return false;
             };
+
+            
         }
     ]);
 });

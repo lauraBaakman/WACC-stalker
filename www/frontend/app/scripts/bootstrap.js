@@ -20,8 +20,6 @@ define([
         return (this.length === 0 || !this.trim());
      };
 
-     console.log(String);
-
     require(['domReady!'], function (document) {
         ng.bootstrap(document, ['app']);
     });
