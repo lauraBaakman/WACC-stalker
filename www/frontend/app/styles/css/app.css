@@ -3,6 +3,9 @@
 }
 /* DEBUG CLASSES */
 
+.nav, .pagination, .carousel, .panel-title a {
+    cursor: pointer;
+}
 .debug {
     background: red;
     font-size: 100%;
