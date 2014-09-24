@@ -8,7 +8,11 @@
         <ng-include src="socialMedium.loginView"></ng-include>
     </div>
 
-    <div id="navigation">
+	
+    <pagination total-items="ctrl.totalItems" ng-model="currentPage"></pagination>
+    
+
+    <!--<div id="navigation">
         <ul class="pagination">
             <li><a href="#">&laquo;</a>
             </li>
@@ -25,4 +29,5 @@
             <li><a href="#">&raquo;</a>
             </li>
         </ul>
-    </div>
+    </div>-->
+</div>
