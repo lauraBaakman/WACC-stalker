@@ -1,20 +1,36 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Needed for HTML5 url mode. See routes.js -->
+    <base href="/">
+
     <title>WACC Stalker</title>
 
-    <!-- Bootstrap -->
-    <link type="text/css" href="styles/css/bootstrap.css" rel="stylesheet">
-    <link type="text/css" href="styles/css/bootstrap-theme.css" rel="stylesheet">
-    <link type="text/css" href="styles/css/font-awesom.css" rel="stylesheet">
-  </head>
-  <body>
-    <h1>Hello, world!</h1>
-    
-    <!-- Require.js -->
-    <script data-main="scrips/main" src="scripts/vendor/require.js"></script>
-  </body>
+    <!-- Bootstrap CSS -->
+    <link type="text/css" rel="stylesheet" href="styles/css/bootstrap.css">
+    <link type="text/css" rel="stylesheet" href="styles/css/bootstrap-theme.css">
+
+    <!-- Font-Awesome CSS -->
+    <link rel="stylesheet" href="styles/css/font-awesome.css">
+
+    <!-- Custom CSS -->
+    <link type="text/css" rel="stylesheet" href="styles/css/app.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>WACC - Stalker</h1>
+        </div>
+
+        <div data-ng-view>
+            <!-- Gets populated by partial views -->
+        </div>
+    </div>
+
+    <script src="vendor/requirejs/require.js" data-main="scripts/main.js"></script>
+</body>
+
 </html>
