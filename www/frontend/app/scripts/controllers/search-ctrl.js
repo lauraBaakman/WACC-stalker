@@ -8,11 +8,14 @@ define(['./module'], function(controllers) {
             var directives = {
                 social: {
                     "facebook": {
-                        enabled: false
+                        enabled: false,
+                        loginView: '../views/facebook/login-facebook.html'
+
                     },
                     "linkedIn": {
-                        enabled: false
-                    },
+                        enabled: false,
+                        loginView: '../views/linkedin/login-linkedin.html'
+                    }
                 },
                 "search": {
                     enabled: false
@@ -43,6 +46,10 @@ define(['./module'], function(controllers) {
                 	return true;
                 }
                 return false;
+            };
+
+            this.getSocialMedia = function() {
+                return directives.social;
             };
 
             

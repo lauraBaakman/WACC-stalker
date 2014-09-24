@@ -4,12 +4,25 @@
 
     <search-field ng-show="ctrl.isEnabled('search')"></search-field>
 
-    <div>
-        <div>
-            <h3>Facebook Placeholder</h3>
-        </div>
+    <div ng-repeat="socialMedium in ctrl.getSocialMedia()">
+        <ng-include src="socialMedium.loginView"></ng-include>
+    </div>
 
-        <div>
-            <h3>LinkedIn Placeholder</h3>
-        </div>
+    <div id="navigation">
+        <ul class="pagination">
+            <li><a href="#">&laquo;</a>
+            </li>
+            <li><a href="#">1</a>
+            </li>
+            <li><a href="#">2</a>
+            </li>
+            <li><a href="#">3</a>
+            </li>
+            <li><a href="#">4</a>
+            </li>
+            <li><a href="#">5</a>
+            </li>
+            <li><a href="#">&raquo;</a>
+            </li>
+        </ul>
     </div>

@@ -1,9 +1,6 @@
 .alert-link {
     cursor: pointer;
 }
-.nav, .pagination, .carousel, .panel-title a {
-    cursor: pointer;
-}
 /* DEBUG CLASSES */
 
 .debug {
