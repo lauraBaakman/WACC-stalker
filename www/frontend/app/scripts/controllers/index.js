@@ -5,6 +5,6 @@
  * which avails each controller of, for example, the `config` constants object.
  **/
 define([
-    './my-ctrl-1',
+    './search-ctrl',
     './my-ctrl-2'
 ], function () {});
