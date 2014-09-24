@@ -9,12 +9,14 @@ define(['./module'], function(controllers) {
                 social: {
                     "facebook": {
                         enabled: false,
-                        loginView: '../views/facebook/login-facebook.html'
+                        loginView: '../views/facebook/login-facebook.html',
+                        logo: 'fa-facebook',
 
                     },
                     "linkedIn": {
                         enabled: false,
-                        loginView: '../views/linkedin/login-linkedin.html'
+                        loginView: '../views/linkedin/login-linkedin.html',
+                        logo: 'fa-linkedin',
                     }
                 },
                 "search": {
