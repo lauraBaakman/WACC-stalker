@@ -8,17 +8,16 @@
         <ng-include src="socialMedium.loginView"></ng-include>
     </div>
 
-	
-    <pagination total-items="ctrl.totalItems" ng-model="currentPage"></pagination>
-    
+<div id="navigation">
+    <ul class="pagination">
+        <li><a href="#"><i class="fa fa-fw fa-angle-double-left"></i></a>
+        </li>
+        <li ng-repeat="socialMedium in ctrl.getSocialMedia()">
+            <a href="#"><i class="fa fa-fw {{socialMedium.logo}}"></i></a>
+        </li>
+        <li><a href="#"><i class="fa fa-fw fa-angle-double-right"></i></a>
+        </li>
+    </ul>
+</div>
 
-    <!--<div id="navigation">
-        <ul class="pagination">
-            <li><a href="#"><i class="fa fa-fw fa-angle-double-left"></i></a></li>
-            <li ng-repeat="socialMedium in ctrl.getSocialMedia()">
-            	<a href="#"><i class="fa fa-fw {{socialMedium.logo}}"></i></a>
-            </li>
-            <li><a href="#"><i class="fa fa-fw fa-angle-double-right"></i></a></li>
-        </ul>
-    </div>-->
 </div>
