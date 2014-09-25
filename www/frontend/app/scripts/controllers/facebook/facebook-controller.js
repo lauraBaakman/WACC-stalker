@@ -75,17 +75,27 @@ define(['../module'], function(controllers, ngFacebook) {
             /* ------------------ Facebook API calls ------------------ */
 
             this.login = function() {
-                // TODO: Facebook logic                
                 $facebook.login().then(function() {
-                    controller.setPage($scope.pages.results);
+                    $facebook.getLoginStatus().then(function(response) {
+                        if (response.status === "unknown" || response.authResponse === null) {
+                            console.log("FACEBOOKCONTROLLER: Logged in unsuccessful");
+                        } else {
+                            console.log("FACEBOOKCONTROLLER: Logged in successful.");
+                            controller.setPage($scope.pages.results);
+                            console.log($facebook.getAuthResponse());
+                        }
+                    });
                 });
-
             };
 
             this.logout = function() {
-                // TODO: Facebook logic
+                $facebook.getLoginStatus().then(function(response) {
+                    if (!(response.status === "unknown" || response.authResponse === null)) {
+                        $facebook.logout();
 
-                this.setPage($scope.pages.login);
+                    }
+                    controller.setPage($scope.pages.login);
+                });
             };
 
             /* ------------------ Handle Search messages ------------------ */

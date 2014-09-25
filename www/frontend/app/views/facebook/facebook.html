@@ -1,18 +1,18 @@
-<div ng-controller="FacebookController as ctrl">
+<div ng-controller="FacebookController as facebookCtrl">
     <h2>All things Facebook</h2>
 
     <!-- Navigation -->
-    <div ng-hide="ctrl.isSelected(1)">
-        <button class="btn btn-default" ng-click="ctrl.logout()">Logout</button>
-        <button class="btn btn-default" ng-show="ctrl.isSelected(pages.detail)" ng-click="ctrl.setPage(pages.results)">Back</button>
+    <div ng-hide="facebookCtrl.isSelected(1)">
+        <button class="btn btn-default" ng-click="facebookCtrl.logout()">Logout</button>
+        <button class="btn btn-default" ng-show="facebookCtrl.isSelected(pages.detail)" ng-click="facebookCtrl.setPage(pages.results)">Back</button>
     </div>
 
     <!-- Login -->
-    <div ng-include src="'views/facebook/login.html'" ng-show="ctrl.isSelected(pages.login)"></div>
+    <div ng-include src="'views/facebook/login.html'" ng-show="facebookCtrl.isSelected(pages.login)"></div>
 
     <!-- Results -->
-    <div ng-include src="'views/facebook/results.html'" ng-show="ctrl.isSelected(pages.results)"></div>
+    <div ng-include src="'views/facebook/results.html'" ng-show="facebookCtrl.isSelected(pages.results)"></div>
 
     <!-- Detail -->
-    <div ng-include src="'views/facebook/detail.html'" ng-show="ctrl.isSelected(pages.detail)"></div>
+    <div ng-include src="'views/facebook/detail.html'" ng-show="facebookCtrl.isSelected(pages.detail)"></div>
 </div>

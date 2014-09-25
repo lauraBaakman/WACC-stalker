@@ -5,5 +5,6 @@
  **/
 define([
 	'./app-version',
-    './search'
+    './search-field',
+    './header',
 ], function() {});

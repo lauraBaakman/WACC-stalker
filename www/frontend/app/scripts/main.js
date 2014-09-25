@@ -12,6 +12,7 @@ require.config({
         'jquery': '../vendor/jquery/jquery-1.11.1',
         //'facebookSDK': '//connect.facebook.net/en_US/all',
         'angular-facebook': '../vendor/facebook/ngFacebook/ngFacebook'
+
     },
 
     /**
@@ -26,9 +27,9 @@ require.config({
         'angular-route': {
             deps: ['angular']
         },
-        //'angular-facebook': {
-        //    deps: ['facebookSDK', 'angular']
-        //}
+        'angular-facebook': {
+            deps: ['angular']
+        }
     },
     deps: [
         // kick start application... see bootstrap.js

@@ -1,6 +1,6 @@
 define(['./module'], function(directives) {
     'use strict';
-    directives.directive('search', ['searchService',
+    directives.directive('searchField', ['searchService',
         function(searchService, $scope) {
             return {
                 restrict: 'E',
@@ -21,7 +21,7 @@ define(['./module'], function(directives) {
                     // Check if all the fields are empty
                     this.isSearchEmpty = function() {
                         // Angular removes the field so then isEmpty won't work.
-                        if ($scope.search.email == null) {
+                        if ($scope.search.email === null) {
                             return ($scope.search.name.isEmpty());
                         }
                         return ($scope.search.name.isEmpty() && $scope.search.email.isEmpty());

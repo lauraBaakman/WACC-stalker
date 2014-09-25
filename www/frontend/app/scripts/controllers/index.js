@@ -5,7 +5,6 @@
  * which avails each controller of, for example, the `config` constants object.
  **/
 define([
-    './my-ctrl-1',
-    './my-ctrl-2',
-    './facebook/facebook-controller'
+    './facebook/facebook-controller',
+    './search-controller'
 ], function () {});
