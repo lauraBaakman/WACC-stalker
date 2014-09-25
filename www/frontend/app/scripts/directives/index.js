@@ -6,5 +6,6 @@
 define([
 	'./app-version',
     './search-field',
-    './facebook'
+    './facebook',
+    './header',
 ], function() {});

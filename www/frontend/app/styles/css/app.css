@@ -12,34 +12,44 @@
     color: white
 }
 
+@media (min-width: 768px){
+	header .btn {
+		margin-top: 31px;
+	}
+}
+
+.btn i {
+	padding-right: 1em;
+}
+
 /* xs */
 
-/*@media (max-width: 768px){
+@media (max-width: 768px){
 	body {
 		background: pink;
 	}
-}*/
+}
 
 /* s */
 
-/*@media all and (max-width: 992px) and (min-width: 768px){
+@media all and (max-width: 992px) and (min-width: 768px){
 	body {
 		background: green;
 	}
-}*/
+}
 
  /*m */
 
-/*@media all and (max-width: 1200px) and (min-width: 992px){
+@media all and (max-width: 1200px) and (min-width: 992px){
 	body {
 		background: purple;
 	}
-}*/
+}
 
 /* l */
 
-/*@media all and (min-width: 1200px){
+@media all and (min-width: 1200px){
 	body {
 		background: orange;
 	}
-}*/
+}
