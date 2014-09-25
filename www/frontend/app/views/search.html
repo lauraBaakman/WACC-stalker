@@ -5,17 +5,17 @@
     <search-field></search-field>
 
     <div ng-repeat="socialMedium in ctrl.getSocialMedia()">
-        <ng-include src="socialMedium.loginView"></ng-include>
+        <ng-include src="socialMedium.loginView" ng-show="ctrl.isActive($index)"></ng-include>
     </div>
 
 <div id="navigation">
     <ul class="pagination">
-        <li><a href="#"><i class="fa fa-fw fa-angle-double-left"></i></a>
+        <li ng-click="ctrl.back()"><a href="#"><i class="fa fa-fw fa-angle-double-left"></i></a>
         </li>
-        <li ng-repeat="socialMedium in ctrl.getSocialMedia()">
-            <a href="#"><i class="fa fa-fw {{socialMedium.logo}}"></i></a>
+        <li ng-repeat="socialMedium in ctrl.getSocialMedia()" ng-click="ctrl.setPage($index)">
+            <a href="#"><i class="fa fa-fw fa-{{socialMedium.logo}}"></i></a>
         </li>
-        <li><a href="#"><i class="fa fa-fw fa-angle-double-right"></i></a>
+        <li ng-click="ctrl.forward()"><a href="#"><i class="fa fa-fw fa-angle-double-right"></i></a>
         </li>
     </ul>
 </div>

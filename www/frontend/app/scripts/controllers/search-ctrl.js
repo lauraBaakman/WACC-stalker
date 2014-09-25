@@ -5,25 +5,41 @@ define(['./module'], function(controllers) {
         function($scope) {
             // Controller controls the search, login carousel and when to show which 
             // social media directives
-            this.totalItems = 3;
-            $scope.currentPage = 2;
+            this.currentPage = 0;
+            this.numberOfSupportedSocialMedia = 2;
 
-            this.setPage = function(pageNo) {
-            	$scope.currentPage = pageNo;
+            this.isActive = function(pageNo) {
+                return pageNo == this.currentPage;
             };
+
+            this.setPage = function(index) {
+                this.currentPage = index;
+            };
+
+            this.back = function(){
+                this.setPage(
+                    (this.currentPage - 1 + this.numberOfSupportedSocialMedia) % 
+                    this.numberOfSupportedSocialMedia);
+            };  
+
+            this.forward = function(){
+                this.setPage(
+                    (this.currentPage + 1 + this.numberOfSupportedSocialMedia) % 
+                    this.numberOfSupportedSocialMedia);
+            };         
 
             var directives = {
                 social: {
                     "facebook": {
                         enabled: false,
                         loginView: '../views/facebook/login-facebook.html',
-                        logo: 'fa-facebook',
+                        logo: 'facebook'
 
                     },
                     "linkedIn": {
                         enabled: false,
                         loginView: '../views/linkedin/login-linkedin.html',
-                        logo: 'fa-linkedin',
+                        logo: 'linkedin'
                     }
                 },
                 "search": {
