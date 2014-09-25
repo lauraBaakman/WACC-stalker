@@ -1,13 +1,15 @@
-define(['../module'], function(controllers) {
+define(['../module'], function(controllers, ngFacebook) {
     'use strict';
-    controllers.controller('FacebookController', ['$scope', 'searchService',
-        function($scope, searchService) {
+    controllers.controller('FacebookController', ['$scope', '$facebook', 'searchService',
+        function($scope, $facebook, searchService) {
 
-            //	Provides 
-            //		1. The Stalker API calls (So we got the backend communication in one place)
-            //		2. Navigation between the Facebook panels: login, results, detail
-            //		3. Besides the navigation the necessary FaceBook API calls for login and logout.
-            // 		4. ...
+            var controller = this;
+
+            //  Provides 
+            //      1. The Stalker API calls (So we got the backend communication in one place)
+            //      2. Navigation between the Facebook panels: login, results, detail
+            //      3. Besides the navigation the necessary FaceBook API calls for login and logout.
+            //      4. ...
 
             // TODO: Maybe scope some of the duplicate function to a higher controller??? Inheritance? Or 
             // in a Service and let all the controller depend on them. (Better I think.)
@@ -73,9 +75,11 @@ define(['../module'], function(controllers) {
             /* ------------------ Facebook API calls ------------------ */
 
             this.login = function() {
-                // TODO: Facebook logic
+                // TODO: Facebook logic                
+                $facebook.login().then(function() {
+                    controller.setPage($scope.pages.results);
+                });
 
-                this.setPage($scope.pages.results);
             };
 
             this.logout = function() {
@@ -85,8 +89,6 @@ define(['../module'], function(controllers) {
             };
 
             /* ------------------ Handle Search messages ------------------ */
-
-            var controller = this;
 
             $scope.$on('handleBroadcast', function() {
                 console.log("FACEBOOKCONTROLLER: Search message received");
@@ -136,7 +138,7 @@ define(['../module'], function(controllers) {
             };
 
             this.setPage = function(selectPage) {
-            	console.log("FACEBOOKCONTROLLER: set page to " + selectPage);
+                console.log("FACEBOOKCONTROLLER: set page to " + selectPage);
                 currentPage = selectPage;
             };
         }
