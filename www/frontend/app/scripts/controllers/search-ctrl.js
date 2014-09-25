@@ -8,6 +8,7 @@ define(['./module'], function(controllers) {
             this.currentPage = 0;
             this.numberOfSupportedSocialMedia = 2;
 
+            /* Caroussel functions */
             this.isActive = function(pageNo) {
                 return pageNo == this.currentPage;
             };
@@ -28,6 +29,7 @@ define(['./module'], function(controllers) {
                     this.numberOfSupportedSocialMedia);
             };         
 
+            /* Supported social media and other directives. */
             var directives = {
                 social: {
                     "facebook": {
@@ -47,6 +49,7 @@ define(['./module'], function(controllers) {
                 }
             };
 
+            /* Edit and request the data in directives. */
             this.isEnabled = function(medium) {
                 var directive = directives[medium];
                 if (directive !== null) {
