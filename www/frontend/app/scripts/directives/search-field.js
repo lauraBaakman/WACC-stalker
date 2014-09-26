@@ -90,7 +90,7 @@ define(['./module'], function(directives) {
                         if (noCheck) { // Submit without validation
                             console.log('Submitting!');
                             console.log(searchService);
-                            searchService.broadcast({"name": "Rick van Veen", "email": "r.van.veen133@gmail.com"});
+                            searchService.broadcast({"name": $scope.search.name, "email": $scope.search.email});
                             this.resetForm();
                         } else { // Submit with validation
                             this.validate();

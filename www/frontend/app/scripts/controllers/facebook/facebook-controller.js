@@ -14,34 +14,6 @@ define(['../module'], function(controllers, ngFacebook) {
             // TODO: Maybe scope some of the duplicate function to a higher controller??? Inheritance? Or 
             // in a Service and let all the controller depend on them. (Better I think.)
 
-            // NOTE: Dummy data
-            var tmpResults = [{
-                "name": "Rick Van der Veen",
-                "id": "629307900522293"
-            }, {
-                "name": "Rick van der Veen",
-                "id": "337260969775811"
-            }, {
-                "name": "Rick Van der Veen",
-                "id": "629307900522293"
-            }, {
-                "name": "Rick Van der Veen",
-                "id": "629307900522293"
-            }, {
-                "name": "Rick Van der Veen",
-                "id": "629307900522293"
-            }];
-
-            // NOTE: Dummy data
-            var tmpPerson = {
-                "id": "629307900522293",
-                "first_name": "Rick",
-                "last_name": "Van der Veen",
-                "link": "https://www.facebook.com/app_scoped_user_id/629307900522293/",
-                "name": "Rick Van der Veen",
-                "updated_time": "2012-05-23T23:03:02+0000"
-            };
-
             // Initialization data objects
             $scope.search = null;
             $scope.results = null;
@@ -94,9 +66,38 @@ define(['../module'], function(controllers, ngFacebook) {
                         $facebook.logout();
 
                     }
+                    controller.clearResults();
+                    controller.clearPerson();
                     controller.setPage($scope.pages.login);
                 });
             };
+
+            /* ------------------ Search API calls ------------------ */
+
+            this.searchCall = function(name, email) {
+                console.log("FACEBOOKCONTROLLER: Searching with: " + "Name: " + name + ", Email: " + email);
+                this.clearResults();
+                this.clearPerson();
+
+                $facebook.api("/search?q='" + name + "'&type=user").then(function(results) {
+                    $scope.results = results.data;
+                    controller.setPage($scope.pages.results);
+                });
+            };
+
+            this.detailsCall = function(id) {
+                console.log("FACEBOOKCONTROLLER: Searching details of user with id: " + id);
+                $facebook.api("/" + id ).then(function(details) {
+                    $scope.person = details;
+                    $facebook.api("/" + id + "/picture").then(function(picture) {
+                        console.log(picture.data.url);
+                        $scope.person.picture = picture.data.url;
+                    });
+                    controller.setPage($scope.pages.detail);
+                });
+
+            };
+
 
             /* ------------------ Handle Search messages ------------------ */
 
@@ -107,37 +108,6 @@ define(['../module'], function(controllers, ngFacebook) {
 
                 controller.searchCall($scope.search.name, $scope.search.email);
             });
-
-            /* ------------------ Stalker API calls ------------------ */
-
-            this.searchCall = function(name, email) {
-                console.log("FACEBOOKCONTROLLER: Searching with: " + "Name: " + name + ", Email: " + email);
-
-                // TODO: Check name and email
-
-                // TODO: Stalker logic (API call, processing data)
-
-                // Set (processed) API data in the scope.resultss
-                $scope.results = tmpResults;
-
-                // Set the view to the results page
-                this.setPage($scope.pages.results);
-            };
-
-            this.detailsCall = function(id) {
-                console.log("FACEBOOKCONTROLLER: Searching details of user with id: " + id);
-
-                // TODO: Check Id
-
-                // TODO: Stalker logic (API call, processing data)
-
-                // TODO: Set (processed) API data in scope.person
-                $scope.person = tmpPerson;
-
-                // Set the view to the detail page
-                this.setPage($scope.pages.detail);
-            };
-
 
             /* ------------------ Stalker Facebook views navigation ------------------ */
 
