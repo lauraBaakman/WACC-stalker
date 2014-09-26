@@ -40,7 +40,7 @@ define(['./module'], function(controllers) {
                     },
                     "linkedIn": {
                         enabled: false,
-                        loginView: '../views/linkedin/login-linkedin.html',
+                        loginView: '../views/linkedin/linkedin.html',
                         logo: 'linkedin'
                     }
                 },

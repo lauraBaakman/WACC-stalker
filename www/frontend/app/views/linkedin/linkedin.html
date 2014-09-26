@@ -1,0 +1,18 @@
+<div ng-controller="LinkedInController as linkedInCtrl">
+    <h2>All things LinkedIn</h2>
+
+    <!-- Navigation -->
+    <div ng-hide="linkedInCtrl.isSelected(1)">
+        <button class="btn btn-default" ng-click="linkedInCtrl.logout()">Logout</button>
+        <button class="btn btn-default" ng-show="linkedInCtrl.isSelected(pages.detail)" ng-click="linkedInCtrl.setPage(pages.results)">Back</button>
+    </div>
+
+    <!-- Login -->
+    <div ng-include src="'views/linkedin/login.html'" ng-show="linkedInCtrl.isSelected(pages.login)"></div>
+
+    <!-- Results -->
+    <div ng-include src="'views/linkedin/results.html'" ng-show="linkedInCtrl.isSelected(pages.results)"></div>
+
+    <!-- Detail -->
+    <div ng-include src="'views/linkedin/detail.html'" ng-show="linkedInCtrl.isSelected(pages.detail)"></div>
+</div>

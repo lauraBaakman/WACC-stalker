@@ -148,7 +148,6 @@ define(['../module'], function(controllers, ngFacebook) {
             };
 
             this.setPage = function(selectPage) {
-                console.log("FACEBOOKCONTROLLER: set page to " + selectPage);
                 currentPage = selectPage;
             };
         }

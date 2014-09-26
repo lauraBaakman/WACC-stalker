@@ -11,7 +11,8 @@ require.config({
         'domReady': '../vendor/requirejs-domready/domReady',
         'jquery': '../vendor/jquery/jquery-1.11.1',
         //'facebookSDK': '//connect.facebook.net/en_US/all',
-        'angular-facebook': '../vendor/facebook/ngFacebook/ngFacebook'
+        'angular-facebook': '../vendor/facebook/ngFacebook/ngFacebook',
+        'angular-linkedin': '../vendor/linkedin/ngLinkedIn/ngLinkedIn'
 
     },
 
@@ -28,6 +29,9 @@ require.config({
             deps: ['angular']
         },
         'angular-facebook': {
+            deps: ['angular']
+        },
+        'angular-linkedin': {
             deps: ['angular']
         }
     },
