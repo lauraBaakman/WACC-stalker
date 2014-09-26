@@ -7,6 +7,7 @@ define([
     'angular-route',
     'angular-facebook',
     'angular-linkedin',
+    'angular-md5',
     'jquery',
     './controllers/index',
     './directives/index',
