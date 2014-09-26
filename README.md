@@ -99,3 +99,19 @@ Output:
     "is_silhouette": true
   }
 }
+
+# Our API
+## On visit   
+  Store ip address and use it to determine location
+
+## On Facebook login
+  Store age, gender, relationship status
+
+## On LinkedIn login
+  Store industry
+
+## On found person click
+  Store a hash of that person's ID and the social network that it came from
+
+## Succes 
+  Store that we had success
