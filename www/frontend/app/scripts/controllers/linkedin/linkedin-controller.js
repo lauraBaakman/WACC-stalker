@@ -1,7 +1,7 @@
 define(['../module'], function(controllers, ngLinkedin) {
     'use strict';
-    controllers.controller('LinkedInController', ['$scope', '$linkedIn', 'searchService',
-        function($scope, $linkedIn, searchService) {
+    controllers.controller('LinkedInController', ['$scope', '$linkedIn', 'searchService', 'stalkerService',
+        function($scope, $linkedIn, searchService, stalkerService) {
 
             var controller = this;
 
@@ -47,8 +47,9 @@ define(['../module'], function(controllers, ngLinkedin) {
                         //	console.log(result);
                         //});
                         $linkedIn.profile().then(function(result) {
-                            $scope.user = result.values[0];
-                            console.log($scope.user);
+                            var firstResult = result.values[0];
+                            $scope.user = firstResult.firstName + ' ' + firstResult.lastName;
+                            stalkerService.setLinkedInStalker(firstResult);
                         });
                     } else {
                         console.log("LINKEDINCONTROLLER: Logged in and not authorized");

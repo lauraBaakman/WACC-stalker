@@ -17,6 +17,12 @@ define(['./module'], function (services) {
                 this.stalker.realtionship = data.relationship;
                 this.stalker.birthdate = data.birthday;
                 this.stalker.relationship = data.relationship_status;
+            },
+
+            setLinkedInStalker: function(data) {
+                this.stalker.linkedInId = md5.createHash(data.id);
+                this.stalker.industry = data.industry;
+                console.log(this.stalker);
             }
     	};
     }]);
