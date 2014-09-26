@@ -1,7 +1,9 @@
 <div ng-controller="SearchCtrl as ctrl">
-    <h2>Search page</h2>
 
-    <search-field></search-field>
+    <div ng-show="{{false}}">
+        <h2>Search page</h2>
+        <search-field></search-field>
+    </div>
 
     <div ng-repeat="socialMedium in ctrl.getSocialMedia()">
         <ng-include src="socialMedium.loginView" ng-show="ctrl.isActive($index)"></ng-include>

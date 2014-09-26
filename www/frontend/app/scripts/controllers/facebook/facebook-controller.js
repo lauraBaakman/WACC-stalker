@@ -19,6 +19,8 @@ define(['../module'], function(controllers, ngFacebook) {
             $scope.results = null;
             $scope.person = null;
 
+            $scope.user = null;
+
             // Initialization navigation
             $scope.pages = {
                 login: 1,
@@ -53,7 +55,13 @@ define(['../module'], function(controllers, ngFacebook) {
                             console.log("FACEBOOKCONTROLLER: Logged in unsuccessful");
                         } else {
                             console.log("FACEBOOKCONTROLLER: Logged in successful.");
-                            controller.setPage($scope.pages.results);
+                            $facebook.api("/me").then(function(result){
+                                // If no result do something....
+                                $scope.user = result.name;
+                                console.log("Hallo");
+                                console.log($scope.user);
+                            });
+                            //controller.setPage($scope.pages.results);
                         }
                     });
                 });
@@ -67,6 +75,7 @@ define(['../module'], function(controllers, ngFacebook) {
                     }
                     controller.clearResults();
                     controller.clearPerson();
+                    $scope.user = null; // Functie?
                     controller.setPage($scope.pages.login);
                 });
             };
