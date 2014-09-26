@@ -54,7 +54,6 @@ define(['../module'], function(controllers, ngFacebook) {
                         } else {
                             console.log("FACEBOOKCONTROLLER: Logged in successful.");
                             controller.setPage($scope.pages.results);
-                            console.log($facebook.getAuthResponse());
                         }
                     });
                 });
@@ -89,8 +88,7 @@ define(['../module'], function(controllers, ngFacebook) {
                 console.log("FACEBOOKCONTROLLER: Searching details of user with id: " + id);
                 $facebook.api("/" + id ).then(function(details) {
                     $scope.person = details;
-                    $facebook.api("/" + id + "/picture").then(function(picture) {
-                        console.log(picture.data.url);
+                    $facebook.api("/" + id + "/picture").then(function(picture) { 
                         $scope.person.picture = picture.data.url;
                     });
                     controller.setPage($scope.pages.detail);

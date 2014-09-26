@@ -148,10 +148,18 @@ angular.module('ngLinkedIn', [])
                     });
                 };
 
-
                 // profile
-                $linkedIn.profile = function(ids, fields, params) {
-                    return $linkedIn.api('Profile', ids, fields, params);
+                $linkedIn.profile = function() {
+                    //return $linkedIn.api('Profile', ids, fields, params);
+                    var defer = $q.defer();
+                    return $linkedIn.promise.then(function(IN) {
+                        IN.API.Profile("me")
+                            .fields("industry")
+                            .result(function(response) {
+                                defer.resolve(response);
+                            });
+                        return defer.promise;
+                    });
                 };
 
                 // connections
