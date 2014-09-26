@@ -123,7 +123,13 @@ angular.module('ngFacebook', [])
                     }
                     resolveFirstAuthResp(FB);
                 });
-
+                $facebook.isAuthorized = function(){
+                    stat = '';
+                    FB.getLoginStatus(function(response){
+                        stat = (response.status === 'connected');
+                    });       
+                    return stat;         
+                };
                 $facebook.getAuthResponse = function() {
                     return FB.getAuthResponse();
                 };
