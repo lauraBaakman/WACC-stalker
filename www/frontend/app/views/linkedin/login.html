@@ -1,5 +1,14 @@
-<h3>LinkedIn - Login</h3>
+<h3>LinkedIn</h3>
 
-<p> Some LinkedIn login API fields </p>
+<!-- Nog niet ingelogd -->
+<div ng-hide="user">
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione hic id non rerum iusto assumenda sunt, ullam nostrum recusandae reprehenderit eos minus sapiente facilis velit perferendis, nemo sed laudantium officiis!</p>
 
-<button class="btn btn-default" ng-click="linkedInCtrl.login()">Login</button>
+    <button class="btn btn-default" ng-click="linkedInCtrl.login()">Login</button>
+</div>
+
+<!-- Wel ingelogd -->
+<div ng-show="user">
+    <h4>Logged in as: {{user}}</h4>
+    <button class="btn btn-default" ng-click="linkedInCtrl.logout()">Logout</button>
+</div>

@@ -154,7 +154,7 @@ angular.module('ngLinkedIn', [])
                     var defer = $q.defer();
                     return $linkedIn.promise.then(function(IN) {
                         IN.API.Profile("me")
-                            .fields("industry")
+                            .fields("id", "firstName", "lastName", "industry")
                             .result(function(response) {
                                 defer.resolve(response);
                             });

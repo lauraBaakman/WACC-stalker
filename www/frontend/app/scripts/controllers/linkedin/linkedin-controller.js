@@ -9,6 +9,7 @@ define(['../module'], function(controllers, ngLinkedin) {
             $scope.search = null;
             $scope.results = null;
             $scope.person = null;
+            $scope.user = null;
 
             // Initialization navigation
             $scope.pages = {
@@ -46,7 +47,8 @@ define(['../module'], function(controllers, ngLinkedin) {
                         //	console.log(result);
                         //});
                         $linkedIn.profile().then(function(result) {
-                            console.log(result);
+                            $scope.user = result.values[0];
+                            console.log($scope.user);
                         });
                     } else {
                         console.log("LINKEDINCONTROLLER: Logged in and not authorized");
