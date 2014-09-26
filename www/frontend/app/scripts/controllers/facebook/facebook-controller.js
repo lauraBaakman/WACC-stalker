@@ -1,7 +1,7 @@
 define(['../module'], function(controllers, ngFacebook) {
     'use strict';
-    controllers.controller('FacebookController', ['$scope', '$facebook', 'searchService',
-        function($scope, $facebook, searchService) {
+    controllers.controller('FacebookController', ['$scope', '$facebook', 'searchService', 'stalkerService',
+        function($scope, $facebook, searchService, stalkerService) {
 
             var controller = this;
 
@@ -57,9 +57,9 @@ define(['../module'], function(controllers, ngFacebook) {
                             console.log("FACEBOOKCONTROLLER: Logged in successful.");
                             $facebook.api("/me").then(function(result){
                                 // If no result do something....
+                                console.log(result)
                                 $scope.user = result.name;
-                                console.log("Hallo");
-                                console.log($scope.user);
+                                stalkerService.setFacebookStalker(result);
                             });
                             //controller.setPage($scope.pages.results);
                         }

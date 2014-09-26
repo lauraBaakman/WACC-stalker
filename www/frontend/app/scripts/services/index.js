@@ -7,5 +7,6 @@
  **/
 define([
     './version',
-    './search-service'
+    './search-service',
+    './stalker-service'
 ], function() {});

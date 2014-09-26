@@ -13,7 +13,7 @@ require.config({
         //'facebookSDK': '//connect.facebook.net/en_US/all',
         'angular-facebook': '../vendor/facebook/ngFacebook/ngFacebook',
         'angular-linkedin': '../vendor/linkedin/ngLinkedIn/ngLinkedIn',
-        'angular-md5': '../vendor/angular-md5/angular-md5'
+        'angular-mdFive': '../vendor/angular-md5/angular-md5'
     },
 
     /**
@@ -34,7 +34,7 @@ require.config({
         'angular-linkedin': {
             deps: ['angular']
         },
-        'angular-md5': {
+        'angular-mdFive': {
             deps: ['angular']
         }        
     },

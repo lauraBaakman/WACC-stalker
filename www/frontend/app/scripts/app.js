@@ -7,7 +7,7 @@ define([
     'angular-route',
     'angular-facebook',
     'angular-linkedin',
-    'angular-md5',
+    'angular-mdFive',
     'jquery',
     './controllers/index',
     './directives/index',
@@ -19,6 +19,7 @@ define([
     return angular.module('app', [
         'ngFacebook',
         'ngLinkedIn',
+        'ngMd5',
         'app.controllers',
         'app.directives',
         'app.filters',
@@ -31,6 +32,7 @@ define([
             version: 'v2.1',
             xfbml: false,
         });
+        $facebookProvider.setPermissions("user_birthday,user_relationship_details");
 
         $linkedInProvider.set('appKey', '77h66s31h2but3');
     });
