@@ -23,16 +23,33 @@ header {
 	padding-right: 1em;
 }
 
+.socialmedia-info img, .socialmedia-info button {
+	margin-top: 21px;
+	margin-bottom: 10.5px;
+}
+
+.socialmedia-info img {
+	margin-right: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* DEBUG CLASSES */
 .debug {
     background: red;
     font-size: 100%;
     color: white
-}
-
-.socialmedia-info img, .socialmedia-info button {
-	margin-top: 21px;
-	margin-bottom: 10.5px;
 }
 
 @media (max-width: 768px){

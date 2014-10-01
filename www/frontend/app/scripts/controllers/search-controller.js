@@ -90,7 +90,6 @@ define(['./module'], function(controllers) {
             };
 
             $scope.$on('loggedInEvent', function (event, data) {
-                // Reset the error
                 $scope.error = "";
             });
 
