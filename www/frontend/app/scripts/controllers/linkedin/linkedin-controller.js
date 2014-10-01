@@ -48,11 +48,10 @@ define(['../module'], function(controllers, ngLinkedin) {
                         //});
                         $linkedIn.profile().then(function(result) {
                             var firstResult = result.values[0];
-                            console.log(firstResult)
                             $scope.stalker = {}
                             $scope.stalker.name = firstResult.firstName + ' ' + firstResult.lastName;
                             stalkerService.setLinkedInStalker(firstResult);
-                            $scope.$emit('loggedInEvent', 'LinkedIn');
+                            $scope.$emit('loggedInEvent', 'linkedIn');
                             $scope.stalker.picture = firstResult.pictureUrl;
                         });
                     } else {
@@ -68,6 +67,7 @@ define(['../module'], function(controllers, ngLinkedin) {
                         console.log("LINKEDINCONTROLLER: Logged out");
                         controller.setPage($scope.pages.login);
                         stalkerService.setLinkedInLoggedIn(false);
+                        $scope.$emit('loggedOutEvent', 'linkedIn');
                     });
                 } else {
                     console.log("LINKEDINCONTROLLER: Already logged out");

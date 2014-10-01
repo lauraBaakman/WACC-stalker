@@ -93,6 +93,10 @@ define(['./module'], function(controllers) {
                 $scope.error = "";
             });
 
+            $scope.$on('loggedOutEvent', function (event, data) {
+                $scope.error = " You need to be logged on to at least one social network.";
+            });            
+
         }
     ]);
 });
