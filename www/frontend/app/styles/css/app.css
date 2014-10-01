@@ -33,7 +33,9 @@ header {
 }
 
 
-
+#searchFormSubmit {
+	margin-top: 25px;
+}
 
 
 
@@ -52,7 +54,7 @@ header {
     color: white
 }
 
-@media (max-width: 768px){
+/*@media (max-width: 768px){
 	body {
 		background: pink;
 	}
@@ -76,3 +78,4 @@ header {
 		background: orange;
 	}
 }
+*/

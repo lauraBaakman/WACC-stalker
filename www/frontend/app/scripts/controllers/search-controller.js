@@ -8,6 +8,8 @@ define(['./module'], function(controllers) {
             this.currentPage = 0;
             this.numberOfSupportedSocialMedia = 2;
             $scope.error = "";
+            $scope.stalking = false;
+            var controller = this;
 
             /* Caroussel functions */
             this.isActive = function(pageNo) {
@@ -34,13 +36,13 @@ define(['./module'], function(controllers) {
             var directives = {
                 social: {
                     "facebook": {
-                        enabled: false,
+                        loggedIn: false,
                         loginView: '../views/facebook/facebook.html',
                         logo: 'facebook'
 
                     },
                     "linkedIn": {
-                        enabled: false,
+                        loggedIn: false,
                         loginView: '../views/linkedin/linkedin.html',
                         logo: 'linkedin'
                     }
@@ -81,9 +83,13 @@ define(['./module'], function(controllers) {
                 return directives.social;
             };
 
+            this.getDirectives = function(){
+                return directives;
+            }
+
             this.startStalking = function(){
                 if(stalkerService.isLoggedIn()){
-                    alert("Continue to search");
+                    $scope.stalking = true;
                 } else {
                     $scope.error = " You need to be logged on to at least one social network.";
                 }
@@ -91,10 +97,12 @@ define(['./module'], function(controllers) {
 
             $scope.$on('loggedInEvent', function (event, data) {
                 $scope.error = "";
+                directives.social[data].loggedIn = true;
             });
 
             $scope.$on('loggedOutEvent', function (event, data) {
                 $scope.error = " You need to be logged on to at least one social network.";
+                directives.social[data].loggedIn = false;
             });            
 
         }

@@ -27,11 +27,6 @@ define(['./module'], function(directives) {
                         return ($scope.search.name.isEmpty() && $scope.search.email.isEmpty());
                     };
 
-                    // Align the submit button to the input fields
-                    $('.pull-down').each(function() {
-                        $(this).css('margin-top', $(this).prev().height() - $(this).height());
-                    });
-
                     // Apply bootstrap classes based on angular error classes
                     $("input").change(function(event) {
                         // Clear error
