@@ -85,10 +85,15 @@ define(['./module'], function(controllers) {
                 if(stalkerService.isLoggedIn()){
                     alert("Continue to search");
                 } else {
-                    alert("Error!")
                     $scope.error = " You need to be logged on to at least one social network.";
                 }
             };
+
+            $scope.$on('loggedInEvent', function (event, data) {
+                // Reset the error
+                $scope.error = "";
+            });
+
         }
     ]);
 });

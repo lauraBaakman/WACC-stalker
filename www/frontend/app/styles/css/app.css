@@ -24,7 +24,6 @@
     color: white
 }
 
-/* xs */
 
 @media (max-width: 768px){
 	body {
@@ -32,23 +31,18 @@
 	}
 }
 
-/* s */
-
 @media all and (max-width: 992px) and (min-width: 768px){
 	body {
 		background: green;
 	}
 }
 
- /*m */
 
 @media all and (max-width: 1200px) and (min-width: 992px){
 	body {
 		background: purple;
 	}
 }
-
-/* l */
 
 @media all and (min-width: 1200px){
 	body {
