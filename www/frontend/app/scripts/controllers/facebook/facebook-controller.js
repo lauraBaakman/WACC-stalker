@@ -57,9 +57,14 @@ define(['../module'], function(controllers, ngFacebook) {
                             console.log("FACEBOOKCONTROLLER: Logged in successful.");
                             $facebook.api("/me").then(function(result){
                                 // If no result do something....
-                                $scope.user = result.name;
+                                $scope.stalker = {};
+                                $scope.stalker.name = result.name;
                                 stalkerService.setFacebookStalker(result);
                                 $scope.$emit('loggedInEvent', 'facebook');
+                                $facebook.api("/" + result.id + "/picture").then(function(picture) { 
+                                    console.log(picture.data.url);
+                                    $scope.stalker.picture = picture.data.url;
+                                });
                             });
                             //controller.setPage($scope.pages.results);
                         }

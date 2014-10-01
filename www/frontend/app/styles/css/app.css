@@ -19,12 +19,9 @@ header {
 	}	
 }
 
-
-
 .btn i {
 	padding-right: 1em;
 }
-
 
 /* DEBUG CLASSES */
 .debug {
@@ -33,6 +30,10 @@ header {
     color: white
 }
 
+.socialmedia-info img, .socialmedia-info button {
+	margin-top: 21px;
+	margin-bottom: 10.5px;
+}
 
 @media (max-width: 768px){
 	body {
