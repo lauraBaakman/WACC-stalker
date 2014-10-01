@@ -6,7 +6,9 @@
     </div>
 
     <div ng-repeat="socialMedium in ctrl.getSocialMedia()">
-        <ng-include src="socialMedium.loginView" ng-show="ctrl.isActive($index)"></ng-include>
+        <div class="well well-lg" ng-show="ctrl.isActive($index)">
+            <ng-include src="socialMedium.loginView"></ng-include>
+        </div>
     </div>
 
     <div class="row" id="navigation">
