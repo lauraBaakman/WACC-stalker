@@ -72,15 +72,11 @@ define(['./module'], function(directives) {
                     this.validate = function() {
                         if (this.isSearchEmpty()) {
                             $scope.error = " We need at least a name or an email address in order to search.";
-                            console.log('no name and no email');
                         } else if ($scope.search.name.isEmpty()) {
                             $scope.error = " We need a name for some social networks.";
-                            console.log('no name');
                         } else if ($scope.search.email.isEmpty()) {
                             $scope.error = " We need an email address for some social networks.";
-                            console.log('no email');
                         } else {
-                            console.log('Submitting!');
                             this.resetForm();
                         }
                     };

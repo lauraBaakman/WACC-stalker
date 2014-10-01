@@ -70,8 +70,6 @@ define(['../module'], function(controllers, ngLinkedin) {
             };
 
 
-
-
             /* ------------------ Stalker LinkedIn views navigation ------------------ */
 
             var currentPage = $scope.pages.login;

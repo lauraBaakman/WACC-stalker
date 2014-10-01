@@ -1,15 +1,9 @@
 .alert-link {
     cursor: pointer;
 }
-/* DEBUG CLASSES */
 
 .nav, .pagination, .carousel, .panel-title a {
     cursor: pointer;
-}
-.debug {
-    background: red;
-    font-size: 100%;
-    color: white
 }
 
 @media (min-width: 768px){
@@ -20,6 +14,14 @@
 
 .btn i {
 	padding-right: 1em;
+}
+
+
+/* DEBUG CLASSES */
+.debug {
+    background: red;
+    font-size: 100%;
+    color: white
 }
 
 /* xs */

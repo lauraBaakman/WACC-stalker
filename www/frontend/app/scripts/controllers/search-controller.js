@@ -1,12 +1,13 @@
 define(['./module'], function(controllers) {
     'use strict';
-    controllers.controller('SearchCtrl', ['$scope',
+    controllers.controller('SearchCtrl', ['$scope', 'stalkerService',
 
-        function($scope) {
+        function($scope, stalkerService) {
             // Controller controls the search, login carousel and when to show which 
             // social media directives
             this.currentPage = 0;
             this.numberOfSupportedSocialMedia = 2;
+            $scope.error = "";
 
             /* Caroussel functions */
             this.isActive = function(pageNo) {
@@ -78,6 +79,15 @@ define(['./module'], function(controllers) {
 
             this.getSocialMedia = function() {
                 return directives.social;
+            };
+
+            this.startStalking = function(){
+                if(stalkerService.isLoggedIn()){
+                    alert("Continue to search");
+                } else {
+                    alert("Error!")
+                    $scope.error = " You need to be logged on to at least one social network.";
+                }
             };
         }
     ]);
