@@ -63,6 +63,7 @@ define(['../module'], function(controllers, ngLinkedin) {
                     $linkedIn.logout().then(function() {
                         console.log("LINKEDINCONTROLLER: Logged out");
                         controller.setPage($scope.pages.login);
+                        stalkerService.setLinkedInLoggedIn(false);
                     });
                 } else {
                     console.log("LINKEDINCONTROLLER: Already logged out");

@@ -23,14 +23,22 @@ define(['./module'], function(services) {
                     this.stalker.realtionship = data.relationship;
                     this.stalker.birthdate = data.birthday;
                     this.stalker.relationship = data.relationship_status;
-                    this.loggedIn.facebook = true;
+                    this.setFacebookLoggedIn(true);
+                },
+
+                setFacebookLoggedIn: function(bool) {
+                    this.loggedIn.facebook = bool;
                 },
 
                 setLinkedInStalker: function(data) {
                     this.stalker.linkedInId = md5.createHash(data.id);
                     this.stalker.industry = data.industry;
-                    this.linkedIn.facebook = true;
+                    this.setLinkedInLoggedIn(true);
                 },
+
+                setLinkedInLoggedIn: function(bool) {
+                    this.loggedIn.linkedIn = bool;
+                },                
 
                 isLoggedIn: function() {
                     return this.loggedIn.facebook || this.loggedIn.linkedIn;

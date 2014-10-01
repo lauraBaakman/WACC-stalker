@@ -73,10 +73,11 @@ define(['../module'], function(controllers, ngFacebook) {
                         $facebook.logout();
 
                     }
-                    controller.clearResults();
-                    controller.clearPerson();
-                    $scope.user = null; // Functie?
-                    controller.setPage($scope.pages.login);
+                    stalkerService.setFacebookLoggedIn(false);
+                    // controller.clearResults();
+                    // controller.clearPerson();
+                    // $scope.user = null; // Functie?
+                    // controller.setPage($scope.pages.login);
                 });
             };
 
