@@ -1,4 +1,4 @@
-<form name="searchForm" role="form" ng-submit="searchCtrl.searchSubmit()" class="row" novalidate>
+<form name="searchForm" role="form" ng-submit="searchCtrl.searchSubmit()" novalidate class="row">
     <div class="form-group col-sm-5">
         <label for="searchName" class="control-label">Name</label>
         <input type="text" class="form-control" id="searchName" ng-model="search.name" novalidate placeholder="Malcom Reynolds">
@@ -11,13 +11,17 @@
 
     <div class="col-sm-2">
         <button id="searchFormSubmit" type="submit" class="btn btn-block btn-primary">Stalk!</button>
-    </div>
+    </div>    
 </form>
 
-
 <div ng-show="!error.isEmpty()" class="row">
-    <div class="col-xs-12 alert alert-warning" role="alert">
-        <strong>Warning!</strong>{{error}}
-        <span ng-hide="searchCtrl.isSearchEmpty()" ng-click="searchCtrl.searchSubmit(true)" class="alert-link">Continue anyway.</span>
+    <div class="col-xs-12">
+        <div class="alert alert-warning" role="alert">
+            <strong>Warning!</strong>{{error}}
+            <span ng-hide="searchCtrl.isSearchEmpty()" ng-click="searchCtrl.searchSubmit(true)" class="alert-link">Continue anyway.</span>
+        </div>
     </div>
 </div>
+
+
+
