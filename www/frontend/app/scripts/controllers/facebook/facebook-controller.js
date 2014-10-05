@@ -100,6 +100,7 @@ define(['../module'], function(controllers, ngFacebook) {
 
             this.searchCall = function(name, email) {
                 console.log("FACEBOOKCONTROLLER: Searching with: " + "Name: " + name + ", Email: " + email);
+				$scope.loading = true;
                 this.clearResults();
                 this.clearPerson();
                 this.clearError();
@@ -109,9 +110,11 @@ define(['../module'], function(controllers, ngFacebook) {
 						function(results) {
 	                    	$scope.results = results.data;
 	                    	controller.setPage($scope.pages.results);
+	                    	$scope.loading = false;
 	                	}, 
 	                	function(reason){
-	                		$scope.error = "Some error occured."
+	                		$scope.error = "Some error occurred."
+	                		$scope.loading = false;
 	                	}
                 	);
             };
