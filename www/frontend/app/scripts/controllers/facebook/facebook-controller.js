@@ -18,6 +18,7 @@ define(['../module'], function(controllers, ngFacebook) {
             $scope.search = null;
             $scope.results = null;
             $scope.person = null;
+            $scope.error = null;
 
             $scope.user = null;
 
@@ -38,6 +39,10 @@ define(['../module'], function(controllers, ngFacebook) {
                 return ($scope.person !== null);
             };
 
+            this.hasError = function() {
+            	return ($scope.error !== null);
+            }
+
             this.clearResults = function() {
                 $scope.results = null;
             };
@@ -45,6 +50,10 @@ define(['../module'], function(controllers, ngFacebook) {
             this.clearPerson = function() {
                 $scope.person = null;
             };
+
+            this.clearError = function(){
+            	$scope.error = null;
+            }
 
             /* ------------------ Facebook API calls ------------------ */
 
@@ -93,11 +102,18 @@ define(['../module'], function(controllers, ngFacebook) {
                 console.log("FACEBOOKCONTROLLER: Searching with: " + "Name: " + name + ", Email: " + email);
                 this.clearResults();
                 this.clearPerson();
+                this.clearError();
 
-                $facebook.api("/search?q='" + name + "'&type=user").then(function(results) {
-                    $scope.results = results.data;
-                    controller.setPage($scope.pages.results);
-                });
+                $facebook.api("/search?q='" + name + "'&type=user").
+                	then(
+						function(results) {
+	                    	$scope.results = results.data;
+	                    	controller.setPage($scope.pages.results);
+	                	}, 
+	                	function(reason){
+	                		$scope.error = "Some error occured."
+	                	}
+                	);
             };
 
             this.detailsCall = function(id) {
