@@ -13,7 +13,8 @@ require.config({
         //'facebookSDK': '//connect.facebook.net/en_US/all',
         'angular-facebook': '../vendor/facebook/ngFacebook/ngFacebook',
         'angular-linkedin': '../vendor/linkedin/ngLinkedIn/ngLinkedIn',
-        'angular-mdFive': '../vendor/angular-md5/angular-md5'
+        'angular-mdFive': '../vendor/angular-md5/angular-md5',
+        'angular-http-loader': '../vendor/angular-http-loader/angular-http-loader'
     },
 
     /**
@@ -36,6 +37,9 @@ require.config({
         },
         'angular-mdFive': {
             deps: ['angular']
+        },
+        'angular-http-loader':{
+        	deps: ['angular']
         }        
     },
     deps: [
