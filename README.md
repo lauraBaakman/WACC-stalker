@@ -101,17 +101,42 @@ Output:
 }
 
 # Our API
-## On visit   
-  Store ip address and use it to determine location
 
-## On Facebook login
-  Store age, gender, relationship status
+## Collections and Docs
+### Stalkers.stalker
 
-## On LinkedIn login
-  Store industry
+ - facebook_id (hash)
+ - relationship_status
+ -  birthdate
+ -  gender
+ - linkedIn_id (hash)
+ - industry
 
-## On found person click
-  Store a hash of that person's ID and the social network that it came from
+### Victims.victim (extensibility)
 
-## Succes 
-  Store that we had success
+ - facebook_id (hash)
+
+### Searches.search
+
+ - Stalker (facebook_id (hash))
+ - location (latitude and longitude)
+ - victim (facebook_id (hash))
+ - time
+
+## What methods
+
+### CREATE (POST)
+
+ - stalker
+ - victim
+ - search
+
+### UPDATE (POST)
+
+ - search (victim^1)
+
+### READ (GET)
+
+ - data for analytics
+  
+1. This search is found by searching for the last entry of the stalker hash in the searches collection.
