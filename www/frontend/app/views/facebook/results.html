@@ -1,17 +1,6 @@
-<div class="row">
-	<div class="col-xs-12">
-		<h3>Facebook</h3>	
-	</div>
-</div>
-	
-<div class="row" ng-show='loading'>
-	<div class="spinner col-xs-2 col-xs-offset-5">
-		<div ng-include src="'views/spinner.html'"></div>		
-	</div>
-</div>
+<div ng-include src="'views/facebook/logged-in-header.html'"></div>
 
-
-<div ng-hide='loading'>
+<div>
 	<table ng-show="facebookCtrl.hasResults()" class="table table-striped">
 		<tr>
 			<th class="col-sm-11">Name</th> <th class="col-sm-1">Search</th>

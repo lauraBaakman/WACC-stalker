@@ -99,8 +99,8 @@ define(['../module'], function(controllers, ngFacebook) {
             /* ------------------ Search API calls ------------------ */
 
             this.searchCall = function(name, email) {
+            	$scope.loading = true;
                 console.log("FACEBOOKCONTROLLER: Searching with: " + "Name: " + name + ", Email: " + email);
-				$scope.loading = true;
                 this.clearResults();
                 this.clearPerson();
                 this.clearError();

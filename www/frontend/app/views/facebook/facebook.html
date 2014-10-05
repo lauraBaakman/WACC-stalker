@@ -1,11 +1,5 @@
 <div ng-controller="FacebookController as facebookCtrl">
 
-    <!-- Navigation -->
-    <div ng-hide="facebookCtrl.isSelected(1)">
-        <button class="btn btn-default" ng-click="facebookCtrl.logout()">Logout</button>
-        <button class="btn btn-default" ng-show="facebookCtrl.isSelected(pages.detail)" ng-click="facebookCtrl.setPage(pages.results)">Back</button>
-    </div>
-
     <!-- Login -->
     <div ng-include src="'views/facebook/login.html'" ng-show="facebookCtrl.isSelected(pages.login)"></div>
 
