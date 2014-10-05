@@ -8,6 +8,7 @@ define([
     'angular-facebook',
     'angular-linkedin',
     'angular-mdFive',
+    'angular-http-loader',
     'jquery',
     './controllers/index',
     './directives/index',
@@ -17,6 +18,7 @@ define([
     'use strict';
 
     return angular.module('app', [
+    	'ng.httpLoader',
         'ngFacebook',
         'ngLinkedIn',
         'ngMd5',
@@ -25,9 +27,10 @@ define([
         'app.filters',
         'app.services',
         'ngRoute'
-    ]).config(function($facebookProvider, $linkedInProvider) {
+    ]).config(function($facebookProvider, $linkedInProvider, httpMethodInterceptorProvider) {
+    	httpMethodInterceptorProvider.whitelistDomain('facebook.com');
+    	httpMethodInterceptorProvider.whitelistDomain('linkedin.com');
         $facebookProvider.setAppId('717667088304140');
-
         $facebookProvider.setCustomInit({
             version: 'v2.1',
             xfbml: false,
