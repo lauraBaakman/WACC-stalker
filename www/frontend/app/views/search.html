@@ -1,9 +1,5 @@
 <div ng-controller="SearchCtrl as ctrl">
 
-    <div class="debug">
-        Directives: {{ctrl.getDirectives()}}
-    </div>
-
     <div ng-show="stalking">
         <search-field></search-field>
     </div>
@@ -12,10 +8,6 @@
         <div class="well well-lg" ng-show="ctrl.isActive($index)">
             <ng-include src="socialMedium.loginView"></ng-include>
         </div>
-    </div>
-
-    <div ng-hide="error.isEmpty()" class="col-xs-12 alert alert-warning" role="alert">
-        <strong>Warning!</strong>{{error}}
     </div>
 
     <div class="row" id="navigation" ng-hide="stalking">
