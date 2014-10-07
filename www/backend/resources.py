@@ -1,5 +1,5 @@
 """ . """
-from flask.ext.restful import Resource, reqparse, request
+from flask.ext.restful import Resource, request
 from flask import make_response
 from bson.json_util import dumps
 
@@ -10,13 +10,13 @@ class SearchResource(Resource):
 
     """ Resources class. """
 
-    parser = None
-
     def get(self):
         """
             HTTP GET request.
             Parameters:
                 None
+            Return codes:
+                200:   Success
         """
         cursor = db.connection.wacc.searches.find()
         statusCode = 200
@@ -38,6 +38,7 @@ class SearchResource(Resource):
         """
         try:
             json = request.json
+            print json
             search = db.connection.Search()
             search.stalker_id = json['stalker']
             search.location['lat'] = json['lat']
@@ -56,88 +57,100 @@ class SearchResource(Resource):
         # TODO if there is a db.
         return search_stalker_id, 201
 
-    def init_parser(self):
-        """ Initialize the parser. """
-        self.parser = reqparse.RequestParser()
-        self.parser.add_argument('stalker', type=str)
-        self.parser.add_argument('location', type=str)
-        self.parser.add_argument('victim', type=str)
-
-    def __init__(self):
-        """ Initialize the Resource. """
-        self.init_parser()
-
 
 class StalkerResource(Resource):
 
     """ Resource class. """
 
-    stalker = {
-        'facebook_id': None,
-        'relationship_status': None,
-        'birthdate': None,
-        'gender': None,
-        'linkedIn_id': None,
-        'industry': None
-    }
-
-    parser = None
-
     def get(self):
-        """ . """
-        return self.stalker
+        """
+            HTTP GET request.
+            Parameters:
+                None
+            Return codes:
+                200:   Success
+        """
+        cursor = db.connection.wacc.stalkers.find()
+        statusCode = 200
+        resp = make_response(dumps(cursor), statusCode)
+        return resp
+
 
     def post(self):
-        """ . """
-        args = self.parser.parse_args()
-        for key in self.stalker.iterkeys():
-            self.stalker[key] = args[key]
+        """
+            HTTP POST request.
+            Parameters:
+                JSon object with the keys:
+                    stalker_id:             required, string
+                    relationship_status:    required, string
+                    birthdate:              required, string
+                    gender:                 required, string
+                    linkedIn_id:            optional, string, default: ''
+                    industry:               optional, string, default: ''
+            Return codes:
+                500:    Internal server Error
+                201:    Created the stalker object
+        """
+        try:
+            json = request.json
 
-        return "Received Stalker", 201
+            stalker = db.connection.Stalker()
 
-    def init_parser(self):
-        """ . """
-        self.parser = reqparse.RequestParser()
-        self.parser.add_argument('facebook_id', type=str)
-        self.parser.add_argument('relationship_status', type=str)
-        self.parser.add_argument('birthdate', type=str)
-        self.parser.add_argument('gender', type=str)
-        self.parser.add_argument('linkedIn_id', type=str)
-        self.parser.add_argument('industry', type=str)
+            # Required parameters
+            stalker.stalker_id = json['stalker_id']
+            stalker.relationship_status = json['relationship_status']
+            stalker.birthdate = json['birthdate']
+            stalker.gender = json['gender']
 
-    def __init__(self):
-        """ . """
-        self.init_parser()
+            # Optional parameters
+            stalker.linkedIn_id = json.get('linkedIn_id', u'')
+            stalker.industry = json.get('industry', u'')
+
+            stalker.save()
+        except Exception, e:
+            print e
+            return 'Internal Server Error', 500
+        return 'Received stalker', 201
 
 
 class VictimResource(Resource):
 
     """ Resource class. """
 
-    victim = {
-        'facebook_id': None
-    }
-
-    parser = None
-
     def get(self):
-        """ . """
-        return self.victim
+        """
+            HTTP GET request.
+            Parameters:
+                None
+            Return codes:
+                200:   Success
+        """
+        cursor = db.connection.wacc.victims.find()
+        statusCode = 200
+        resp = make_response(dumps(cursor), statusCode)
+        return resp
+
 
     def post(self):
-        """ . """
-        args = self.parser.parse_args()
-        self.victim['facebook_id'] = args['facebook_id']
-        return "Received victim", 201
+        """
+            HTTP POST request.
+            Parameters:
+                JSon object with the keys:
+                    victim_id:      required, string
+            Return codes:
+                500:    Internal server Error
+                201:    Created the victim object
+        """
+        try:
+            json = request.json
 
-    def init_parser(self):
-        """ . """
-        self.parser = reqparse.RequestParser()
-        self.parser.add_argument('facebook_id', type=str)
+            victim = db.connection.Victim()
 
-    def __init__(self):
-        """ . """
-        self.init_parser()
+            # Required parameters
+            victim.victim_id = json['victim_id']
 
-if __name__ == '__main__':
-    print api.connection.wacc.searches.find()
+            victim.save()
+        except Exception, e:
+            print e
+            return 'Internal Server Error', 500
+        return 'Received victim', 201

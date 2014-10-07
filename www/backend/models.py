@@ -12,12 +12,12 @@ class Stalker(Document):
     __collection__ = 'stalkers'
 
     structure = {
-        'stalker_id': str,
-        'relationship_status': str,
-        'birthdate': str,
-        'gender': str,
-        'linkedIn_id': str,
-        'industry': str
+        'stalker_id': unicode,
+        'relationship_status': unicode,
+        'birthdate': unicode,
+        'gender': unicode,
+        'linkedIn_id': unicode,
+        'industry': unicode
     }
     #validators = {
     #    'name': max_length(50),
@@ -63,7 +63,7 @@ class Victim(Document):
     __collection__ = 'victims'
 
     structure = {
-        'victim_id': str,
+        'victim_id': unicode,
     }
     #validators = {
     #    'name': max_length(50),
