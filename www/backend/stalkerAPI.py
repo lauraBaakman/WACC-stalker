@@ -1,9 +1,11 @@
 """ . """
-from flask import Flask
+from flask import Flask, make_response, request
 from flask.ext.restful import Api
+from flask.ext.cors import CORS
+
 from resources import SearchResource, VictimResource, StalkerResource
 from models import Stalker, Search, Victim
-from flask.ext.cors import CORS
+
 import database as db
 
 # Create api
@@ -12,6 +14,26 @@ app = Flask(__name__)
 #app.config.from_object(__name__)
 api = Api(app)
 cors = CORS(app)
+
+
+@app.after_request
+def add_cors(resp):
+    """
+    Ensure all responses have the CORS headers. This ensures any
+    failures are also accessible by the client.
+
+    source: http://mortoray.com/2014/04/09/allowing-unlimited-access-with-cors/
+    """
+    resp.headers['Access-Control-Allow-Origin'] = request.headers.get('Origin', '*')
+    resp.headers['Access-Control-Allow-Credentials'] = 'true'
+    resp.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS, GET'
+    resp.headers['Access-Control-Allow-Headers'] = request.headers.get(
+        'Access-Control-Request-Headers', 'Authorization'
+    )
+    # set low for debugging
+    if app.debug:
+        resp.headers['Access-Control-Max-Age'] = '1'
+    return resp
 
 # Register the Models.
 db.init()
