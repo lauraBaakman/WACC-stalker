@@ -4,21 +4,21 @@
 def populate(connection):
     """ . """
     stalker = connection.Stalker()
-    stalker.stalker_id = '0001'
-    stalker.relationship_status = 'single'
-    stalker.birthdate = '23-03-1990'
-    stalker.gender = 'female'
-    stalker.linkedIn_id = 'L0001'
-    stalker.industry = 'computing science'
+    stalker.stalker_id = u'0001'
+    stalker.relationship_status = u'single'
+    stalker.birthdate = u'23-03-1990'
+    stalker.gender = u'female'
+    stalker.linkedIn_id = u'L0001'
+    stalker.industry = u'computing science'
     stalker.save()
 
     stalker = connection.Stalker()
-    stalker.stalker_id = '0002'
-    stalker.relationship_status = 'not single'
-    stalker.birthdate = '23-03-1996'
-    stalker.gender = 'male'
-    stalker.linkedIn_id = 'L0002'
-    stalker.industry = 'computing science'
+    stalker.stalker_id = u'0002'
+    stalker.relationship_status = u'not single'
+    stalker.birthdate = u'23-03-1996'
+    stalker.gender = u'male'
+    stalker.linkedIn_id = u'L0002'
+    stalker.industry = u'computing science'
     stalker.save()
 
     search = connection.Search()
@@ -35,7 +35,7 @@ def populate(connection):
     search.save()
 
     victim = connection.Victim()
-    victim.victim_id = '0001'
+    victim.victim_id = u'0001'
     victim.save()
 
 

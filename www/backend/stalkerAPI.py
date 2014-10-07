@@ -1,5 +1,5 @@
 """ . """
-from flask import Flask, make_response
+from flask import Flask
 from flask.ext.restful import Api
 from resources import SearchResource, VictimResource, StalkerResource
 from models import Stalker, Search, Victim
