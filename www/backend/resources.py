@@ -36,9 +36,7 @@ class SearchResource(Resource):
                 500:    Internal server Error
                 201:    Created the search object
         """
-        import pdb
         try:
-            # pdb.set_trace()
             json = request.json
             search = db.connection.Search()
             search.stalker_id = json['stalker']

@@ -3,25 +3,19 @@ define(['./module'], function(controllers) {
 	controllers.controller('StatisticsController', ['$scope', 'apiService',
 
 		function($scope, apiService){
-			$scope.searches = '';
+			$scope.searches = [];
 
 			this.getAllSearches = function() {
-				console.log('getAllSearches in controller is called.');
 				apiService.getAllSearches().then(
 					function(searches){
-						console.log('getAllSearches has success.');
-						console.log(searches);
+						console.log('getAllSearches had success');
+						$scope.searches = searches;
 					},
 					function(error){
-						console.log('getAllSearches has error.');
-						console.log(error);
+						console.log('getAllSearches had an error');
+						$scope.error = 'The request for all searches failed.';
 					}
 				);
-			};
-
-			this.test = function(){
-				console.log(apiService.test());
-				return apiService.test();
 			};
 		}
 	]);

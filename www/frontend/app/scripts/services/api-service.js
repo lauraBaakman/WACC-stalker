@@ -11,10 +11,6 @@ define(['./module'], function(services){
 						then(function(result){
 							return result.data;
 						});
-				},
-
-				test: function(){
-					return 'hoi';
 				}
 			};
 		}
