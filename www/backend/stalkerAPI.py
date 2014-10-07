@@ -1,20 +1,18 @@
 """ . """
-from flask import Flask
+from flask import Flask, make_response
 from flask.ext.restful import Api
 from resources import SearchResource, VictimResource, StalkerResource
 from models import Stalker, Search, Victim
+
 import database as db
-#from models import Stalker
-#from database import Db
 
 # Create api
 app = Flask(__name__)
+
 #app.config.from_object(__name__)
 api = Api(app)
 
 # Register the Models.
-#db.init(app.config['MONGODB_HOST'], app.config['MONGODB_PORT'])
-#db.connection.register([Stalker])
 db.init()
 db.connection.register([Stalker, Search, Victim])
 
@@ -27,6 +25,16 @@ td.populate(db.connection)
 api.add_resource(SearchResource, '/search')
 api.add_resource(VictimResource, '/victim')
 api.add_resource(StalkerResource, '/stalker')
+
+
+# @api.representation('application/json')
+# def json(data, code, headers=None):
+#     """Handle JSON output."""
+#     import pdb
+#     pdb.set_trace()
+#     resp = make_response(json.dumps(data), code)
+#     resp.headers.extend(headers or {})
+#     return resp
 
 if __name__ == '__main__':
     app.run(debug=True)
