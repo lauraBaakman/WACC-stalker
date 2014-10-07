@@ -1,9 +1,9 @@
 """ . """
-from flask import Flask, make_response
+from flask import Flask
 from flask.ext.restful import Api
 from resources import SearchResource, VictimResource, StalkerResource
 from models import Stalker, Search, Victim
-
+from flask.ext.cors import CORS
 import database as db
 
 # Create api
@@ -11,6 +11,7 @@ app = Flask(__name__)
 
 #app.config.from_object(__name__)
 api = Api(app)
+cors = CORS(app)
 
 # Register the Models.
 db.init()
