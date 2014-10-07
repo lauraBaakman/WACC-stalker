@@ -15,13 +15,13 @@ api = Api(app)
 # Register the Models.
 #db.init(app.config['MONGODB_HOST'], app.config['MONGODB_PORT'])
 #db.connection.register([Stalker])
-connection = db.init()
-connection.register([Stalker, Search, Victim])
+db.init()
+db.connection.register([Stalker, Search, Victim])
 
 import test_data as td
 
-td.clear(connection)
-td.populate(connection)
+td.clear(db.connection)
+td.populate(db.connection)
 
 # Set up of the actual routing
 api.add_resource(SearchResource, '/search')

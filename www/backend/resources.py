@@ -1,6 +1,10 @@
 """ . """
+from flask.ext.restful import Resource, reqparse, fields, marshal_with
+import database as db
 
-from flask.ext.restful import Resource, reqparse
+import json
+from bson import json_util
+#import bson.json_util as bsjs
 
 
 class SearchResource(Resource):
@@ -14,12 +18,21 @@ class SearchResource(Resource):
         'time': None
     }
 
+    search_fields = {
+        'stalker_id': fields.String,
+        'victim_id': fields.String
+    }
+
     parser = None
 
     def get(self):
         """ HTTP GET request. """
         # TODO: Remove this function. DEBUG purpose only.
-        return self.search
+        cursor = db.connection.wacc.searches.find()
+
+        json_docs = [json.dumps(doc, default=json_util.default) for doc in cursor]
+
+        return json_docs
 
     def post(self):
         """ HTTP POST request. """
@@ -116,3 +129,6 @@ class VictimResource(Resource):
     def __init__(self):
         """ . """
         self.init_parser()
+
+if __name__ == '__main__':
+    print api.connection.wacc.searches.find()

@@ -22,16 +22,16 @@ def populate(connection):
     stalker.save()
 
     search = connection.Search()
-    search.stalker_id = '0001'
+    search.stalker_id = u'0001'
     search.location.lat = 52.6888
     search.location.long = 50.6668
     search.save()
 
     search = connection.Search()
-    search.stalker_id = '0002'
+    search.stalker_id = u'0002'
     search.location.lat = 60.6888
     search.location.long = 30.6668
-    search.victim_id = '0001'
+    search.victim_id = u'0001'
     search.save()
 
     victim = connection.Victim()

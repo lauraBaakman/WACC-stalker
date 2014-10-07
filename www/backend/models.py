@@ -37,12 +37,12 @@ class Search(Document):
     __collection__ = 'searches'
 
     structure = {
-        'stalker_id': str,
+        'stalker_id': unicode,
         'location': {
             'lat': float,
             'long': float
         },
-        'victim_id': str,
+        'victim_id': unicode,
         'creation_time': datetime
     }
     #validators = {

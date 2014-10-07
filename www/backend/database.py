@@ -2,6 +2,10 @@
 from mongokit import Connection
 import config
 
+global connection
+
+
 def init():
     """ . """
-    return Connection(config.DATABASE['host'], config.DATABASE['port'])
+    global connection
+    connection = Connection(config.DATABASE['host'], config.DATABASE['port'])
