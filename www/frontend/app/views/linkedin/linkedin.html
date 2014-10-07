@@ -1,9 +1,9 @@
 <div ng-controller="LinkedInController as linkedInCtrl">
     <!-- Navigation -->
-    <div ng-hide="linkedInCtrl.isSelected(1)">
+<!--     <div ng-hide="linkedInCtrl.isSelected(1)">
         <button class="btn btn-default" ng-click="linkedInCtrl.logout()">Logout</button>
         <button class="btn btn-default" ng-show="linkedInCtrl.isSelected(pages.detail)" ng-click="linkedInCtrl.setPage(pages.results)">Back</button>
-    </div>
+    </div> -->
 
     <!-- Login -->
     <div ng-include src="'views/linkedin/login.html'" ng-show="linkedInCtrl.isSelected(pages.login)"></div>
