@@ -2,7 +2,7 @@
 from flask.ext.restful import Resource, reqparse
 
 
-class Stalker(Resource):
+class StalkerResource(Resource):
 
     """ Resource class. """
 

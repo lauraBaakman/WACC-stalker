@@ -2,7 +2,7 @@
 from flask.ext.restful import Resource, reqparse
 
 
-class Search(Resource):
+class SearchResource(Resource):
 
     """ Resource class. """
 
