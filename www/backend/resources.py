@@ -8,20 +8,12 @@ import database as db
 
 class SearchResource(Resource):
 
-    """ Resource class. """
-
-    search = {
-        'stalker': "hoi",
-        'location': "hallo",
-        'victim': "doie",
-        'time': "iets"
-    }
+    """ Resources class. """
 
     parser = None
 
     def get(self):
         """ HTTP GET request. """
-        # TODO: Remove this function. DEBUG purpose only.
         cursor = db.connection.wacc.searches.find()
         statusCode = 200
         resp = make_response(dumps(cursor), statusCode)

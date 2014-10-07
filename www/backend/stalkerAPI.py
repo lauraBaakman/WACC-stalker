@@ -26,15 +26,5 @@ api.add_resource(SearchResource, '/search')
 api.add_resource(VictimResource, '/victim')
 api.add_resource(StalkerResource, '/stalker')
 
-
-# @api.representation('application/json')
-# def json(data, code, headers=None):
-#     """Handle JSON output."""
-#     import pdb
-#     pdb.set_trace()
-#     resp = make_response(json.dumps(data), code)
-#     resp.headers.extend(headers or {})
-#     return resp
-
 if __name__ == '__main__':
     app.run(debug=True)
