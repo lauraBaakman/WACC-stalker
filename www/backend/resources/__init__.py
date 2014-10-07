@@ -1,3 +1,0 @@
-from search_resource import SearchResource
-from stalker_resource import StalkerResource
-from victim_resource import VictimResource

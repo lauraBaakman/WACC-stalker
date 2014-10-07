@@ -1,16 +1,13 @@
 """ . """
 from mongokit import Document
-#from datetime import datetime
-from resources import StalkerResource
+import config
 
 
 class Stalker(Document):
 
     """docstring for Stalker."""
 
-    test = StalkerResource()
-
-    __database__ = 'wacc'
+    __database__ = config.DATABASE['name']
     __collection__ = 'stalkers'
 
     structure = {
