@@ -6,6 +6,7 @@ define(['./module'], function(controllers) {
 			$scope.searches = [];
 
 			this.getAllSearches = function() {
+				$scope.searches = [];
 				apiService.getAllSearches().then(
 					function(searches){
 						console.log('getAllSearches had success');

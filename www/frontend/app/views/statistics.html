@@ -1,22 +1,21 @@
 <div class="row">
-	<h2 class="col-xs-12">
-		Statistics
-	</h2>
+    <h2 class="col-xs-12">
+        Statistics
+    </h2>
 </div>
 
 <div class="well well-lg" ng-controller="StatisticsController as statCtrl">
-	<div class="row">
-		<h3 class="col-xs-12" ng-click="statCtrl.getAllSearches()">
-			<i class="fa fa-refresh"></i> Searches:
-		</h3>
-	</div>		
-	<div class="row" ng-repeat="search in searches">
-		<div class="col-xs-12">
-			{{search}}	
-		</div>
-		
-	</div>
+    <div class="row">
+        <h3 class="col-xs-12" ng-click="statCtrl.getAllSearches()">
+            <i class="fa fa-refresh"></i> Searches:
+        </h3>
+    </div>
+    <div class="row" ng-repeat="search in searches">
+        <div class="col-xs-12">
+            {{search}}
+        </div>
+    </div>
 
+	<div  class='col-xs-2 col-xs-offset-5' ng-include src="'views/spinner.html'" loading></div>
 
-	
 </div>

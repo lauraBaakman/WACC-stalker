@@ -7,4 +7,5 @@ define([
 	'./app-version',
     './search-field',
     './header',
+    './loading'
 ], function() {});
