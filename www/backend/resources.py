@@ -1,5 +1,5 @@
 """ . """
-from flask.ext.restful import Resource, reqparse
+from flask.ext.restful import Resource, reqparse, request
 from flask import make_response
 from bson.json_util import dumps
 
@@ -13,18 +13,44 @@ class SearchResource(Resource):
     parser = None
 
     def get(self):
-        """ HTTP GET request. """
+        """
+            HTTP GET request.
+            Parameters:
+                None
+        """
         cursor = db.connection.wacc.searches.find()
         statusCode = 200
         resp = make_response(dumps(cursor), statusCode)
         return resp
 
     def post(self):
-        """ HTTP POST request. """
-        args = self.parser.parse_args()
-        for key in self.search.iterKey():
-            self.search[key] = args[key]
+        """
+            HTTP POST request.
+            Parameters:
+                JSon object with the keys:
+                    stalker:    required, string
+                    lat:        required, float
+                    long:       required, float
+                    victim:     optional, string, default: ""
+            Return codes:
+                500:    Internal server Error
+                201:    Created the search object
+        """
+        import pdb
+        try:
+            # pdb.set_trace()
+            json = request.json
+            search = db.connection.Search()
+            search.stalker_id = json['stalker']
+            search.location['lat'] = json['lat']
+            search.location['long'] = json['long']
 
+            # Optional parameters
+            search.victim_id = json.get('victim', u'')
+            search.save()
+        except Exception, e:
+            print e
+            return 'Internal Server Error', 500
         return 'Received search', 201
 
     def put(self, search_stalker_id):
