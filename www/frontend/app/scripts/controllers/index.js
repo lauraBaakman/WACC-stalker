@@ -7,5 +7,6 @@
 define([
     './facebook/facebook-controller',
     './linkedin/linkedin-controller',
-    './search-controller'
+    './search-controller',
+    './statistics-controller'
 ], function () {});
