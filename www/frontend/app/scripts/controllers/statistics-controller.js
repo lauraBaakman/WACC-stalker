@@ -4,16 +4,16 @@ define(['./module'], function(controllers) {
 
 		function($scope, apiService){
 			$scope.searches = [];
+			$scope.error = {};
 
 			this.getAllSearches = function() {
 				$scope.searches = [];
+				$scope.error = {};
 				apiService.getAllSearches().then(
 					function(searches){
-						console.log('getAllSearches had success');
 						$scope.searches = searches;
 					},
 					function(error){
-						console.log('getAllSearches had an error');
 						$scope.error = 'The request for all searches failed.';
 					}
 				);
