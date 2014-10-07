@@ -5,5 +5,15 @@
 </div>
 
 <div class="well well-lg" ng-controller="StatisticsController as statCtrl">
-	<p>Hoi!</p>
+	<div class="row">
+		<h3 class="col-xs-12" ng-click="statCtrl.getAllSearches()">
+			<i class="fa fa-refresh"></i> Searches:
+		</h3>
+	</div>		
+	<div class="row">
+		{{$scope.searches}}
+	</div>
+
+
+	
 </div>

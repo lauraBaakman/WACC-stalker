@@ -8,5 +8,6 @@
 define([
     './version',
     './search-service',
-    './stalker-service'
+    './stalker-service',
+    './api-service'
 ], function() {});
