@@ -20,6 +20,40 @@
 	<div class="row">
 		<div  class='col-xs-2 col-xs-offset-5' ng-include src="'views/spinner.html'" loading></div>
 	</div>
-	
+</div>
 
+<div class="well well-lg" ng-controller="StatisticsController as statCtrl">
+    <div class="row">
+        <h3 class="col-xs-12" ng-click="statCtrl.getAllStalkers()">
+            <i class="btn btn-default fa fa-refresh"></i> Stalkers:
+        </h3>
+    </div>
+
+    <div class="row" ng-repeat="stalker in stalkers">
+        <div class="col-xs-12">
+            {{stalker}}
+        </div>
+    </div>
+
+    <div class="row">
+        <div  class='col-xs-2 col-xs-offset-5' ng-include src="'views/spinner.html'" loading></div>
+    </div>
+</div>
+
+<div class="well well-lg" ng-controller="StatisticsController as statCtrl">
+    <div class="row">
+        <h3 class="col-xs-12" ng-click="statCtrl.getAllVictims()">
+            <i class="btn btn-default fa fa-refresh"></i> Victims:
+        </h3>
+    </div>
+
+    <div class="row" ng-repeat="victim in victims">
+        <div class="col-xs-12">
+            {{victim}}
+        </div>
+    </div>
+
+    <div class="row">
+        <div  class='col-xs-2 col-xs-offset-5' ng-include src="'views/spinner.html'" loading></div>
+    </div>
 </div>
