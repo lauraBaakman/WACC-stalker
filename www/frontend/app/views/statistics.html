@@ -10,12 +10,16 @@
             <i class="fa fa-refresh"></i> Searches:
         </h3>
     </div>
+    
     <div class="row" ng-repeat="search in searches">
         <div class="col-xs-12">
             {{search}}
         </div>
     </div>
 
-	<div  class='col-xs-2 col-xs-offset-5' ng-include src="'views/spinner.html'" loading></div>
+	<div class="row">
+		<div  class='col-xs-2 col-xs-offset-5' ng-include src="'views/spinner.html'" loading></div>
+	</div>
+	
 
 </div>
