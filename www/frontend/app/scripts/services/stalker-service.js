@@ -1,7 +1,7 @@
 define(['./module'], function(services) {
     'use strict';
-    services.service('stalkerService', ['md5', '$rootScope', '$facebook', '$linkedIn',
-        function(md5, $rootScope, $facebook, $linkedIn) {
+    services.service('stalkerService', ['md5', '$rootScope', '$facebook', '$linkedIn', 'apiService',
+        function(md5, $rootScope, $facebook, $linkedIn, apiService) {
             return {
                 stalker: {
                     facebookId: null,
@@ -42,6 +42,10 @@ define(['./module'], function(services) {
 
                 isLoggedIn: function() {
                     return this.loggedIn.facebook || this.loggedIn.linkedIn;
+                },
+
+                commitStalker: function() {
+                    console.log('commitStalker');
                 }
             };
         }

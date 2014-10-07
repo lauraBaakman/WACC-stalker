@@ -14,23 +14,22 @@ define(['./module'], function(controllers) {
 						$scope.searches = searches;
 					},
 					function(error){
+						console.log('Error!')
 						$scope.error = 'The request for all searches failed.';
 					}
 				);
 			};
 
 			this.getAllStalkers = function() {
-				console.log('in get all stalkers in de controller')
 				$scope.stalkers = [];
 				$scope.error = {};
 				apiService.getAllStalkers().then(
 					function(stalkers){
-						console.log('Succes: ' + stalkers)
 						$scope.stalkers = stalkers;
 					},
 					function(error){
 						console.log('Error!')
-						$scope.error = 'The requenst for all stalkers failed.';
+						$scope.error = 'The request for all stalkers failed.';
 					}
 				);
 			};
@@ -43,6 +42,7 @@ define(['./module'], function(controllers) {
 						$scope.victims = victims;
 					},
 					function(error){
+						console.log('Error!')
 						$scope.error = 'The requenst for all victims failed.';
 					}
 				);

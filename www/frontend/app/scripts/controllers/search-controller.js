@@ -95,6 +95,7 @@ define(['./module'], function(controllers) {
             }
 
             this.startStalking = function(){
+                stalkerService.commitStalker()
                 if(stalkerService.isLoggedIn()){
                     $scope.stalking = true;
                 } else {
