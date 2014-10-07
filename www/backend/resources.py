@@ -114,9 +114,6 @@ class StalkerResource(Resource):
             return 'Internal Server Error', 500
         return 'Received stalker', 201
 
-    def put(self, stalker_id):
-
-
 
 class VictimResource(Resource):
 
