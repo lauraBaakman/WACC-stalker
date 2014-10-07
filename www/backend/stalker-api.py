@@ -2,12 +2,10 @@
 from flask import Flask
 from flask.ext.restful import Api
 from resources import SearchResource, VictimResource, StalkerResource
-from models import Stalker
+from models import Stalker, Search, Victim
 import database as db
 #from models import Stalker
 #from database import Db
-
-
 
 # Create api
 app = Flask(__name__)
@@ -18,11 +16,12 @@ api = Api(app)
 #db.init(app.config['MONGODB_HOST'], app.config['MONGODB_PORT'])
 #db.connection.register([Stalker])
 connection = db.init()
-connection.register([Stalker])
+connection.register([Stalker, Search, Victim])
 
-#stalker = connection.Stalker()
-#stalker.facebook_id = "HALLO"
-#stalker.save()
+import test_data as td
+
+td.clear(connection)
+td.populate(connection)
 
 # Set up of the actual routing
 api.add_resource(SearchResource, '/search')
