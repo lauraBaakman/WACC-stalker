@@ -16,6 +16,13 @@ define(['./module'], function(controllers) {
                 return pageNo == this.currentPage;
             };
 
+            this.showInResults = function(pageNo, medium){
+                if($scope.stalking){
+                    return medium.loggedIn;
+                }
+                return this.isActive(pageNo);
+            }
+
             this.setPage = function(index) {
                 this.currentPage = index;
             };
