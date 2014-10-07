@@ -91,6 +91,8 @@ class StalkerResource(Resource):
                 500:    Internal server Error
                 201:    Created the stalker object
         """
+        import pdb
+        pdb.set_trace()
         try:
             json = request.json
 
@@ -98,13 +100,13 @@ class StalkerResource(Resource):
 
             # Required parameters
             stalker.stalker_id = json['stalker_id']
-            stalker.relationship_status = json['relationship_status']
             stalker.birthdate = json['birthdate']
             stalker.gender = json['gender']
 
             # Optional parameters
             stalker.linkedIn_id = json.get('linkedIn_id', u'')
             stalker.industry = json.get('industry', u'')
+            stalker.relationship_status = json.get('relationship_status', u'')
 
             stalker.save()
         except Exception, e:
