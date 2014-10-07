@@ -42,7 +42,7 @@ define(['../module'], function(controllers, ngLinkedin) {
                 $linkedIn.authorize().then(function() {
                     if ($linkedIn.isAuthorized()) {
                         console.log("LINKEDINCONTROLLER: Logged in and authorized");
-                        // controller.setPage($scope.pages.results);
+                        controller.setPage($scope.pages.results);
                         //$linkedIn.peopleSearch({'first-name': 'Rick', 'last-name': 'van Veen'}).then(function(result) {
                         //	console.log(result);
                         //});
