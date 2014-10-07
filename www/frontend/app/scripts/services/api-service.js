@@ -30,30 +30,15 @@ define(['./module'], function(services) {
 
                 // POSTS
                 postSearch: function(postData) {
-                    var request = $http({
-                        method: 'post',
-                        url: baseurl + 'search',
-                        data: postData
-                    });
-                    return(request.then( handleSuccess, handleError));
+					return $http.post(this.baseurl + 'search', postData);
                 },
 
                 postStalker: function(postData) {
-                    var request = $http({
-                        method: 'post',
-                        url: baseurl + 'stalker',
-                        data: postData
-                    });
-                    return(request.then( handleSuccess, handleError));
+                	return $http.post(this.baseurl + 'stalker', postData);
                 },  
 
                 postVictim: function(postData) {
-                    var request = $http({
-                        method: 'post',
-                        url: baseurl + 'victim',
-                        data: postData
-                    });
-                    return(request.then( handleSuccess, handleError));
+					return $http.post(this.baseurl + 'victim', postData);
                 }             
             };
         }

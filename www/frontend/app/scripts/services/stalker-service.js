@@ -4,9 +4,9 @@ define(['./module'], function(services) {
         function(md5, $rootScope, $facebook, $linkedIn, apiService) {
             return {
                 stalker: {
-                    facebookId: null,
-                    linkedInId: null,
-                    relationship: null,
+                    stalker_id: null, // = facebook id
+                    linkedIn_id: null,
+                    relationship_status: null,
                     birthdate: null,
                     gender: null,
                     industry: null
@@ -18,11 +18,10 @@ define(['./module'], function(services) {
                 },
 
                 setFacebookStalker: function(data) {
-                    this.stalker.facebookId = md5.createHash(data.id);
+                    this.stalker.stalker_id = md5.createHash(data.id);
                     this.stalker.gender = data.gender;
-                    this.stalker.realtionship = data.relationship;
+                    this.stalker.relationship_status = data.relationship_status;
                     this.stalker.birthdate = data.birthday;
-                    this.stalker.relationship = data.relationship_status;
                     this.setFacebookLoggedIn(true);
                 },
 
@@ -31,7 +30,7 @@ define(['./module'], function(services) {
                 },
 
                 setLinkedInStalker: function(data) {
-                    this.stalker.linkedInId = md5.createHash(data.id);
+                    this.stalker.linkedIn_id = md5.createHash(data.id);
                     this.stalker.industry = data.industry;
                     this.setLinkedInLoggedIn(true);
                 },
@@ -45,7 +44,17 @@ define(['./module'], function(services) {
                 },
 
                 commitStalker: function() {
-                    console.log('commitStalker');
+                    console.log('Committing this stalker:');
+                    console.log(this.stalker);
+                    apiService.postStalker(this.stalker).then(
+                        function(result){
+                            console.log('Logged the stalker succesfully');
+                            console.log(result);
+                        },
+                        function(error){
+                            console.log('An error occurred when logging the stalker.');
+                            console.log(error);
+                        });
                 }
             };
         }
