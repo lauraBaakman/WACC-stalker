@@ -1,5 +1,5 @@
 """ . """
-from flask.ext.restful import Resource, request
+from flask.ext.restful import Resource, request, reqparse
 from flask import make_response
 from bson.json_util import dumps
 
@@ -119,6 +119,17 @@ class VictimResource(Resource):
 
     """ Resource class. """
 
+    def __init__(self):
+        """ Initialization. """
+        self.req_parser = reqparse.RequestParser()
+        self.req_parser.add_argument(
+            'victim_id',
+            required=True,
+            type=unicode,
+            location='json',
+            help='Victim_id is a required string'
+        )
+
     def get(self):
         """
             HTTP GET request.
@@ -144,12 +155,13 @@ class VictimResource(Resource):
                 201:    Created the victim object
         """
         try:
-            json = request.json
+            args = self.req_parser.parse_args()
+            #json = request.json
 
             victim = db.connection.Victim()
 
             # Required parameters
-            victim.victim_id = json['victim_id']
+            victim.victim_id = args['victim_id']
 
             victim.save()
         except Exception, e:
