@@ -3,7 +3,7 @@ from flask import Flask, make_response, request
 from flask.ext.restful import Api
 from flask.ext.cors import CORS
 
-from resources import SearchResource, VictimResource, StalkerResource
+from resources import *
 from models import Stalker, Search, Victim
 
 import database as db
@@ -48,6 +48,7 @@ td.populate(db.connection)
 api.add_resource(SearchResource, '/search')
 api.add_resource(VictimResource, '/victim')
 api.add_resource(StalkerResource, '/stalker')
+api.add_resource(StatisticsLocationFrequency, '/statistics/location/frequency')
 
 if __name__ == '__main__':
     app.run(debug=True)

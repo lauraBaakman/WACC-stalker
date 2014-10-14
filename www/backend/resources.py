@@ -4,6 +4,7 @@ from flask import make_response
 from bson.json_util import dumps
 
 import database as db
+import mapreduce as mr
 
 
 class SearchResource(Resource):
@@ -19,6 +20,7 @@ class SearchResource(Resource):
                 200:   Success
         """
         cursor = db.connection.wacc.searches.find()
+        print cursor
         statusCode = 200
         resp = make_response(dumps(cursor), statusCode)
         return resp
@@ -158,3 +160,25 @@ class VictimResource(Resource):
             print e
             return 'Internal Server Error', 500
         return 'Received victim', 201
+
+
+class StatisticsLocationFrequency(Resource):
+
+    """Resource class to get the location frequency."""
+
+    def get(self):
+        """
+        HTTP GET request.
+        Parameters:
+            None
+        Return codes:
+            500:    Internal Server Error
+            200:    Everything is shiny
+            204:    No results
+        """
+        # TODO: 204 en 500 ook ergens teruggeven
+        cursor = mr.search_location_frequency().find()
+        print cursor
+        statusCode = 200
+        resp = make_response(dumps(cursor), statusCode)
+        return resp

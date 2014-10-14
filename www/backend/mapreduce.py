@@ -68,8 +68,6 @@ def search_location_frequency():
     map = Code(open('./maps/location_frequency.js', 'r').read())
     reduce = Code(open('./reduces/frequency.js', 'r').read())
     result = db.connection.wacc.searches.map_reduce(map, reduce, "myresults")
-    for doc in result.find():
-        print doc
     return result
 
 
