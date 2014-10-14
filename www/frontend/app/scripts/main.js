@@ -14,7 +14,9 @@ require.config({
         'angular-facebook': '../vendor/facebook/ngFacebook/ngFacebook',
         'angular-linkedin': '../vendor/linkedin/ngLinkedIn/ngLinkedIn',
         'angular-mdFive': '../vendor/angular-md5/angular-md5',
-        'angular-http-loader': '../vendor/angular-http-loader/angular-http-loader'
+        'angular-http-loader': '../vendor/angular-http-loader/angular-http-loader',
+        'fs-dangle': '../vendor/dangle/dangle',
+        'dThree': '../vendor/d3/d3'
     },
 
     /**
@@ -40,6 +42,9 @@ require.config({
         },
         'angular-http-loader':{
         	deps: ['angular']
+        },
+        'fs-dangle':{
+            deps: ['dThree', 'angular']
         }        
     },
     deps: [

@@ -14,7 +14,7 @@ define(['./module'], function(controllers) {
 						$scope.searches = searches;
 					},
 					function(error){
-						console.log('Error!')
+						console.log('Error!');
 						$scope.error = 'The request for all searches failed.';
 					}
 				);
@@ -28,7 +28,7 @@ define(['./module'], function(controllers) {
 						$scope.stalkers = stalkers;
 					},
 					function(error){
-						console.log('Error!')
+						console.log('Error!');
 						$scope.error = 'The request for all stalkers failed.';
 					}
 				);
@@ -40,11 +40,11 @@ define(['./module'], function(controllers) {
 				$scope.error = {};
 				apiService.getFrequency('location').then(
 					function(locations){
-						$scope.location_data = 
+						$scope.locationData = 
 							{
 								entries: locations.data
-							}
-						console.log($scope.location_data);
+							};
+						console.log($scope.locationData);
 					},
 					function(error){
 						console.log('Error!');
@@ -61,7 +61,7 @@ define(['./module'], function(controllers) {
 						$scope.victims = victims;
 					},
 					function(error){
-						console.log('Error!')
+						console.log('Error!');
 						$scope.error = 'The requenst for all victims failed.';
 					}
 				);

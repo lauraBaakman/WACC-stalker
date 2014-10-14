@@ -10,6 +10,7 @@ define([
     'angular-mdFive',
     'angular-http-loader',
     'jquery',
+    'fs-dangle',
     './controllers/index',
     './directives/index',
     './filters/index',
@@ -22,11 +23,12 @@ define([
         'ngFacebook',
         'ngLinkedIn',
         'ngMd5',
+        'dangle',
         'app.controllers',
         'app.directives',
         'app.filters',
         'app.services',
-        'ngRoute'
+        'ngRoute',
     ]).config(function($facebookProvider, $linkedInProvider, httpMethodInterceptorProvider) {
     	httpMethodInterceptorProvider.whitelistDomain('facebook.com');
     	httpMethodInterceptorProvider.whitelistDomain('linkedin.com');
