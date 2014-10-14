@@ -28,6 +28,13 @@ define(['./module'], function(services) {
                     });
                 },
 
+                getFrequency : function(param) {
+                    return $http.get(this.baseurl + 'statistics/' + param + '/frequency');
+                    then(function(result) {
+                        return result.data;
+                    });
+                },
+
                 // POSTS
                 postSearch: function(postData) {
 					return $http.post(this.baseurl + 'search', postData);

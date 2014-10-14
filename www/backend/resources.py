@@ -178,9 +178,9 @@ class StatisticsLocationFrequency(Resource):
         """
         # TODO: 204 en 500 ook ergens teruggeven
         cursor = mr.search_location_frequency().find()
-        print cursor
         statusCode = 200
         resp = make_response(dumps(cursor), statusCode)
+        print "Getting ready to return from StatisticsLocationFrequency get!"
         return resp
 
 class StatisticsRelationshipFrequency(Resource):

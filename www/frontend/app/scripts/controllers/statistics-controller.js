@@ -34,6 +34,22 @@ define(['./module'], function(controllers) {
 				);
 			};
 
+			this.getLocationFrequency = function() {
+				console.log('In getLocationFrequency');
+				$scope.locationFreq = [];
+				$scope.error = {};
+				apiService.getFrequency('location').then(
+					function(locations){
+						console.log(locations);
+						$scope.locationFreq = locations.data;
+					},
+					function(error){
+						console.log('Error!');
+						$scope.error = 'The request for statistics has failed.';
+					}
+				);				
+			};
+
 			this.getAllVictims = function() {
 				$scope.victims = [];
 				$scope.error = {};
