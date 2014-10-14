@@ -951,6 +951,7 @@ angular.module('dangle')
                                 .attr("class", "value")
                                 .attr('font-size', 20)
                                 .attr('font-weight', 'bold')
+                                .attr('fill', '#fff')
                                 .attr("transform", function(d) {
                                     return "translate(" + 
                                         Math.cos(((d.startAngle + d.endAngle - Math.PI)/2)) * (outerRadius + textOffset) + "," + 
@@ -1005,7 +1006,7 @@ angular.module('dangle')
                                 .attr("class", "units")
                                 .attr('font-size', 16)
                                 .attr('stroke', 'none')
-                                .attr('fill', '#000')
+                                .attr('fill', '#fff')
                                 .attr("transform", function(d) {
                                     return "translate(" + 
                                         Math.cos(((d.startAngle + d.endAngle - Math.PI)/2)) * (outerRadius + textOffset) + "," + 
