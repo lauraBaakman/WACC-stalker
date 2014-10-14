@@ -28,10 +28,11 @@ class SearchResource(Resource):
             HTTP POST request.
             Parameters:
                 JSon object with the keys:
-                    stalker:    required, string
-                    lat:        required, float
-                    long:       required, float
-                    victim:     optional, string, default: ""
+                    stalker:        required, string
+                    lat:            required, float
+                    long:           required, float
+                    country_code:   required, three letter string
+                    victim:         optional, string, default: ""
             Return codes:
                 500:    Internal server Error
                 201:    Created the search object
@@ -43,6 +44,7 @@ class SearchResource(Resource):
             search.stalker_id = json['stalker']
             search.location['lat'] = json['lat']
             search.location['long'] = json['long']
+            search.location['country_code'] = json['country_code']
 
             # Optional parameters
             search.victim_id = json.get('victim', u'')
