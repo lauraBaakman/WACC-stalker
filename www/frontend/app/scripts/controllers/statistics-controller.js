@@ -40,7 +40,11 @@ define(['./module'], function(controllers) {
 				$scope.error = {};
 				apiService.getFrequency('location').then(
 					function(locations){
-						$scope.locationFreq = locations.data;
+						$scope.location_data = 
+							{
+								entries: locations.data
+							}
+						console.log($scope.location_data);
 					},
 					function(error){
 						console.log('Error!');

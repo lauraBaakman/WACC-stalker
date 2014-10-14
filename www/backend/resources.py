@@ -187,8 +187,8 @@ class StatisticsLocationFrequency(Resource):
         #     'value': fields.String(attribute='count')
         # }
         output_fields = {
-            'label': fields.String(attribute='_id'),
-            'count': fields.Integer(attribute='value')
+            'count': fields.Integer(attribute='value'),
+            'label': fields.String(attribute='_id')
         }
         cursor = mr.search_location_frequency().find()
         results = []
