@@ -40,7 +40,6 @@ define(['./module'], function(controllers) {
 				$scope.error = {};
 				apiService.getFrequency('location').then(
 					function(locations){
-						console.log(locations);
 						$scope.locationFreq = locations.data;
 					},
 					function(error){

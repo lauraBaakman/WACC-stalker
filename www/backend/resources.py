@@ -1,5 +1,5 @@
 """ . """
-from flask.ext.restful import Resource, request
+from flask.ext.restful import Resource, request, fields, marshal
 from flask import make_response
 from bson.json_util import dumps
 
@@ -13,11 +13,12 @@ class SearchResource(Resource):
 
     def get(self):
         """
-            HTTP GET request.
-            Parameters:
-                None
-            Return codes:
-                200:   Success
+        HTTP GET request.
+
+        Parameters:
+            None
+        Return codes:
+            200:   Success
         """
         cursor = db.connection.wacc.searches.find()
         print cursor
@@ -27,17 +28,18 @@ class SearchResource(Resource):
 
     def post(self):
         """
-            HTTP POST request.
-            Parameters:
-                JSon object with the keys:
-                    stalker:        required, string
-                    lat:            required, float
-                    long:           required, float
-                    country_code:   required, three letter string
-                    victim:         optional, string, default: ""
-            Return codes:
-                500:    Internal server Error
-                201:    Created the search object
+        HTTP POST request.
+
+        Parameters:
+            JSon object with the keys:
+                stalker:        required, string
+                lat:            required, float
+                long:           required, float
+                country_code:   required, three letter string
+                victim:         optional, string, default: ""
+        Return codes:
+            500:    Internal server Error
+            201:    Created the search object
         """
         try:
             json = request.json
@@ -68,32 +70,33 @@ class StalkerResource(Resource):
 
     def get(self):
         """
-            HTTP GET request.
-            Parameters:
-                None
-            Return codes:
-                200:   Success
+        HTTP GET request.
+
+        Parameters:
+            None
+        Return codes:
+            200:   Success
         """
         cursor = db.connection.wacc.stalkers.find()
         statusCode = 200
         resp = make_response(dumps(cursor), statusCode)
         return resp
 
-
     def post(self):
         """
-            HTTP POST request.
-            Parameters:
-                JSon object with the keys:
-                    stalker_id:             required, string
-                    relationship_status:    required, string
-                    birthdate:              required, string
-                    gender:                 required, string
-                    linkedIn_id:            optional, string, default: ''
-                    industry:               optional, string, default: ''
-            Return codes:
-                500:    Internal server Error
-                201:    Created the stalker object
+        HTTP POST request.
+
+        Parameters:
+            JSon object with the keys:
+                stalker_id:             required, string
+                relationship_status:    required, string
+                birthdate:              required, string
+                gender:                 required, string
+                linkedIn_id:            optional, string, default: ''
+                industry:               optional, string, default: ''
+        Return codes:
+            500:    Internal server Error
+            201:    Created the stalker object
         """
         import pdb
         pdb.set_trace()
@@ -125,27 +128,28 @@ class VictimResource(Resource):
 
     def get(self):
         """
-            HTTP GET request.
-            Parameters:
-                None
-            Return codes:
-                200:   Success
+        HTTP GET request.
+
+        Parameters:
+            None
+        Return codes:
+            200:   Success
         """
         cursor = db.connection.wacc.victims.find()
         statusCode = 200
         resp = make_response(dumps(cursor), statusCode)
         return resp
 
-
     def post(self):
         """
-            HTTP POST request.
-            Parameters:
-                JSon object with the keys:
-                    victim_id:      required, string
-            Return codes:
-                500:    Internal server Error
-                201:    Created the victim object
+        HTTP POST request.
+
+        Parameters:
+            JSon object with the keys:
+                victim_id:      required, string
+        Return codes:
+            500:    Internal server Error
+            201:    Created the victim object
         """
         try:
             json = request.json
@@ -169,6 +173,7 @@ class StatisticsLocationFrequency(Resource):
     def get(self):
         """
         HTTP GET request.
+
         Parameters:
             None
         Return codes:
@@ -176,12 +181,28 @@ class StatisticsLocationFrequency(Resource):
             200:    Everything is shiny
             204:    No results
         """
-        # TODO: 204 en 500 ook ergens teruggeven
+        # TODO: return 204 or 500 when relevant
+        # output_fields = {
+        #     '_id': fields.String(attribute='label'),
+        #     'value': fields.String(attribute='count')
+        # }
+        output_fields = {
+            'label': fields.String(attribute='_id'),
+            'count': fields.Integer(attribute='value')
+        }
         cursor = mr.search_location_frequency().find()
+        results = []
+        for res in cursor:
+            # print res
+            marshalled_res = marshal(res, output_fields)
+            print marshalled_res
+            results.append(marshalled_res)
+
         statusCode = 200
-        resp = make_response(dumps(cursor), statusCode)
-        print "Getting ready to return from StatisticsLocationFrequency get!"
+
+        resp = make_response(dumps(results), statusCode)
         return resp
+
 
 class StatisticsRelationshipFrequency(Resource):
 
@@ -190,6 +211,7 @@ class StatisticsRelationshipFrequency(Resource):
     def get(self):
         """
         HTTP GET request.
+
         Parameters:
             None
         Return codes:
