@@ -182,3 +182,24 @@ class StatisticsLocationFrequency(Resource):
         statusCode = 200
         resp = make_response(dumps(cursor), statusCode)
         return resp
+
+class StatisticsRelationshipFrequency(Resource):
+
+    """Resource class to get the relationship frequency."""
+
+    def get(self):
+        """
+        HTTP GET request.
+        Parameters:
+            None
+        Return codes:
+            500:    Internal Server Error
+            200:    Everything is shiny
+            204:    No results
+        """
+        # TODO: 204 en 500 ook ergens teruggeven
+        cursor = mr.stalker_relationship_frequency().find()
+        print cursor
+        statusCode = 200
+        resp = make_response(dumps(cursor), statusCode)
+        return resp
