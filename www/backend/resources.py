@@ -2,6 +2,8 @@
 from flask.ext.restful import Resource, request, fields, marshal
 from flask import make_response
 from bson.json_util import dumps
+import pymongo
+import itertools
 
 import database as db
 import mapreduce as mr
@@ -191,8 +193,10 @@ class StatisticsLocationFrequency(Resource):
             'term': fields.String(attribute='_id')
         }
         cursor = mr.search_location_frequency().find()
+        cursor.sort('value', pymongo.DESCENDING)
+        top_x_results = itertools.islice(cursor, 10)
         results = []
-        for res in cursor:
+        for res in top_x_results:
             # print res
             marshalled_res = marshal(res, output_fields)
             print marshalled_res

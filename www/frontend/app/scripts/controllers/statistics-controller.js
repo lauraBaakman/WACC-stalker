@@ -40,29 +40,15 @@ define(['./module'], function(controllers) {
                 $scope.error = {};
                 apiService.getFrequency('location').then(
                     function(locations) {
-                        var resultsA = {
-                            Sex: {
-                                _type: "terms",
-                                terms: [{
-                                    term: "Male",
-                                    count: 36
-                                }, {
-                                    term: "Female",
-                                    count: 148
-                                }]
-                            }
-                        };
-                        $scope.results = resultsA;
-                        $scope.locationData = {
+                        $scope.locationData = {	
                         	Data: {
 	                            _type: "terms",
 	                            terms: locations.data
                         	}
                         };
-                        console.log($scope.locationData);
-                        console.log($scope.results);
                     },
                     function(error) {
+                    	// TODO: Report to user
                         console.log('Error!');
                         $scope.error = 'The request for statistics has failed.';
                     }

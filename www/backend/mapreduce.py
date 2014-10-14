@@ -4,11 +4,14 @@ from bson import Code
 
 from models import Stalker, Search, Victim
 
+
 def stalker_relationship_frequency():
     """Method to get the frquency of relationship status of stalkers."""
     map = Code(open('./maps/relationship_frequency.js', 'r').read())
     reduce = Code(open('./reduces/frequency.js', 'r').read())
-    result = db.connection.wacc.stalkers.map_reduce(map, reduce, "myresults")
+    result = db.connection.wacc.stalkers.map_reduce(
+        map, reduce, "myresults"
+    )
     return result
 
 

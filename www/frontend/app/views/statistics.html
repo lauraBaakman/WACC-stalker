@@ -10,21 +10,14 @@
             <i class="btn btn-default fa fa-refresh"></i> Locations:
         </h3>
     </div>
-<!-- 
+
     <div class="row">
-        <div class="col-xs-12">
-            <fs:bar bind="locationData.Data" />
-        </div>
-    </div> -->
+        <div class='col-xs-2 col-xs-offset-5' ng-include src="'views/spinner.html'" loading></div>
+    </div>
 
     <div class="row">
         <div class="col-xs-12">
             <fs:donut outer-radius="200" inner-radius="75" duration="750" bind="locationData.Data" />
         </div>
-    </div>
-
-
-    <div class="row">
-        <div class='col-xs-2 col-xs-offset-5' ng-include src="'views/spinner.html'" loading></div>
     </div>
 </div>
