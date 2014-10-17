@@ -1,9 +1,5 @@
 """ . """
-<<<<<<< HEAD
-from flask.ext.restful import Resource, request, reqparse
-=======
 from flask.ext.restful import Resource, request, fields, marshal
->>>>>>> statisticsBackEnd
 from flask import make_response
 from bson.json_util import dumps
 import pymongo
