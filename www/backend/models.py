@@ -40,7 +40,8 @@ class Search(Document):
         'stalker_id': unicode,
         'location': {
             'lat': float,
-            'long': float
+            'long': float,
+            'country_code': unicode
         },
         'victim_id': unicode,
         'creation_time': datetime

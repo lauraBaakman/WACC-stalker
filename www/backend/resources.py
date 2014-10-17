@@ -1,9 +1,16 @@
 """ . """
+<<<<<<< HEAD
 from flask.ext.restful import Resource, request, reqparse
+=======
+from flask.ext.restful import Resource, request, fields, marshal
+>>>>>>> statisticsBackEnd
 from flask import make_response
 from bson.json_util import dumps
+import pymongo
+import itertools
 
 import database as db
+import mapreduce as mr
 
 
 class SearchResource(Resource):
@@ -12,29 +19,33 @@ class SearchResource(Resource):
 
     def get(self):
         """
-            HTTP GET request.
-            Parameters:
-                None
-            Return codes:
-                200:   Success
+        HTTP GET request.
+
+        Parameters:
+            None
+        Return codes:
+            200:   Success
         """
         cursor = db.connection.wacc.searches.find()
+        print cursor
         statusCode = 200
         resp = make_response(dumps(cursor), statusCode)
         return resp
 
     def post(self):
         """
-            HTTP POST request.
-            Parameters:
-                JSon object with the keys:
-                    stalker:    required, string
-                    lat:        required, float
-                    long:       required, float
-                    victim:     optional, string, default: ""
-            Return codes:
-                500:    Internal server Error
-                201:    Created the search object
+        HTTP POST request.
+
+        Parameters:
+            JSon object with the keys:
+                stalker:        required, string
+                lat:            required, float
+                long:           required, float
+                country_code:   required, three letter string
+                victim:         optional, string, default: ""
+        Return codes:
+            500:    Internal server Error
+            201:    Created the search object
         """
         try:
             json = request.json
@@ -43,6 +54,7 @@ class SearchResource(Resource):
             search.stalker_id = json['stalker']
             search.location['lat'] = json['lat']
             search.location['long'] = json['long']
+            search.location['country_code'] = json['country_code']
 
             # Optional parameters
             search.victim_id = json.get('victim', u'')
@@ -64,32 +76,33 @@ class StalkerResource(Resource):
 
     def get(self):
         """
-            HTTP GET request.
-            Parameters:
-                None
-            Return codes:
-                200:   Success
+        HTTP GET request.
+
+        Parameters:
+            None
+        Return codes:
+            200:   Success
         """
         cursor = db.connection.wacc.stalkers.find()
         statusCode = 200
         resp = make_response(dumps(cursor), statusCode)
         return resp
 
-
     def post(self):
         """
-            HTTP POST request.
-            Parameters:
-                JSon object with the keys:
-                    stalker_id:             required, string
-                    relationship_status:    required, string
-                    birthdate:              required, string
-                    gender:                 required, string
-                    linkedIn_id:            optional, string, default: ''
-                    industry:               optional, string, default: ''
-            Return codes:
-                500:    Internal server Error
-                201:    Created the stalker object
+        HTTP POST request.
+
+        Parameters:
+            JSon object with the keys:
+                stalker_id:             required, string
+                relationship_status:    required, string
+                birthdate:              required, string
+                gender:                 required, string
+                linkedIn_id:            optional, string, default: ''
+                industry:               optional, string, default: ''
+        Return codes:
+            500:    Internal server Error
+            201:    Created the stalker object
         """
         import pdb
         pdb.set_trace()
@@ -132,27 +145,28 @@ class VictimResource(Resource):
 
     def get(self):
         """
-            HTTP GET request.
-            Parameters:
-                None
-            Return codes:
-                200:   Success
+        HTTP GET request.
+
+        Parameters:
+            None
+        Return codes:
+            200:   Success
         """
         cursor = db.connection.wacc.victims.find()
         statusCode = 200
         resp = make_response(dumps(cursor), statusCode)
         return resp
 
-
     def post(self):
         """
-            HTTP POST request.
-            Parameters:
-                JSon object with the keys:
-                    victim_id:      required, string
-            Return codes:
-                500:    Internal server Error
-                201:    Created the victim object
+        HTTP POST request.
+
+        Parameters:
+            JSon object with the keys:
+                victim_id:      required, string
+        Return codes:
+            500:    Internal server Error
+            201:    Created the victim object
         """
         try:
             args = self.req_parser.parse_args()
@@ -168,3 +182,66 @@ class VictimResource(Resource):
             print e
             return 'Internal Server Error', 500
         return 'Received victim', 201
+
+
+class StatisticsLocationFrequency(Resource):
+
+    """Resource class to get the location frequency."""
+
+    def get(self):
+        """
+        HTTP GET request.
+
+        Parameters:
+            None
+        Return codes:
+            500:    Internal Server Error
+            200:    Everything is shiny
+            204:    No results
+        """
+        # TODO: return 204 or 500 when relevant
+        # output_fields = {
+        #     '_id': fields.String(attribute='label'),
+        #     'value': fields.String(attribute='count')
+        # }
+        output_fields = {
+            'count': fields.Integer(attribute='value'),
+            'term': fields.String(attribute='_id')
+        }
+        cursor = mr.search_location_frequency().find()
+        cursor.sort('value', pymongo.DESCENDING)
+        top_x_results = itertools.islice(cursor, 10)
+        results = []
+        for res in top_x_results:
+            # print res
+            marshalled_res = marshal(res, output_fields)
+            print marshalled_res
+            results.append(marshalled_res)
+
+        statusCode = 200
+
+        resp = make_response(dumps(results), statusCode)
+        return resp
+
+
+class StatisticsRelationshipFrequency(Resource):
+
+    """Resource class to get the relationship frequency."""
+
+    def get(self):
+        """
+        HTTP GET request.
+
+        Parameters:
+            None
+        Return codes:
+            500:    Internal Server Error
+            200:    Everything is shiny
+            204:    No results
+        """
+        # TODO: 204 en 500 ook ergens teruggeven
+        cursor = mr.stalker_relationship_frequency().find()
+        print cursor
+        statusCode = 200
+        resp = make_response(dumps(cursor), statusCode)
+        return resp

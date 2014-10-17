@@ -1,9 +1,10 @@
 """ . """
-from flask import Flask, make_response, request
+from flask import Flask, request
 from flask.ext.restful import Api
 from flask.ext.cors import CORS
+import sys
 
-from resources import SearchResource, VictimResource, StalkerResource
+from resources import *
 from models import Stalker, Search, Victim
 
 import database as db
@@ -39,15 +40,18 @@ def add_cors(resp):
 db.init()
 db.connection.register([Stalker, Search, Victim])
 
-import test_data as td
-
-td.clear(db.connection)
-td.populate(db.connection)
-
 # Set up of the actual routing
 api.add_resource(SearchResource, '/search')
 api.add_resource(VictimResource, '/victim')
 api.add_resource(StalkerResource, '/stalker')
+api.add_resource(StatisticsLocationFrequency, '/statistics/location/frequency')
+api.add_resource(StatisticsRelationshipFrequency, '/statistics/relationship/frequency')
 
 if __name__ == '__main__':
+    if(len(sys.argv) > 1):
+        print "Generating new test data"
+        # Generate test data
+        import test_data as td
+        td.clear(db.connection)
+        td.populate(db.connection)
     app.run(debug=True)
