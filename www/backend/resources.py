@@ -1,9 +1,10 @@
 """ . """
-from flask.ext.restful import Resource, request, fields, marshal
+from flask.ext.restful import Resource, request, fields, marshal, reqparse
 from flask import make_response
 from bson.json_util import dumps
 import pymongo
 import itertools
+import sys
 
 import database as db
 import mapreduce as mr
@@ -100,8 +101,8 @@ class StalkerResource(Resource):
             500:    Internal server Error
             201:    Created the stalker object
         """
-        import pdb
-        pdb.set_trace()
+        #import pdb
+        #pdb.set_trace()
         try:
             json = request.json
 
@@ -148,10 +149,22 @@ class VictimResource(Resource):
         Return codes:
             200:   Success
         """
-        cursor = db.connection.wacc.victims.find()
-        statusCode = 200
-        resp = make_response(dumps(cursor), statusCode)
-        return resp
+        output_fields = {
+            'victim_id': fields.String(attribute='victim_id')
+        }
+        status_code = 200
+        response = []
+
+        try: 
+            results = db.connection.wacc.victims.find()
+
+            for result in results:
+                response.append(marshal(result, output_fields))
+        except:
+            response = {'error': 'Something went terribly wrong.'}
+            status_code = 500
+
+        return make_response(dumps(response), status_code)
 
     def post(self):
         """
@@ -164,9 +177,12 @@ class VictimResource(Resource):
             500:    Internal server Error
             201:    Created the victim object
         """
+
+        status_code = 201
+        response = "OK: Received victim"
+
         try:
             args = self.req_parser.parse_args()
-            #json = request.json
 
             victim = db.connection.Victim()
 
@@ -175,9 +191,10 @@ class VictimResource(Resource):
 
             victim.save()
         except Exception, e:
-            print e
-            return 'Internal Server Error', 500
-        return 'Received victim', 201
+            response = "Internal Server Error"
+            status_code = 500
+
+        return response, status_code
 
 
 class StatisticsLocationFrequency(Resource):
@@ -195,29 +212,32 @@ class StatisticsLocationFrequency(Resource):
             200:    Everything is shiny
             204:    No results
         """
-        # TODO: return 204 or 500 when relevant
-        # output_fields = {
-        #     '_id': fields.String(attribute='label'),
-        #     'value': fields.String(attribute='count')
-        # }
+
+        # Limit the result TODO: make this configurable.
+        x = 10;
+        
+        # Filters the result to more appropriate output form.
         output_fields = {
             'count': fields.Integer(attribute='value'),
             'term': fields.String(attribute='_id')
         }
-        cursor = mr.search_location_frequency().find()
-        cursor.sort('value', pymongo.DESCENDING)
-        top_x_results = itertools.islice(cursor, 10)
-        results = []
-        for res in top_x_results:
-            # print res
-            marshalled_res = marshal(res, output_fields)
-            print marshalled_res
-            results.append(marshalled_res)
 
-        statusCode = 200
+        # Response list and status code 
+        response = []
+        status_code = 200
 
-        resp = make_response(dumps(results), statusCode)
-        return resp
+        try:
+            # Sort the result DESCENDING and limit it to the first x results. 
+            top_x_results = mr.search_location_frequency().find(limit=x, sort=[('value', pymongo.DESCENDING)])
+
+            # Marshal every document with output_fields.
+            for result in top_x_results:
+                response.append(marshal(result, output_fields))
+        except: # TODO: return 204 or 500 when relevant
+            response = {'error': 'Something went terribly wrong.'}
+            status_code = 500
+        
+        return make_response(dumps(response), status_code)
 
 
 class StatisticsRelationshipFrequency(Resource):
@@ -235,9 +255,24 @@ class StatisticsRelationshipFrequency(Resource):
             200:    Everything is shiny
             204:    No results
         """
-        # TODO: 204 en 500 ook ergens teruggeven
-        cursor = mr.stalker_relationship_frequency().find()
-        print cursor
-        statusCode = 200
-        resp = make_response(dumps(cursor), statusCode)
-        return resp
+        
+        x = 10
+
+        output_fields = {
+            'count': fields.Integer(attribute='value'),
+            'term': fields.String(attribute='_id')
+        }
+
+        response = []
+        status_code = 200
+
+        try:
+             top_x_results = mr.stalker_relationship_frequency().find(limit=x, sort=[('value', pymongo.DESCENDING)])
+
+             for result in top_x_results:
+                response.append(marshal(result, output_fields))
+        except:
+            response = {'error': 'Something went terribly wrong'}
+            status_code = 500
+
+        return make_response(dumps(response), status_code)

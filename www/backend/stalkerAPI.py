@@ -48,10 +48,12 @@ api.add_resource(StatisticsLocationFrequency, '/statistics/location/frequency')
 api.add_resource(StatisticsRelationshipFrequency, '/statistics/relationship/frequency')
 
 if __name__ == '__main__':
+    import test_data as td
+    td.clear(db.connection)
+    
     if(len(sys.argv) > 1):
         print "Generating new test data"
         # Generate test data
-        import test_data as td
         td.clear(db.connection)
         td.populate(db.connection)
     app.run(debug=True)
