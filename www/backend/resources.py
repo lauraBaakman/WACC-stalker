@@ -71,6 +71,53 @@ class StalkerResource(Resource):
 
     """ Resource class. """
 
+    def __init__(self):
+        """ Initialization. """
+        self.req_parser = reqparse.RequestParser()
+        self.req_parser.add_argument(
+            'stalker_id',
+            required=True,
+            type=unicode,
+            location='json',
+            help='stalker_id is required'
+        )
+        self.req_parser.add_argument(
+            'relationship_status',
+            required=False,
+            default=u'',
+            type=unicode,
+            location='json',
+            help='relationshipt_status is required'
+        )
+        self.req_parser.add_argument(
+            'birthdate',
+            required=True,
+            type=unicode,
+            location='json',
+            help='birthdate is required'
+        )
+        self.req_parser.add_argument(
+            'gender',
+            required=True,
+            type=unicode,
+            location='json',
+            help='gender is required'
+        )
+        self.req_parser.add_argument(
+            'linkedIn_id',
+            required=False,
+            default=u'',
+            type=unicode,
+            location='json'
+        )
+        self.req_parser.add_argument(
+            'industry',
+            required=False,
+            default=u'',
+            type=unicode,
+            location='json'
+        )
+
     def get(self):
         """
         HTTP GET request.
@@ -80,10 +127,29 @@ class StalkerResource(Resource):
         Return codes:
             200:   Success
         """
-        cursor = db.connection.wacc.stalkers.find()
-        statusCode = 200
-        resp = make_response(dumps(cursor), statusCode)
-        return resp
+
+        output_fields = {
+            'stalker_id': fields.String(attribute='stalker_id'),
+            'relationship_status': fields.String(attribute='relationship_status', default=''),
+            'birthdate': fields.String(attribute='birthdate'),
+            'gender': fields.String(attribute='gender'),
+            'linkedIn_id': fields.String(attribute='linkedIn_id', default=''),
+            'industry': fields.String(attribute='industry', default='')
+        }
+
+        status_code = 200
+        response = []
+
+        try: 
+            results = db.connection.wacc.stalkers.find()
+
+            for result in results:
+                response.append(marshal(result, output_fields))
+        except:
+            response = {'message': 'Something went terribly wrong.', 'status_code': status_code}
+            status_code = 500
+
+        return make_response(dumps(response), status_code)
 
     def post(self):
         """
@@ -92,7 +158,7 @@ class StalkerResource(Resource):
         Parameters:
             JSon object with the keys:
                 stalker_id:             required, string
-                relationship_status:    required, string
+                relationship_status:    optional, string, default: ''
                 birthdate:              required, string
                 gender:                 required, string
                 linkedIn_id:            optional, string, default: ''
@@ -101,28 +167,32 @@ class StalkerResource(Resource):
             500:    Internal server Error
             201:    Created the stalker object
         """
-        #import pdb
-        #pdb.set_trace()
+        
+        status_code = 201
+        response_msg = 'OK: Received stalker.'
+
         try:
-            json = request.json
+            args = self.req_parser.parse_args()
 
             stalker = db.connection.Stalker()
 
             # Required parameters
-            stalker.stalker_id = json['stalker_id']
-            stalker.birthdate = json['birthdate']
-            stalker.gender = json['gender']
+            stalker.stalker_id = args['stalker_id']
+            stalker.birthdate = args['birthdate']
+            stalker.gender = args['gender']
 
             # Optional parameters
-            stalker.linkedIn_id = json.get('linkedIn_id', u'')
-            stalker.industry = json.get('industry', u'')
-            stalker.relationship_status = json.get('relationship_status', u'')
+            stalker.linkedIn_id = args['linkedIn_id']
+            stalker.industry = args['industry']
+            stalker.relationship_status = args['relationship_status']
 
             stalker.save()
         except Exception, e:
             print e
-            return 'Internal Server Error', 500
-        return 'Received stalker', 201
+            status_code = 500
+            response_msg = "Internal server error."
+
+        return {'message': response_msg, 'status_code': status_code}, status_code
 
 
 class VictimResource(Resource):
@@ -173,14 +243,14 @@ class VictimResource(Resource):
 
         Parameters:
             JSon object with the keys:
-                victim_id:      required, string
+                victim_id:      required, unicode
         Return codes:
             500:    Internal server Error
             201:    Created the victim object
         """
 
         status_code = 201
-        response = 'OK: Received victim.'
+        response_msg = 'OK: Received victim.'
 
         try:
             args = self.req_parser.parse_args()
@@ -192,7 +262,7 @@ class VictimResource(Resource):
             victim.save()
         except Exception, e:
             status_code = 500
-            response = "Internal Server Error."
+            response_msg = "Internal Server Error."
 
         return {'message': response_msg, 'status_code': status_code}, status_code
 
