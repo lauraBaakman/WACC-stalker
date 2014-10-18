@@ -152,6 +152,7 @@ class VictimResource(Resource):
         output_fields = {
             'victim_id': fields.String(attribute='victim_id')
         }
+
         status_code = 200
         response = []
 
@@ -161,7 +162,7 @@ class VictimResource(Resource):
             for result in results:
                 response.append(marshal(result, output_fields))
         except:
-            response = {'error': 'Something went terribly wrong.'}
+            response = {'message': 'Something went terribly wrong.', 'status_code': status_code}
             status_code = 500
 
         return make_response(dumps(response), status_code)
@@ -179,22 +180,21 @@ class VictimResource(Resource):
         """
 
         status_code = 201
-        response = "OK: Received victim"
+        response = 'OK: Received victim.'
 
         try:
             args = self.req_parser.parse_args()
 
             victim = db.connection.Victim()
 
-            # Required parameters
             victim.victim_id = args['victim_id']
 
             victim.save()
         except Exception, e:
-            response = "Internal Server Error"
             status_code = 500
+            response = "Internal Server Error."
 
-        return response, status_code
+        return {'message': response_msg, 'status_code': status_code}, status_code
 
 
 class StatisticsLocationFrequency(Resource):
@@ -223,8 +223,8 @@ class StatisticsLocationFrequency(Resource):
         }
 
         # Response list and status code 
-        response = []
         status_code = 200
+        response = []
 
         try:
             # Sort the result DESCENDING and limit it to the first x results. 
@@ -234,7 +234,7 @@ class StatisticsLocationFrequency(Resource):
             for result in top_x_results:
                 response.append(marshal(result, output_fields))
         except: # TODO: return 204 or 500 when relevant
-            response = {'error': 'Something went terribly wrong.'}
+            response = {'message': 'Something went terribly wrong.', 'status_code': status_code}
             status_code = 500
         
         return make_response(dumps(response), status_code)
@@ -263,16 +263,16 @@ class StatisticsRelationshipFrequency(Resource):
             'term': fields.String(attribute='_id')
         }
 
-        response = []
         status_code = 200
-
+        response = []
+        
         try:
              top_x_results = mr.stalker_relationship_frequency().find(limit=x, sort=[('value', pymongo.DESCENDING)])
 
              for result in top_x_results:
                 response.append(marshal(result, output_fields))
         except:
-            response = {'error': 'Something went terribly wrong'}
+            response = {'message': 'Something went terribly wrong.', 'status_code': status_code}
             status_code = 500
 
         return make_response(dumps(response), status_code)
