@@ -14,6 +14,45 @@ class SearchResource(Resource):
 
     """ Resources class. """
 
+    def __init__(self):
+        """ Initialization. """
+        self.req_parser = reqparse.RequestParser()
+        self.req_parser.add_argument(
+            'stalker_id',
+            required=True,
+            type=unicode,
+            location='json',
+            help='stalker_id is required'
+        )
+        self.req_parser.add_argument(
+            'lat',
+            required=True,
+            type=float,
+            location='json',
+            help='lat is required'
+        )
+        self.req_parser.add_argument(
+            'long',
+            required=True,
+            type=float,
+            location='json',
+            help='long is required'
+        )
+        self.req_parser.add_argument(
+            'country_code',
+            required=True,
+            type=unicode,
+            location='json',
+            help='country_code is required'
+        )
+        self.req_parser.add_argument(
+            'victim_id',
+            required=False,
+            default=u'',
+            type=unicode,
+            location='json',
+        )
+
     def get(self):
         """
         HTTP GET request.
@@ -23,11 +62,32 @@ class SearchResource(Resource):
         Return codes:
             200:   Success
         """
-        cursor = db.connection.wacc.searches.find()
-        print cursor
-        statusCode = 200
-        resp = make_response(dumps(cursor), statusCode)
-        return resp
+
+        output_location_fields = {
+            'lat': fields.Float(attribute='lat'),
+            'long': fields.Float(attribute='long'),
+            'country_code': fields.String(attribute='country_code')
+        }
+
+        output_fields = {
+            'stalker_id': fields.String(attribute='stalker_id'),
+            'location': fields.Nested(output_location_fields),
+            'victim_id': fields.String(attribute='victim_id', default='')
+        }
+
+        status_code = 200
+        response = []
+
+        try: 
+            results = db.connection.wacc.searches.find()
+
+            for result in results:
+                response.append(marshal(result, output_fields))
+        except:
+            response = {'message': 'Something went terribly wrong.', 'status_code': status_code}
+            status_code = 500
+
+        return make_response(dumps(response), status_code)
 
     def post(self):
         """
@@ -35,31 +95,39 @@ class SearchResource(Resource):
 
         Parameters:
             JSon object with the keys:
-                stalker:        required, string
-                lat:            required, float
-                long:           required, float
-                country_code:   required, three letter string
-                victim:         optional, string, default: ""
+                stalker_id:        required, string
+                lat:                required, float
+                long:               required, float
+                country_code:       required, three letter string
+                victim_id:             optional, string, default: ""
         Return codes:
             500:    Internal server Error
             201:    Created the search object
         """
+
+        status_code = 201
+        response_msg = "OK: Received search"
+
         try:
-            json = request.json
-            print json
+            args = self.req_parser.parse_args()
+            
             search = db.connection.Search()
-            search.stalker_id = json['stalker']
-            search.location['lat'] = json['lat']
-            search.location['long'] = json['long']
-            search.location['country_code'] = json['country_code']
+
+            search.stalker_id = args['stalker_id']
+            search.location['lat'] = args['lat']
+            search.location['long'] = args['long']
+            search.location['country_code'] = args['country_code']
 
             # Optional parameters
-            search.victim_id = json.get('victim', u'')
+            search.victim_id = args['victim_id']
+
             search.save()
         except Exception, e:
             print e
-            return 'Internal Server Error', 500
-        return 'Received search', 201
+            status_code = 500
+            response_msg = "Internal server error."
+
+        return {'message': response_msg, 'status_code': status_code}
 
     def put(self, search_stalker_id):
         """ HTTP PUT request. """
@@ -262,7 +330,7 @@ class VictimResource(Resource):
             victim.save()
         except Exception, e:
             status_code = 500
-            response_msg = "Internal Server Error."
+            response_msg = "Internal server error."
 
         return {'message': response_msg, 'status_code': status_code}, status_code
 
