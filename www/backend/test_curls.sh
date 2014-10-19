@@ -44,4 +44,4 @@ curl $api_host/victim
 
 echo -e "Test PUT Methods"
 
-curl -X PUT -d "stalker_id=0001" -X PUT -v $api_host/stalker
+curl -X PUT -d "stalker_id=0001" $api_host/stalker

@@ -41,9 +41,10 @@ db.init()
 db.connection.register([Stalker, Search, Victim])
 
 # Set up of the actual routing
-api.add_resource(SearchResource, '/search')
-api.add_resource(VictimResource, '/victim')
-api.add_resource(StalkerResource, '/stalker')
+api.add_resource(SearchesResource, '/searches')
+api.add_resource(SearchResource, '/search/<int:id>')
+api.add_resource(VictimsResource, '/victims')
+api.add_resource(StalkersResource, '/stalkers')
 api.add_resource(StatisticsLocationFrequency, '/statistics/location/frequency')
 api.add_resource(StatisticsRelationshipFrequency, '/statistics/relationship/frequency')
 

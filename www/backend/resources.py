@@ -10,7 +10,7 @@ import database as db
 import mapreduce as mr
 
 
-class SearchResource(Resource):
+class SearchesResource(Resource):
 
     """ Resources class. """
 
@@ -52,6 +52,7 @@ class SearchResource(Resource):
             type=unicode,
             location='json',
         )
+        super(SearchesResource, self).__init__()
 
     def get(self):
         """
@@ -62,7 +63,6 @@ class SearchResource(Resource):
         Return codes:
             200:   Success
         """
-
         output_location_fields = {
             'lat': fields.Float(attribute='lat'),
             'long': fields.Float(attribute='long'),
@@ -78,13 +78,13 @@ class SearchResource(Resource):
         status_code = 200
         response = []
 
-        try: 
+        try:
             results = db.connection.wacc.searches.find()
 
             for result in results:
                 response.append(marshal(result, output_fields))
         except:
-            response = {'message': 'Something went terribly wrong.', 'status_code': status_code}
+            response = {'message': 'Something went terribly wrong.', 'status': status_code}
             status_code = 500
 
         return make_response(dumps(response), status_code)
@@ -104,13 +104,13 @@ class SearchResource(Resource):
             500:    Internal server Error
             201:    Created the search object
         """
-
         status_code = 201
         response_msg = "OK: Received search"
+        data = None
 
         try:
             args = self.req_parser.parse_args()
-            
+
             search = db.connection.Search()
 
             search.stalker_id = args['stalker_id']
@@ -122,20 +122,38 @@ class SearchResource(Resource):
             search.victim_id = args['victim_id']
 
             search.save()
+
+            data = search['_id']
         except Exception, e:
             print e
             status_code = 500
             response_msg = "Internal server error."
 
-        return {'message': response_msg, 'status_code': status_code}
-
-    def put(self, search_stalker_id):
-        """ HTTP PUT request. """
-        # TODO if there is a db.
-        return search_stalker_id, 201
+        return {'message': response_msg, 'data': data, 'status': status_code}, status_code
 
 
-class StalkerResource(Resource):
+class SearchResource(Resource):
+
+    """ Search update resource. """
+
+    def put(self, id):
+        """
+        HTTP PUT method to update a search with a victim.
+
+        The victim needs to be created and must be provides as victim_id
+        """
+        message = "OK"
+        status_code = 200
+
+        try:
+            db.connection.wacc.searches.find()
+        except Exception, e:
+            print e
+
+        return {'message': message, 'status': status_code}, status_code
+
+
+class StalkersResource(Resource):
 
     """ Resource class. """
 
@@ -195,7 +213,6 @@ class StalkerResource(Resource):
         Return codes:
             200:   Success
         """
-
         output_fields = {
             'stalker_id': fields.String(attribute='stalker_id'),
             'relationship_status': fields.String(attribute='relationship_status', default=''),
@@ -208,13 +225,13 @@ class StalkerResource(Resource):
         status_code = 200
         response = []
 
-        try: 
+        try:
             results = db.connection.wacc.stalkers.find()
 
             for result in results:
                 response.append(marshal(result, output_fields))
         except:
-            response = {'message': 'Something went terribly wrong.', 'status_code': status_code}
+            response = {'message': 'Something went terribly wrong.', 'status': status_code}
             status_code = 500
 
         return make_response(dumps(response), status_code)
@@ -235,7 +252,6 @@ class StalkerResource(Resource):
             500:    Internal server Error
             201:    Created the stalker object
         """
-        
         status_code = 201
         response_msg = 'OK: Received stalker.'
 
@@ -260,10 +276,10 @@ class StalkerResource(Resource):
             status_code = 500
             response_msg = "Internal server error."
 
-        return {'message': response_msg, 'status_code': status_code}, status_code
+        return {'message': response_msg, 'status': status_code}, status_code
 
 
-class VictimResource(Resource):
+class VictimsResource(Resource):
 
     """ Resource class. """
 
@@ -294,13 +310,13 @@ class VictimResource(Resource):
         status_code = 200
         response = []
 
-        try: 
+        try:
             results = db.connection.wacc.victims.find()
 
             for result in results:
                 response.append(marshal(result, output_fields))
         except:
-            response = {'message': 'Something went terribly wrong.', 'status_code': status_code}
+            response = {'message': 'Something went terribly wrong.', 'status': status_code}
             status_code = 500
 
         return make_response(dumps(response), status_code)
@@ -316,7 +332,6 @@ class VictimResource(Resource):
             500:    Internal server Error
             201:    Created the victim object
         """
-
         status_code = 201
         response_msg = 'OK: Received victim.'
 
@@ -332,7 +347,7 @@ class VictimResource(Resource):
             status_code = 500
             response_msg = "Internal server error."
 
-        return {'message': response_msg, 'status_code': status_code}, status_code
+        return {'message': response_msg, 'status': status_code}, status_code
 
 
 class StatisticsLocationFrequency(Resource):
@@ -350,31 +365,32 @@ class StatisticsLocationFrequency(Resource):
             200:    Everything is shiny
             204:    No results
         """
-
         # Limit the result TODO: make this configurable.
-        x = 10;
-        
+        x = 10
+
         # Filters the result to more appropriate output form.
         output_fields = {
             'count': fields.Integer(attribute='value'),
             'term': fields.String(attribute='_id')
         }
 
-        # Response list and status code 
+        # Response list and status code
         status_code = 200
         response = []
 
         try:
-            # Sort the result DESCENDING and limit it to the first x results. 
-            top_x_results = mr.search_location_frequency().find(limit=x, sort=[('value', pymongo.DESCENDING)])
+            # Sort the result DESCENDING and limit it to the first x results.
+            top_x_results = mr.search_location_frequency().find(
+                limit=x, sort=[('value', pymongo.DESCENDING)]
+            )
 
             # Marshal every document with output_fields.
             for result in top_x_results:
                 response.append(marshal(result, output_fields))
-        except: # TODO: return 204 or 500 when relevant
-            response = {'message': 'Something went terribly wrong.', 'status_code': status_code}
+        except:  # TODO: return 204 or 500 when relevant
+            response = {'message': 'Something went terribly wrong.', 'status': status_code}
             status_code = 500
-        
+
         return make_response(dumps(response), status_code)
 
 
@@ -393,7 +409,6 @@ class StatisticsRelationshipFrequency(Resource):
             200:    Everything is shiny
             204:    No results
         """
-        
         x = 10
 
         output_fields = {
@@ -403,14 +418,16 @@ class StatisticsRelationshipFrequency(Resource):
 
         status_code = 200
         response = []
-        
-        try:
-             top_x_results = mr.stalker_relationship_frequency().find(limit=x, sort=[('value', pymongo.DESCENDING)])
 
-             for result in top_x_results:
+        try:
+            top_x_results = mr.stalker_relationship_frequency().find(
+                limit=x, sort=[('value', pymongo.DESCENDING)]
+            )
+
+            for result in top_x_results:
                 response.append(marshal(result, output_fields))
         except:
-            response = {'message': 'Something went terribly wrong.', 'status_code': status_code}
+            response = {'message': 'Something went terribly wrong.', 'status': status_code}
             status_code = 500
 
         return make_response(dumps(response), status_code)
