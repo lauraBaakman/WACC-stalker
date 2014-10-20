@@ -1,47 +1,72 @@
 #!/bin/bash
 # API test script
 
+# Dependencies (MAC):
+#  brew install jsawk && brew install jsonpp
+
+# Dependencies (NOT MAC):
+#  - No idea probably the same ;-)
+
 clear
 
-api_host=http://localhost:5000
+# Set the default url 
+API=http://localhost:5000
 
-echo -e "Testing GET methods \n"
+echo -e "Checking for a clean slate. Everything should be empty. \n"
+# GET all the searches (Should return an array)
+curl -s -X GET $API/searches | jsawk -a 'if(this.length != 0) { return this; } else { return "Searches is empty"; }'
 
-echo -e "Search Resource: \n"
-curl $api_host/search
-echo -e "\n"
+# GET all stalkers
+curl -s -X GET $API/stalkers | jsawk -a 'if(this.length != 0) { return this; } else { return "Stalkers is empty"; }'
 
-echo -e "Stalker Resource: \n"
-curl $api_host/stalker
-echo -e "\n"
+# GET all victims
+curl -s -X GET $API/victims | jsawk -a 'if(this.length != 0) { return this; } else { return "Victims is empty"; }'
 
-echo -e "Victim Resource: \n"
-curl $api_host/victim
-echo -e "\n"
+echo -e "\nThe first thing that should happen: The user signing in with his Facebook account. Here we can create a new stalker.\n"
 
-echo -e "Testing POST methods \n"
+echo -e 'INPUT:\n{"stalker_id": "0002", "birthdate": "23-03-1990", "gender": "female"}'
 
-echo -e "Search Resource: "
+# POST a new stalker to the api
+echo 'OUTPUT: ' 
 
-curl -X POST -H "Content-Type: application/json" -d '{"stalker": "0002", "lat": 50.0, "long": 60.0, "victim": "0001"}' $api_host/search
+curl -s -X POST -H "Content-Type: application/json" -d '{"stalker_id": "0002", "relationship_status": "single", "birthdate": "23-03-1990", "gender": "female"}' $API/stalkers
 
-curl $api_host/search
+echo -e "\nAfter a user is signed in this user can use the search field to search. When the search button is clicked we can save the search.\n"
 
-echo -e "\n"
+echo -e 'INPUT:\n{"stalker": "0002", "lat": 50.0, "long": 60.0, "country_code": "NED"}'
 
-echo -e "Stalker Resource: "
+# POST a new search to the api, this will respond in a message including the id of the search we need to update it.
+ID=$(curl -s -X POST -H "Content-Type: application/json" -d '{"stalker_id": "0002", "lat": 50.0, "long": 60.0, "country_code": "NED"}' $API/searches | jsawk 'return this.data;')
 
-curl -X POST -H "Content-Type: application/json" -d '{"stalker_id": "0002", "relationship_status": "single", "birthdate": "23-03-1990", "gender": "female"}' $api_host/stalker
-curl $api_host/stalker
+echo -e "\nGET on all the data to see what is inserted.\n (victims should still be empty and search should not have a victim_id)"
 
-echo -e "\n"
+curl -s -X GET $API/searches | jsawk -a 'if(this.length != 0) { return this; } else { return "Searches is empty"; }' | jsonpp
 
-echo -e "Victim Resource: "
+# GET all stalkers
+curl -s -X GET $API/stalkers | jsawk -a 'if(this.length != 0) { return this; } else { return "Stalkers is empty"; }' | jsonpp
 
-curl -X POST -H "Content-Type: application/json" -d '{"victim_id": "0004"}' $api_host/victim
+# GET all victims
+curl -s -X GET $API/victims | jsawk -a 'if(this.length != 0) { return this; } else { return "Victims is empty"; }'
 
-curl $api_host/victim
+echo -e "\nNow creating a victim and updating the just created search.\n"
 
-echo -e "Test PUT Methods"
+echo -e 'INPUT: \n {"victim_id": "0004"}'
 
-curl -X PUT -d "stalker_id=0001" $api_host/stalker
+echo -e "OUTPUT: "
+curl -s -X POST -H "Content-Type: application/json" -d '{"victim_id": "0004"}' $API/victims
+
+echo -e '\nUdating search with INPUT: $ID and {"victim_id":"0004"}'
+
+echo -e "OUTPUT:"
+
+curl -s -X PUT -H "Content-Type: application/json" -d '{"victim_id": "0004"}' $API/search/$ID
+
+echo -e "\nFinal database state: \n"
+
+curl -s -X GET $API/searches | jsawk -a 'if(this.length != 0) { return this; } else { return "Searches is empty"; }' | jsonpp
+
+# GET all stalkers
+curl -s -X GET $API/stalkers | jsawk -a 'if(this.length != 0) { return this; } else { return "Stalkers is empty"; }' | jsonpp
+
+# GET all victims
+curl -s -X GET $API/victims | jsawk -a 'if(this.length != 0) { return this; } else { return "Victims is empty"; }' | jsonpp
