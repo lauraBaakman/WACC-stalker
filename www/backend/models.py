@@ -19,13 +19,8 @@ class Stalker(Document):
         'linkedIn_id': unicode,
         'industry': unicode
     }
-    #validators = {
-    #    'name': max_length(50),
-    #    'email': max_length(120)
-    #}
 
-    required_fields = ['stalker_id']
-    #default_values = {'creation': datetime.utcnow}
+    required_fields = ['stalker_id', 'birthdate', 'gender']
     use_dot_notation = True
 
 
@@ -46,12 +41,8 @@ class Search(Document):
         'victim_id': unicode,
         'creation_time': datetime
     }
-    #validators = {
-    #    'name': max_length(50),
-    #    'email': max_length(120)
-    #}
 
-    required_fields = ['stalker_id']
+    required_fields = ['stalker_id', 'lat', 'long', 'country_code']
     default_values = {'creation_time': datetime.utcnow}
     use_dot_notation = True
 
@@ -66,10 +57,6 @@ class Victim(Document):
     structure = {
         'victim_id': unicode,
     }
-    #validators = {
-    #    'name': max_length(50),
-    #    'email': max_length(120)
-    #}
 
     required_fields = ['victim_id']
     use_dot_notation = True
