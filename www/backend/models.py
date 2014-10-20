@@ -42,7 +42,7 @@ class Search(Document):
         'creation_time': datetime
     }
 
-    required_fields = ['stalker_id', 'lat', 'long', 'country_code']
+    required_fields = ['stalker_id', 'location.lat', 'location.long', 'location.country_code']
     default_values = {'creation_time': datetime.utcnow}
     use_dot_notation = True
 
