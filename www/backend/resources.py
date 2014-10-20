@@ -2,6 +2,7 @@
 from flask.ext.restful import Resource, request, fields, marshal, reqparse
 from flask import make_response
 from bson.json_util import dumps
+from bson import ObjectId
 import pymongo
 import itertools
 import sys
@@ -123,8 +124,7 @@ class SearchesResource(Resource):
 
             search.save()
 
-            search_id = search['_id']
-            data = str(search_id[0])
+            data = str(search['_id'])
         except Exception, e:
             print e
             status_code = 500
@@ -141,9 +141,10 @@ class SearchResource(Resource):
         """ Initialization. """
         self.req_parser = reqparse.RequestParser()
         self.req_parser.add_argument(
-            'vicitm_id',
+            'victim_id',
             required=True,
             location='json',
+            type=unicode,
             help='victim_id is required'
         )
 
@@ -156,17 +157,18 @@ class SearchResource(Resource):
         message = "OK"
         status_code = 200
 
-        connection = db.connetion.Search()
+        print id
 
         try:
             # Parsing update information from json
             args = self.req_parser.parse_args()
 
             # Retrieving the search given in the url
-            search = connection.get_from_id(id)
+            search = db.connection.wacc.searches.Search.find_one({'_id': ObjectId(id)})
 
             if search is not None:
                 search.victim_id = args['victim_id']
+                search.save()
             else:
                 status_code = 404
                 message = "Search with id does not exist."
@@ -300,7 +302,7 @@ class StalkersResource(Resource):
         except Exception, e:
             print e
             status_code = 500
-            response_msg = "Internal server error."
+            response_msg = "Internal server error....."
 
         return {'message': response_msg, 'status': status_code}, status_code
 

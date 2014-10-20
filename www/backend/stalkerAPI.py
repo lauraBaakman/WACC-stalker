@@ -42,7 +42,7 @@ db.connection.register([Stalker, Search, Victim])
 
 # Set up of the actual routing
 api.add_resource(SearchesResource, '/searches')
-api.add_resource(SearchResource, '/search/<int:id>')
+api.add_resource(SearchResource, '/search/<string:id>')
 api.add_resource(VictimsResource, '/victims')
 api.add_resource(StalkersResource, '/stalkers')
 api.add_resource(StatisticsLocationFrequency, '/statistics/location/frequency')
@@ -51,7 +51,7 @@ api.add_resource(StatisticsRelationshipFrequency, '/statistics/relationship/freq
 if __name__ == '__main__':
     import test_data as td
     td.clear(db.connection)
-    
+
     if(len(sys.argv) > 1):
         print "Generating new test data"
         # Generate test data
