@@ -123,7 +123,8 @@ class SearchesResource(Resource):
 
             search.save()
 
-            data = search['_id']
+            search_id = search['_id']
+            data = str(search_id[0])
         except Exception, e:
             print e
             status_code = 500
@@ -136,6 +137,16 @@ class SearchResource(Resource):
 
     """ Search update resource. """
 
+    def __init__(self):
+        """ Initialization. """
+        self.req_parser = reqparse.RequestParser()
+        self.req_parser.add_argument(
+            'vicitm_id',
+            required=True,
+            location='json',
+            help='victim_id is required'
+        )
+
     def put(self, id):
         """
         HTTP PUT method to update a search with a victim.
@@ -145,10 +156,25 @@ class SearchResource(Resource):
         message = "OK"
         status_code = 200
 
+        connection = db.connetion.Search()
+
         try:
-            db.connection.wacc.searches.find()
-        except Exception, e:
+            # Parsing update information from json
+            args = self.req_parser.parse_args()
+
+            # Retrieving the search given in the url
+            search = connection.get_from_id(id)
+
+            if search is not None:
+                search.victim_id = args['victim_id']
+            else:
+                status_code = 404
+                message = "Search with id does not exist."
+
+        except Exception, e:  # MultipleResultsFound
             print e
+            status_code = 500
+            message = "Internal server error."
 
         return {'message': message, 'status': status_code}, status_code
 
