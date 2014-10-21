@@ -11,7 +11,6 @@ define(['./module'], function(directives) {
                 templateUrl: '../views/statistics-frequency.html',
                 controller: function(apiService, $scope) {
                     this.getData = function() {
-                        console.log($scope.optionalSearchParameter)
                         $scope.data = {};
                         $scope.error = "";
                         apiService.getFrequency($scope.searchParameter, $scope.optionalSearchParameter).then(
@@ -28,6 +27,16 @@ define(['./module'], function(directives) {
                             }
                         );
                     };
+
+                    $scope.test = function(type, term, color){
+                        console.log('Clicked!');
+                        console.log(type);
+                        console.log(term);
+                        console.log(color);
+                    };
+
+
+
                     this.getData();
                 },
                 controllerAs: 'freqStatCtrl'
