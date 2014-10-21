@@ -1,13 +1,13 @@
-<div class="col-xs-6">
+<div class="col-md-6 col-sm-12">
 	<h3 ng-click="freqStatCtrl.getData()">
     	<i class="btn btn-default btn-circle fa fa-refresh"></i> {{title}}
 	</h3>
 	<p>{{description}}</p>
 	<div ng-include src="'views/spinner.html'" loading></div>
-	<fs:donut id="donut" 
+	<fs:donut 
+		ng-show="data.Data"
 		outer-radius="150" 
 		inner-radius="50" 
-		duration="750" 
 		bind="data.Data" 
 	/>
 </div>

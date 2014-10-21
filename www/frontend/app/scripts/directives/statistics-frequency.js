@@ -23,7 +23,6 @@ define(['./module'], function(directives) {
                                         terms: result.data
                                     }
                                 };
-                                console.log($scope.data);
                             },
                             function(error) {
                                 // TODO: Report to user
