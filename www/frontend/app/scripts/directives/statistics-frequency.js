@@ -28,11 +28,8 @@ define(['./module'], function(directives) {
                         );
                     };
 
-                    $scope.test = function(type, term, color){
-                        console.log('Clicked!');
-                        console.log(type);
+                    $scope.test = function(term, color){
                         console.log(term);
-                        console.log(color);
                     };
 
 

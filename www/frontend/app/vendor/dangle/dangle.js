@@ -900,9 +900,8 @@ angular.module('dangle')
                                     .style('fill', function(d) { return color(d.data.term); })
                                     .each(function(d) { this._current = d; })
                                     .on('mousedown', function(d) {
-                                        console.log(color(d.data.term))
                                         scope.$apply(function() {
-                                            (scope.onClick || angular.noop)(attrs.field, d.data.term, color(d.data.term));
+                                            (scope.onClick || angular.noop)(d.data, color(d.data.term));
                                         });
                                     });
 
