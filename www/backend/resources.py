@@ -348,7 +348,6 @@ class VictimsResource(Resource):
             status_code = 500
             response = {'message': 'Something went terribly wrong.', 'status': status_code}
 
-
         return make_response(dumps(response), status_code)
 
     def post(self):
