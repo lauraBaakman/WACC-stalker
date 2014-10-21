@@ -380,7 +380,7 @@ class VictimsResource(Resource):
         return {'message': response_msg, 'status': status_code}, status_code
 
 
-def get_by_method(method, output_fields, sort_x=None, limit_x=0):
+def get_by_method(method, output_fields, sort_x=None, limit_x=0, method_options=None):
     """
     HTTP GET request.
 
@@ -395,7 +395,7 @@ def get_by_method(method, output_fields, sort_x=None, limit_x=0):
     response = []
 
     try:
-        top_x_results = method().find(sort=sort_x, limit=limit_x)
+        top_x_results = method(method_options).find(sort=sort_x, limit=limit_x)
 
         for result in top_x_results:
             response.append(marshal(result, output_fields))
@@ -462,26 +462,22 @@ class StatisticsGenderRelationshipFrequency(Resource):
 
     def __init__(self):
         """ . """
-        self.term_field = {
-            'gender': fields.String(attribute='gender'),
-            'relationship_status': fields.String(attribute='relationship_status')
-        }
-
         self.output_fields = {
             'count': fields.Integer(attribute='value'),
-            'term': fields.Nested(self.term_field, attribute='_id')
+            'term': fields.String(attribute='_id')
         }
 
         self.sort_x = [('value', pymongo.DESCENDING)]
         self.limit_x = 10
 
-    def get(self):
+    def get(self, gender):
         """ . """
         return get_by_method(
             mr.gender_relationship_frequency,
             self.output_fields,
             self.sort_x,
-            self.limit_x
+            self.limit_x,
+            gender
         )
 
 
@@ -502,4 +498,7 @@ class StatisticsGenderLocationFrequency(Resource):
 
     def get(self):
         """ . """
-        return get_by_method(mr.gender_location_frequency, self.output_fields)
+        return get_by_method(
+            mr.gender_location_frequency,
+            self.output_fields
+        )

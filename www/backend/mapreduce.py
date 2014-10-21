@@ -6,7 +6,7 @@ from bson.son import SON
 from models import Stalker, Search, Victim
 
 
-def stalker_relationship_frequency():
+def stalker_relationship_frequency(option):
     """Method to get the frquency of relationship status of stalkers."""
     map = Code(open('./maps/relationship_frequency.js', 'r').read())
     reduce = Code(open('./reduces/frequency.js', 'r').read())
@@ -16,7 +16,7 @@ def stalker_relationship_frequency():
     return result
 
 
-def search_location_frequency():
+def search_location_frequency(option):
     """Method to get the frquency of locations of searches."""
     map = Code(open('./maps/location_frequency.js', 'r').read())
     reduce = Code(open('./reduces/frequency.js', 'r').read())
@@ -26,7 +26,7 @@ def search_location_frequency():
     return result
 
 
-def gender_location_frequency():
+def gender_location_frequency(option):
     """ Method to stalker info about searches. """
     map = Code(open('./maps/stalker_info.js', 'r').read())
     reduce = Code(open('./reduces/stalker_info.js', 'r').read())
@@ -43,12 +43,12 @@ def gender_location_frequency():
     return result
 
 
-def gender_relationship_frequency():
+def gender_relationship_frequency(option):
     """ . """
     map = Code(open('./maps/gender_relationship_frequency.js', 'r').read())
     reduce = Code(open('./reduces/frequency.js', 'r').read())
     result = db.connection.wacc.stalkers.map_reduce(
-        map, reduce, "tmp"
+        map, reduce, "tmp", scope={"gender": option}
     )
     return result
 
@@ -62,5 +62,5 @@ if __name__ == '__main__':
 
     #stalker_relationship_frequency()
     #search_location_frequency()
-    gender_location_frequency()
-    #gender_relationship_frequency()
+    #gender_location_frequency()
+    gender_relationship_frequency("male")

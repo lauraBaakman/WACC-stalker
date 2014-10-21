@@ -7,5 +7,6 @@ define([
 	'./app-version',
     './search-field',
     './header',
-    './loading'
+    './loading',
+    './statistics-frequency'
 ], function() {});

@@ -1,3 +1,5 @@
 function() {
-	emit({gender: this.gender, relationship_status: this.relationship_status}, 1);
+	if(this.gender == gender) {
+		emit(this.relationship_status, 1);	
+	}
 }

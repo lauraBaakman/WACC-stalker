@@ -48,7 +48,7 @@ api.add_resource(VictimsResource, '/victims')
 api.add_resource(StalkersResource, '/stalkers')
 api.add_resource(StatisticsLocationFrequency, '/statistics/location/frequency')
 api.add_resource(StatisticsRelationshipFrequency, '/statistics/relationship/frequency')
-api.add_resource(StatisticsGenderRelationshipFrequency, '/statistics/gender/relationship/frequency')
+api.add_resource(StatisticsGenderRelationshipFrequency, '/statistics/gender/relationship/frequency/<string:gender>')
 api.add_resource(StatisticsGenderLocationFrequency, '/statistics/gender/location/frequency')
 
 if __name__ == '__main__':
