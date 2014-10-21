@@ -5,13 +5,10 @@ define(['./module'], function(directives) {
             return {
                 restrict: 'E',
                 scope: {
-                    searchParameter: '=',
-                    title: '=',
-                    description: '='
+                    searchParameter: '='
                 },
                 templateUrl: '../views/statistics-frequency.html',
                 controller: function(apiService, $scope) {
-
                     this.getData = function() {
                         $scope.data = {};
                         $scope.error = "";
@@ -29,7 +26,7 @@ define(['./module'], function(directives) {
                             }
                         );
                     };
-
+                    this.getData();
                 },
                 controllerAs: 'freqStatCtrl'
             };
