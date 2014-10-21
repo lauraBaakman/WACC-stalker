@@ -5,6 +5,7 @@
 </div>
 
 <div class="well well-lg" ng-controller="StatisticsController as statCtrl">
+
     <div class="row">
         <h3 class="col-xs-12" ng-click="statCtrl.getLocationFrequency()">
             <i class="btn btn-default fa fa-refresh"></i> Locations
@@ -23,4 +24,5 @@
             <fs:donut id="donut" outer-radius="200" inner-radius="75" duration="750" bind="locationData.Data" />
         </div>
     </div>
+    
 </div>

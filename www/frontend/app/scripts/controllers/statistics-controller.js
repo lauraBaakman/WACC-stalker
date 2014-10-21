@@ -34,27 +34,6 @@ define(['./module'], function(controllers) {
                 );
             };
 
-            this.getLocationFrequency = function() {
-                console.log('In getLocationFrequency');
-                $scope.locationFreq = [];
-                $scope.error = {};
-                apiService.getFrequency('location').then(
-                    function(locations) {
-                        $scope.locationData = {	
-                        	Data: {
-	                            _type: "terms",
-	                            terms: locations.data
-                        	}
-                        };
-                    },
-                    function(error) {
-                    	// TODO: Report to user
-                        console.log('Error!');
-                        $scope.error = 'The request for statistics has failed.';
-                    }
-                );
-            };
-
             this.getAllVictims = function() {
                 $scope.victims = [];
                 $scope.error = {};
@@ -68,6 +47,46 @@ define(['./module'], function(controllers) {
                     }
                 );
             };
+
+            this.getLocationFrequency = function() {
+                $scope.locationFreq = [];
+                $scope.error = {};
+                apiService.getFrequency('location').then(
+                    function(locations) {
+                        $scope.locationData = { 
+                            Data: {
+                                _type: "terms",
+                                terms: locations.data
+                            }
+                        };
+                    },
+                    function(error) {
+                        // TODO: Report to user
+                        console.log('Error!');
+                        $scope.error = 'The request for statistics has failed.';
+                    }
+                );
+            };
+
+            this.getRelationshipFrequency = function() {
+                $scope.relationshipFreq = [];
+                $scope.error = {};
+                apiService.getFrequency('relationship').then(
+                    function(relationships) {
+                        $scope.relationshipData = {
+                            Data: {
+                                _type: 'tems',
+                                terms: relationships.data                            }
+                        };
+                        console.log(relationshipData.Data);
+                    },
+                    function(error) {
+                        // TODO: Report to user
+                        console.log('Error!');
+                        $scope.error = 'The request for statistics has failed.s';
+                    }
+                );
+            };            
         }
     ]);
 });
