@@ -7,8 +7,16 @@
 <div class="well well-lg" ng-controller="StatisticsController as statCtrl">
 
     <div class="row">
-        <statistics-frequency search-parameter="'location'"></statistics-frequency>    
-        <statistics-frequency search-parameter="'relationship'"></statistics-frequency>    
+        <statistics-frequency 
+            title="'Location'" 
+            description="'Locations from which users sought most frequently.'"
+            search-parameter="'location'">
+        </statistics-frequency>    
+        <statistics-frequency 
+            title="'Relationship'" 
+            description="'Frequency of relationship status among stalkers.'"
+            search-parameter="'relationship'">
+        </statistics-frequency>    
     </div>
     
 

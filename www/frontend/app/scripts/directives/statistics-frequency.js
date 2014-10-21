@@ -5,7 +5,9 @@ define(['./module'], function(directives) {
             return {
                 restrict: 'E',
                 scope: {
-                    searchParameter: '='
+                    searchParameter: '=',
+                    title: '=',
+                    description: '='
                 },
                 templateUrl: '../views/statistics-frequency.html',
                 controller: function(apiService, $scope) {
