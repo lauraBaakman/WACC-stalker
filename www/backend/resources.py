@@ -426,7 +426,6 @@ class StatisticsLocationFrequency(Resource):
         return get_by_method(
             mr.search_location_frequency,
             self.output_fields,
-            None,
             self.sort_x,
             self.limit_x
         )
