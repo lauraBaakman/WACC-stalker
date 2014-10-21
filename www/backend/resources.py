@@ -473,9 +473,9 @@ class StatisticsGenderRelationshipFrequency(Resource):
         return get_by_method(
             mr.gender_relationship_frequency,
             self.output_fields,
-            gender,
             self.sort_x,
-            self.limit_x
+            self.limit_x,
+            gender
         )
 
 
@@ -496,4 +496,7 @@ class StatisticsGenderLocationFrequency(Resource):
 
     def get(self):
         """ . """
-        return get_by_method(mr.gender_location_frequency, self.output_fields)
+        return get_by_method(
+            mr.gender_location_frequency,
+            self.output_fields
+        )
