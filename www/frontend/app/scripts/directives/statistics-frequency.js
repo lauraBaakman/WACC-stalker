@@ -1,15 +1,37 @@
 define(['./module'], function(directives) {
     'use strict';
-    directives.directive('statisticsFrequency', ['searchService',
-        function(searchService, $scope) {
+    directives.directive('statisticsFrequency', ['apiService',
+        function(apiService, $scope) {
             return {
                 restrict: 'E',
                 scope: {
                     searchParameter: '='
                 },
                 templateUrl: '../views/statistics-frequency.html',
-                controller: function($scope) {
-                    console.log('Input in de controller:' + $scope.searchParameter);
+                controller: function(apiService, $scope) {
+
+                    this.getData = function() {
+                        console.log('In get data:' + $scope.searchParameter);
+                        $scope.data = {};
+                        $scope.error = {};
+                        apiService.getFrequency($scope.searchParameter).then(
+                            function(result) {
+                                $scope.data = {
+                                    Data: {
+                                        _type: "terms",
+                                        terms: result.data
+                                    }
+                                };
+                                console.log($scope.data);
+                            },
+                            function(error) {
+                                // TODO: Report to user
+                                console.log('Error!');
+                                $scope.error = 'The request for statistics has failed.';
+                            }
+                        );
+                    };
+
                 },
                 controllerAs: 'freqStatCtrl'
             };
