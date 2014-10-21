@@ -380,7 +380,7 @@ class VictimsResource(Resource):
         return {'message': response_msg, 'status': status_code}, status_code
 
 
-def get_by_method(method, output_fields, sort_x=None, limit_x=0, method_options=None):
+def get_by_method(method, output_fields, sort_x=None, limit_x=0, scope=None):
     """
     HTTP GET request.
 
@@ -395,7 +395,7 @@ def get_by_method(method, output_fields, sort_x=None, limit_x=0, method_options=
     response = []
 
     try:
-        top_x_results = method(method_options).find(sort=sort_x, limit=limit_x)
+        top_x_results = method(scope).find(sort=sort_x, limit=limit_x)
 
         for result in top_x_results:
             response.append(marshal(result, output_fields))
@@ -471,12 +471,14 @@ class StatisticsGenderRelationshipFrequency(Resource):
 
     def get(self, gender):
         """ . """
+        scope = {"gender": gender}
+
         return get_by_method(
             mr.gender_relationship_frequency,
             self.output_fields,
             self.sort_x,
             self.limit_x,
-            gender
+            scope
         )
 
 
@@ -495,9 +497,14 @@ class StatisticsGenderLocationFrequency(Resource):
             'term': fields.Nested(self.value_field, attribute='value')
         }
 
-    def get(self):
+    def get(self, gender):
         """ . """
+        scope = {"gender": gender}
+
         return get_by_method(
             mr.gender_location_frequency,
-            self.output_fields
+            self.output_fields,
+            None,
+            0,
+            scope
         )

@@ -42,14 +42,45 @@ db.init()
 db.connection.register([Stalker, Search, Victim])
 
 # Set up of the actual routing
-api.add_resource(SearchesResource, '/searches')
-api.add_resource(SearchResource, '/search/<string:id>')
-api.add_resource(VictimsResource, '/victims')
-api.add_resource(StalkersResource, '/stalkers')
-api.add_resource(StatisticsLocationFrequency, '/statistics/location/frequency')
-api.add_resource(StatisticsRelationshipFrequency, '/statistics/relationship/frequency')
-api.add_resource(StatisticsGenderRelationshipFrequency, '/statistics/gender/relationship/frequency/<string:gender>')
-api.add_resource(StatisticsGenderLocationFrequency, '/statistics/gender/location/frequency')
+api.add_resource(
+    SearchesResource,
+    '/searches'
+)
+
+api.add_resource(
+    SearchResource,
+    '/search/<string:id>'
+)
+
+api.add_resource(
+    VictimsResource,
+    '/victims'
+)
+
+api.add_resource(
+    StalkersResource,
+    '/stalkers'
+)
+
+api.add_resource(
+    StatisticsLocationFrequency,
+    '/statistics/location/frequency'
+)
+
+api.add_resource(
+    StatisticsRelationshipFrequency,
+    '/statistics/relationship/frequency'
+)
+
+api.add_resource(
+    StatisticsGenderRelationshipFrequency,
+    '/statistics/gender/relationship/frequency/<string:gender>'
+)
+
+api.add_resource(
+    StatisticsGenderLocationFrequency,
+    '/statistics/gender/location/frequency/<string:gender>'
+)
 
 if __name__ == '__main__':
     import test_data as td

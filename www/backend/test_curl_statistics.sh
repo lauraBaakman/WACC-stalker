@@ -19,13 +19,16 @@ echo -e "\n\n --- TEST #3 /gender/relationship/frequency/male --- \n"
 
 curl -s -X GET $API/gender/relationship/frequency/male 
 
-echo -e "\n\n --- TEST #4 gender/relationship/frequency/female 
---- \n"
+echo -e "\n\n --- TEST #4 gender/relationship/frequency/female --- \n"
 
 curl -s -X GET $API/gender/relationship/frequency/female 
 
-echo -e "\n\n --- TEST #5 gender/location/frequency --- \n"
+echo -e "\n\n --- TEST #5 gender/location/frequency/male --- \n"
 
-curl -s -X GET $API/gender/location/frequency
+curl -s -X GET $API/gender/location/frequency/male
+
+echo -e "\n\n --- TEST #6 gender/location/frequency/female --- \n"
+
+curl -s -X GET $API/gender/location/frequency/female
 
 echo -e "\n\n --- END --- "
