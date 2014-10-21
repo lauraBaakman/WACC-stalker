@@ -62,5 +62,5 @@ if __name__ == '__main__':
 
     #stalker_relationship_frequency()
     #search_location_frequency()
-    # gender_location_frequency()
-    gender_relationship_frequency()
+    gender_location_frequency()
+    #gender_relationship_frequency()

@@ -53,7 +53,6 @@ class SearchesResource(Resource):
             type=unicode,
             location='json',
         )
-        super(SearchesResource, self).__init__()
 
     def get(self):
         """
@@ -84,9 +83,10 @@ class SearchesResource(Resource):
 
             for result in results:
                 response.append(marshal(result, output_fields))
-        except:
-            response = {'message': 'Something went terribly wrong.', 'status': status_code}
+        except Exception, e:
+            print e
             status_code = 500
+            response = {'message': 'Something went terribly wrong.', 'status': status_code}
 
         return make_response(dumps(response), status_code)
 
@@ -256,7 +256,8 @@ class StalkersResource(Resource):
 
             for result in results:
                 response.append(marshal(result, output_fields))
-        except:
+        except Exception, e:
+            print e
             response = {'message': 'Something went terribly wrong.', 'status': status_code}
             status_code = 500
 
@@ -341,7 +342,8 @@ class VictimsResource(Resource):
 
             for result in results:
                 response.append(marshal(result, output_fields))
-        except:
+        except Exception, e:
+            print e
             response = {'message': 'Something went terribly wrong.', 'status': status_code}
             status_code = 500
 
@@ -370,13 +372,14 @@ class VictimsResource(Resource):
 
             victim.save()
         except Exception, e:
+            print e
             status_code = 500
             response_msg = "Internal server error."
 
         return {'message': response_msg, 'status': status_code}, status_code
 
 
-def get_by_method(method):
+def get_by_method(method, output_fields, sort_x=None, limit_x=0):
     """
     HTTP GET request.
 
@@ -387,24 +390,16 @@ def get_by_method(method):
         200:    Everything is shiny
         204:    No results
     """
-    x = 10
-
-    output_fields = {
-        'count': fields.Integer(attribute='value'),
-        'term': fields.String(attribute='_id')
-    }
-
     status_code = 200
     response = []
 
     try:
-        top_x_results = method().find(
-            limit=x, sort=[('value', pymongo.DESCENDING)]
-        )
+        top_x_results = method().find(sort=sort_x, limit=limit_x)
 
         for result in top_x_results:
             response.append(marshal(result, output_fields))
-    except:
+    except Exception, e:
+        print e
         status_code = 500
         response = {'message': 'Something went terribly wrong.', 'status': status_code}
 
@@ -415,15 +410,94 @@ class StatisticsLocationFrequency(Resource):
 
     """Resource class to get the location frequency."""
 
+    def __init__(self):
+        """ . """
+        self.output_fields = {
+            'count': fields.Integer(attribute='value'),
+            'term': fields.String(attribute='_id')
+        }
+
+        self.sort_x = [('value', pymongo.DESCENDING)]
+        self.limit_x = 10
+
     def get(self):
         """ . """
-        return get_by_method(mr.search_location_frequency)
+        return get_by_method(
+            mr.search_location_frequency,
+            self.output_fields,
+            self.sort_x,
+            self.limit_x
+        )
 
 
 class StatisticsRelationshipFrequency(Resource):
 
     """Resource class to get the relationship frequency."""
 
+    def __init__(self):
+        """ . """
+        self.output_fields = {
+            'count': fields.Integer(attribute='value'),
+            'term': fields.String(attribute='_id')
+        }
+
+        self.sort_x = [('value', pymongo.DESCENDING)]
+        self.limit_x = 10
+
     def get(self):
         """ . """
-        return get_by_method(mr.stalker_relationship_frequency)
+        return get_by_method(
+            mr.stalker_relationship_frequency,
+            self.output_fields,
+            self.sort_x,
+            self.limit_x
+        )
+
+
+class StatisticsGenderRelationshipFrequency(Resource):
+
+    """Resource class to get the {gender, relationship} frequency."""
+
+    def __init__(self):
+        """ . """
+        self.term_field = {
+            'gender': fields.String(attribute='gender'),
+            'relationship_status': fields.String(attribute='relationship_status')
+        }
+
+        self.output_fields = {
+            'count': fields.Integer(attribute='value'),
+            'term': fields.Nested(self.term_field, attribute='_id')
+        }
+
+        self.sort_x = [('value', pymongo.DESCENDING)]
+        self.limit_x = 10
+
+    def get(self):
+        """ . """
+        return get_by_method(
+            mr.gender_relationship_frequency,
+            self.output_fields,
+            self.sort_x,
+            self.limit_x
+        )
+
+
+class StatisticsGenderLocationFrequency(Resource):
+
+    """Resource class to get the search location and gender of a stalker."""
+
+    def __init__(self):
+        """ . """
+        self.value_field = {
+            'gender': fields.String(attribute='gender'),
+            'country_codes': fields.List(fields.String, attribute='country_codes')
+        }
+
+        self.output_fields = {
+            'term': fields.Nested(self.value_field, attribute='value')
+        }
+
+    def get(self):
+        """ . """
+        return get_by_method(mr.gender_location_frequency, self.output_fields)
