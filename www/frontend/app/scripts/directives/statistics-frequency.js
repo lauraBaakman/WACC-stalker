@@ -10,6 +10,8 @@ define(['./module'], function(directives) {
                 },
                 templateUrl: '../views/statistics-frequency.html',
                 controller: function(apiService, $scope) {
+                    $scope.legend = {}
+
                     this.getData = function() {
                         $scope.data = {};
                         $scope.error = "";
@@ -28,8 +30,10 @@ define(['./module'], function(directives) {
                         );
                     };
 
-                    $scope.test = function(term, color){
-                        console.log(term);
+                    $scope.updateLegend = function(termObject, color, sum){
+                        $scope.legend.term = termObject.term;
+                        $scope.legend.color = color;
+                        $scope.legend.percentage = (termObject.count/sum) * 100;
                     };
 
 

@@ -41,10 +41,30 @@ header {
 	text-align: center;
 }
 
-.statisticsOverview h3, p{
+.statisticsOverview h3, p .description{
 	text-align: center;
 } 
 
+.legend {
+	vertical-align: middle;
+	margin-bottom: 20px
+}
+
+.legend span {
+	margin-bottom: 20px;
+}
+
+.legendColor {
+	display: inline-block;
+	border: 3px solid white;
+	height: inherit;
+	width: 30px;
+	height: 30px;
+	/*background-color: red;*/
+	border-radius: 15px;
+	padding: 6px 0px;
+	margin-right: 10px;
+}
 
 .btn-circle {
   width: 30px;
