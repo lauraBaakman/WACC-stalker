@@ -1,5 +1,14 @@
-<p class="debug">Hoi!</p>
+<div class="col-xs-6">
+	<h3 ng-click="freqStatCtrl.getData()">
+    	<i class="btn btn-default fa fa-refresh"></i> Location
+	</h3>
+	<p>Locations from which users sought most frequently.</p>
+	<div ng-include src="'views/spinner.html'" loading></div>
+	<fs:donut id="donut" 
+		outer-radius="200" 
+		inner-radius="75" 
+		duration="750" 
+		bind="data.Data" 
+	/>
+</div>
 
-<h3 ng-click="freqStatCtrl.getData()">
-    <i class="btn btn-default fa fa-refresh"></i> Test!
-</h3>

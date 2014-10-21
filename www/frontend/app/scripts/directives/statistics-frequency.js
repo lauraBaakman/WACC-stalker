@@ -11,7 +11,6 @@ define(['./module'], function(directives) {
                 controller: function(apiService, $scope) {
 
                     this.getData = function() {
-                        console.log('In get data:' + $scope.searchParameter);
                         $scope.data = {};
                         $scope.error = {};
                         apiService.getFrequency($scope.searchParameter).then(

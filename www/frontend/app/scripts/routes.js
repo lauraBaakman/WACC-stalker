@@ -30,7 +30,7 @@ define(['./app'], function(app) {
             });
 
             // Use the HTML5 History API: To remove the # in the url's
-            $locationProvider.html5Mode(true);
+            // $locationProvider.html5Mode(true);
         }
     ]);
 });

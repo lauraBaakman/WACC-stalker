@@ -6,7 +6,11 @@
 
 <div class="well well-lg" ng-controller="StatisticsController as statCtrl">
 
-    <statistics-frequency search-parameter="'location'"></statistics-frequency>
+    <div class="row">
+        <statistics-frequency search-parameter="'location'"></statistics-frequency>    
+        <statistics-frequency search-parameter="'relationship'"></statistics-frequency>    
+    </div>
+    
 
 <!--     <div class="row">
         <h3 class="col-xs-12" ng-click="statCtrl.getLocationFrequency()">
