@@ -6,7 +6,7 @@ from faker import Factory
 from models import Stalker, Search, Victim
 
 
-def populate(connection, numStalkers=500, numVictims=200, numSearches=700):
+def populate(connection, numStalkers=50, numVictims=20, numSearches=70):
     """ . """
     relationship_statuses = [
         u'Single',
