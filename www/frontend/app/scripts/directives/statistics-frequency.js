@@ -14,7 +14,7 @@ define(['./module'], function(directives) {
                         console.log($scope.optionalSearchParameter)
                         $scope.data = {};
                         $scope.error = "";
-                        apiService.getFrequency($scope.searchParameter).then(
+                        apiService.getFrequency($scope.searchParameter, $scope.optionalSearchParameter).then(
                             function(result) {
                                 $scope.data = {
                                     Data: {

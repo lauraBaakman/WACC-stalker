@@ -28,11 +28,12 @@ define(['./module'], function(services) {
                     });
                 },
 
-                getFrequency : function(param) {
-                    return $http.get(this.baseurl + 'statistics/' + param + '/frequency');
-                    then(function(result) {
-                        return result.data;
-                    });
+                getFrequency : function(param, optionalParam) {
+                    if(optionalParam){
+                        return $http.get(this.baseurl + 'statistics/' + param + '/frequency/' + optionalParam);    
+                    } else {
+                        return $http.get(this.baseurl + 'statistics/' + param + '/frequency');    
+                    }
                 },
 
                 // POSTS
