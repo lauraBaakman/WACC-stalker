@@ -14,7 +14,7 @@ define(['./module'], function(directives) {
 
                     this.getData = function() {
                         $scope.data = {};
-                        $scope.error = {};
+                        $scope.error = "";
                         apiService.getFrequency($scope.searchParameter).then(
                             function(result) {
                                 $scope.data = {
@@ -25,9 +25,7 @@ define(['./module'], function(directives) {
                                 };
                             },
                             function(error) {
-                                // TODO: Report to user
-                                console.log('Error!');
-                                $scope.error = 'The request for statistics has failed.';
+                                $scope.error = error.data.message;
                             }
                         );
                     };
