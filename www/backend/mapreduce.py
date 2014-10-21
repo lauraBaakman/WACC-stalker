@@ -11,7 +11,7 @@ def stalker_relationship_frequency():
     map = Code(open('./maps/relationship_frequency.js', 'r').read())
     reduce = Code(open('./reduces/frequency.js', 'r').read())
     result = db.connection.wacc.stalkers.map_reduce(
-        map, reduce
+        map, reduce, "tmp"
     )
     return result
 
@@ -21,7 +21,7 @@ def search_location_frequency():
     map = Code(open('./maps/location_frequency.js', 'r').read())
     reduce = Code(open('./reduces/frequency.js', 'r').read())
     result = db.connection.wacc.searches.map_reduce(
-        map, reduce
+        map, reduce, "tmp"
     )
     return result
 
@@ -31,13 +31,13 @@ def gender_location_frequency():
     map = Code(open('./maps/stalker_info.js', 'r').read())
     reduce = Code(open('./reduces/stalker_info.js', 'r').read())
     result = db.connection.wacc.stalkers.map_reduce(
-        map, reduce, "stalker_info"
+        map, reduce, "tmp"
     )
 
     map = Code(open('./maps/search_info.js', 'r').read())
     reduce = Code(open('./reduces/search_info.js', 'r').read())
     result = db.connection.wacc.searches.map_reduce(
-        map, reduce, out=SON([("reduce", "stalker_info")])
+        map, reduce, out=SON([("reduce", "tmp")])
     )
     # Now if the key already exist the reduce function is used to merge the results.
     return result
