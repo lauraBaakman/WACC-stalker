@@ -157,8 +157,6 @@ class SearchResource(Resource):
         message = "OK"
         status_code = 200
 
-        print id
-
         try:
             # Parsing update information from json
             args = self.req_parser.parse_args()
@@ -415,9 +413,10 @@ class StatisticsLocationFrequency(Resource):
             # Marshal every document with output_fields.
             for result in top_x_results:
                 response.append(marshal(result, output_fields))
-        except:  # TODO: return 204 or 500 when relevant
-            response = {'message': 'Something went terribly wrong.', 'status': status_code}
+        except Exception, e:  # TODO: return 204 or 500 when relevant
+            print e
             status_code = 500
+            response = {'message': 'Something went terribly wrong.', 'status': status_code}
 
         return make_response(dumps(response), status_code)
 
@@ -455,7 +454,7 @@ class StatisticsRelationshipFrequency(Resource):
             for result in top_x_results:
                 response.append(marshal(result, output_fields))
         except:
-            response = {'message': 'Something went terribly wrong.', 'status': status_code}
             status_code = 500
+            response = {'message': 'Something went terribly wrong.', 'status': status_code}
 
         return make_response(dumps(response), status_code)
