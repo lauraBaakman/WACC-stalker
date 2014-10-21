@@ -5,11 +5,11 @@ define(['./module'], function(directives) {
             return {
                 restrict: 'E',
                 scope: {
-                    ratingValue: '='
+                    searchParameter: '='
                 },
                 templateUrl: '../views/statistics-frequency.html',
                 controller: function($scope) {
-                    console.log('Rating value in de controller:' + $scope.ratingValue);
+                    console.log('Input in de controller:' + $scope.searchParameter);
                 },
                 controllerAs: 'freqStatCtrl'
             };
