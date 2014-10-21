@@ -46,12 +46,13 @@ header {
 } 
 
 .legend {
-	vertical-align: middle;
-	margin-bottom: 20px
+/*	vertical-align: middle;
+	margin-bottom: 20px*/
 }
 
 .legend span {
-	margin-bottom: 20px;
+	position: relative;
+	bottom: 9px;	
 }
 
 .legendColor {
