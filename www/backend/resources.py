@@ -258,8 +258,9 @@ class StalkersResource(Resource):
                 response.append(marshal(result, output_fields))
         except Exception, e:
             print e
-            response = {'message': 'Something went terribly wrong.', 'status': status_code}
             status_code = 500
+            response = {'message': 'Something went terribly wrong.', 'status': status_code}
+
 
         return make_response(dumps(response), status_code)
 
@@ -344,8 +345,9 @@ class VictimsResource(Resource):
                 response.append(marshal(result, output_fields))
         except Exception, e:
             print e
-            response = {'message': 'Something went terribly wrong.', 'status': status_code}
             status_code = 500
+            response = {'message': 'Something went terribly wrong.', 'status': status_code}
+
 
         return make_response(dumps(response), status_code)
 
@@ -425,6 +427,7 @@ class StatisticsLocationFrequency(Resource):
         return get_by_method(
             mr.search_location_frequency,
             self.output_fields,
+            None,
             self.sort_x,
             self.limit_x
         )
