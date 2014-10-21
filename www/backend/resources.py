@@ -497,14 +497,9 @@ class StatisticsGenderLocationFrequency(Resource):
             'term': fields.Nested(self.value_field, attribute='value')
         }
 
-    def get(self, gender):
+    def get(self):
         """ . """
-        scope = {"gender": gender}
-
         return get_by_method(
             mr.gender_location_frequency,
             self.output_fields,
-            None,
-            0,
-            scope
         )

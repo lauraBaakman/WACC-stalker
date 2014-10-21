@@ -31,7 +31,7 @@ def gender_location_frequency(scope):
     map = Code(open('./maps/stalker_info.js', 'r').read())
     reduce = Code(open('./reduces/stalker_info.js', 'r').read())
     result = db.connection.wacc.stalkers.map_reduce(
-        map, reduce, "tmp", scope=scope
+        map, reduce, "tmp"
     )
 
     map = Code(open('./maps/search_info.js', 'r').read())

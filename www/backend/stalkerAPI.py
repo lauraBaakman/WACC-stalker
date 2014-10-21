@@ -79,7 +79,7 @@ api.add_resource(
 
 api.add_resource(
     StatisticsGenderLocationFrequency,
-    '/statistics/gender/location/frequency/<string:gender>'
+    '/statistics/gender/location/frequency'
 )
 
 if __name__ == '__main__':

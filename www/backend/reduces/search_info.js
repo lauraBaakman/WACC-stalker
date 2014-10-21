@@ -19,11 +19,10 @@ function(key, values) {
     			result.country_codes = [];
     		}
     		result.country_codes.push.apply(result.country_codes, value.country_codes);
-	    }
 		// 3. Value = {gender: "..."}
-    	// } else if ("gender" in value) {
-    	// 	result.gender = value.gender;
-    	// }
+    	} else if ("gender" in value) {
+    		result.gender = value.gender;
+    	}
     });
     return result;
 }
