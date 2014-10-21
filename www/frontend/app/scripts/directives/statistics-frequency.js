@@ -5,11 +5,13 @@ define(['./module'], function(directives) {
             return {
                 restrict: 'E',
                 scope: {
-                    searchParameter: '='
+                    searchParameter: '=',
+                    optionalSearchParameter: '='
                 },
                 templateUrl: '../views/statistics-frequency.html',
                 controller: function(apiService, $scope) {
                     this.getData = function() {
+                        console.log($scope.optionalSearchParameter)
                         $scope.data = {};
                         $scope.error = "";
                         apiService.getFrequency($scope.searchParameter).then(
