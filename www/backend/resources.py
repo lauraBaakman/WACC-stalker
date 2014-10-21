@@ -379,7 +379,7 @@ class VictimsResource(Resource):
         return {'message': response_msg, 'status': status_code}, status_code
 
 
-def get_by_method(method, output_fields, method_options=None, sort_x=None, limit_x=0):
+def get_by_method(method, output_fields, sort_x=None, limit_x=0, method_options=None):
     """
     HTTP GET request.
 
