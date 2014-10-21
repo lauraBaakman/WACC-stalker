@@ -41,6 +41,11 @@ header {
 	text-align: center;
 }
 
+.statisticsOverview h3, p{
+	text-align: center;
+} 
+
+
 .btn-circle {
   width: 30px;
   height: 30px;
