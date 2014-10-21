@@ -901,7 +901,7 @@ angular.module('dangle')
                                     .each(function(d) { this._current = d; })
                                     .on('mousedown', function(d) {
                                         scope.$apply(function() {
-                                            (scope.onClick || angular.noop)(d.data, color(d.data.term));
+                                            (scope.onClick || angular.noop)(d.data, color(d.data.term), sum);
                                         });
                                     });
 
@@ -1036,7 +1036,9 @@ angular.module('dangle')
     
                             // flush old entries
                             nameLabels.exit().remove();
-
+                            labels.selectAll('line').remove();
+                            labels.selectAll("text.value").remove();
+                            labels.selectAll("text.units").remove();
                         } else {
                             // if the facet had no valid entries then remove the chart
                             svg.selectAll('path').remove();
