@@ -376,49 +376,48 @@ class VictimsResource(Resource):
         return {'message': response_msg, 'status': status_code}, status_code
 
 
+def get_by_method(method):
+    """
+    HTTP GET request.
+
+    Parameters:
+        None
+    Return codes:
+        500:    Internal Server Error
+        200:    Everything is shiny
+        204:    No results
+    """
+    x = 10
+
+    output_fields = {
+        'count': fields.Integer(attribute='value'),
+        'term': fields.String(attribute='_id')
+    }
+
+    status_code = 200
+    response = []
+
+    try:
+        top_x_results = method().find(
+            limit=x, sort=[('value', pymongo.DESCENDING)]
+        )
+
+        for result in top_x_results:
+            response.append(marshal(result, output_fields))
+    except:
+        status_code = 500
+        response = {'message': 'Something went terribly wrong.', 'status': status_code}
+
+    return make_response(dumps(response), status_code)
+
+
 class StatisticsLocationFrequency(Resource):
 
     """Resource class to get the location frequency."""
 
     def get(self):
-        """
-        HTTP GET request.
-
-        Parameters:
-            None
-        Return codes:
-            500:    Internal Server Error
-            200:    Everything is shiny
-            204:    No results
-        """
-        # Limit the result TODO: make this configurable.
-        x = 10
-
-        # Filters the result to more appropriate output form.
-        output_fields = {
-            'count': fields.Integer(attribute='value'),
-            'term': fields.String(attribute='_id')
-        }
-
-        # Response list and status code
-        status_code = 200
-        response = []
-
-        try:
-            # Sort the result DESCENDING and limit it to the first x results.
-            top_x_results = mr.search_location_frequency().find(
-                limit=x, sort=[('value', pymongo.DESCENDING)]
-            )
-
-            # Marshal every document with output_fields.
-            for result in top_x_results:
-                response.append(marshal(result, output_fields))
-        except Exception, e:  # TODO: return 204 or 500 when relevant
-            print e
-            status_code = 500
-            response = {'message': 'Something went terribly wrong.', 'status': status_code}
-
-        return make_response(dumps(response), status_code)
+        """ . """
+        return get_by_method(mr.search_location_frequency)
 
 
 class StatisticsRelationshipFrequency(Resource):
@@ -426,35 +425,5 @@ class StatisticsRelationshipFrequency(Resource):
     """Resource class to get the relationship frequency."""
 
     def get(self):
-        """
-        HTTP GET request.
-
-        Parameters:
-            None
-        Return codes:
-            500:    Internal Server Error
-            200:    Everything is shiny
-            204:    No results
-        """
-        x = 10
-
-        output_fields = {
-            'count': fields.Integer(attribute='value'),
-            'term': fields.String(attribute='_id')
-        }
-
-        status_code = 200
-        response = []
-
-        try:
-            top_x_results = mr.stalker_relationship_frequency().find(
-                limit=x, sort=[('value', pymongo.DESCENDING)]
-            )
-
-            for result in top_x_results:
-                response.append(marshal(result, output_fields))
-        except:
-            status_code = 500
-            response = {'message': 'Something went terribly wrong.', 'status': status_code}
-
-        return make_response(dumps(response), status_code)
+        """ . """
+        return get_by_method(mr.stalker_relationship_frequency)
