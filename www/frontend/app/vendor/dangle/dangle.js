@@ -876,6 +876,8 @@ angular.module('dangle')
 
                             // run the transition
                             path.transition().duration(duration).attrTween('d', arcTween);
+                            scope.onClick(data[0], color(data[0].term), sum);
+
 
                         } else {
                             // if the facet had no valid entries then remove the chart
