@@ -978,64 +978,64 @@ angular.module('dangle')
                             // percentLabels.exit().remove();
 
                             // update the value labels 
-                            var nameLabels = labels.selectAll("text.units").data(pieData)
-                                .attr("dy", function(d){
-                                    if ((d.startAngle + d.endAngle)/2 > Math.PI/2 && (d.startAngle+d.endAngle)/2 < Math.PI*1.5 ) {
-                                        return 36;
-                                    } else {
-                                        return 2;
-                                    }
-                                })
-                                .attr("text-anchor", function(d){
-                                    if ((d.startAngle + d.endAngle)/2 < Math.PI ) {
-                                        return "beginning";
-                                    } else {
-                                        return "end";
-                                    }
-                                }).text(function(d) {
-                                    if (d.data.term === 'T') {
-                                        return 'TRUE' + ' (' + d.value + ')';
-                                    } else if (d.data.term === 'F') {
-                                        return 'FALSE'+ ' (' + d.value + ')';
-                                    } else {
-                                        return d.data.term + ' (' + d.value + ')';
-                                    }
-                                });
+                            // var nameLabels = labels.selectAll("text.units").data(pieData)
+                            //     .attr("dy", function(d){
+                            //         if ((d.startAngle + d.endAngle)/2 > Math.PI/2 && (d.startAngle+d.endAngle)/2 < Math.PI*1.5 ) {
+                            //             return 36;
+                            //         } else {
+                            //             return 2;
+                            //         }
+                            //     })
+                            //     .attr("text-anchor", function(d){
+                            //         if ((d.startAngle + d.endAngle)/2 < Math.PI ) {
+                            //             return "beginning";
+                            //         } else {
+                            //             return "end";
+                            //         }
+                            //     }).text(function(d) {
+                            //         if (d.data.term === 'T') {
+                            //             return 'TRUE' + ' (' + d.value + ')';
+                            //         } else if (d.data.term === 'F') {
+                            //             return 'FALSE'+ ' (' + d.value + ')';
+                            //         } else {
+                            //             return d.data.term + ' (' + d.value + ')';
+                            //         }
+                            //     });
 
-                            nameLabels.enter().append("text")
-                                .attr("class", "units")
-                                .attr('font-size', 16)
-                                .attr('stroke', 'none')
-                                .attr('fill', '#fff')
-                                .attr("transform", function(d) {
-                                    return "translate(" + 
-                                        Math.cos(((d.startAngle + d.endAngle - Math.PI)/2)) * (outerRadius + textOffset) + "," + 
-                                        Math.sin((d.startAngle + d.endAngle - Math.PI)/2) * (outerRadius + textOffset) + ")";
-                                })
-                                .attr("dy", function(d){
-                                    if ((d.startAngle + d.endAngle)/2 > Math.PI/2 && (d.startAngle + d.endAngle)/2 < Math.PI*1.5 ) {
-                                        return 36;
-                                    } else {
-                                        return 2;
-                                    }
-                                })
-                                .attr('text-anchor', findAnchor)
-                                .text(function(d){
-                                    if (d.data.term === 'T') {
-                                        return 'TRUE' + ' (' + d.value + ')';
-                                    } else if (d.data.term === 'F') {
-                                        return 'FALSE' + ' (' + d.value + ')';
-                                    } else {
-                                        return d.data.term + ' (' + d.value + ')';
-                                    }
-                                })
-                                .each(function(d) {this._current = d;});
+                            // nameLabels.enter().append("text")
+                            //     .attr("class", "units")
+                            //     .attr('font-size', 16)
+                            //     .attr('stroke', 'none')
+                            //     .attr('fill', '#fff')
+                            //     .attr("transform", function(d) {
+                            //         return "translate(" + 
+                            //             Math.cos(((d.startAngle + d.endAngle - Math.PI)/2)) * (outerRadius + textOffset) + "," + 
+                            //             Math.sin((d.startAngle + d.endAngle - Math.PI)/2) * (outerRadius + textOffset) + ")";
+                            //     })
+                            //     .attr("dy", function(d){
+                            //         if ((d.startAngle + d.endAngle)/2 > Math.PI/2 && (d.startAngle + d.endAngle)/2 < Math.PI*1.5 ) {
+                            //             return 36;
+                            //         } else {
+                            //             return 2;
+                            //         }
+                            //     })
+                            //     .attr('text-anchor', findAnchor)
+                            //     .text(function(d){
+                            //         if (d.data.term === 'T') {
+                            //             return 'TRUE' + ' (' + d.value + ')';
+                            //         } else if (d.data.term === 'F') {
+                            //             return 'FALSE' + ' (' + d.value + ')';
+                            //         } else {
+                            //             return d.data.term + ' (' + d.value + ')';
+                            //         }
+                            //     })
+                            //     .each(function(d) {this._current = d;});
 
-                            // run the transition
-                            nameLabels.transition().duration(duration).attrTween("transform", textTween);
+                            // // run the transition
+                            // nameLabels.transition().duration(duration).attrTween("transform", textTween);
     
                             // flush old entries
-                            nameLabels.exit().remove();
+                            // nameLabels.exit().remove();
                             labels.selectAll('line').remove();
                             labels.selectAll("text.value").remove();
                             labels.selectAll("text.units").remove();
