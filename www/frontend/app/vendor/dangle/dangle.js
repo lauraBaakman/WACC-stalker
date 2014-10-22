@@ -804,8 +804,8 @@ angular.module('dangle')
                 }
 
                 // width/height (based on giveb radius)
-                var w = (outerRadius * 3) + 30;
-                var h = outerRadius * 3;
+                var w = (outerRadius * 2) + 30;
+                var h = outerRadius * 2;
 
                 // arc generator 
                 var arc = d3.svg.arc()
@@ -1036,15 +1036,15 @@ angular.module('dangle')
     
                             // flush old entries
                             // nameLabels.exit().remove();
-                            labels.selectAll('line').remove();
-                            labels.selectAll("text.value").remove();
-                            labels.selectAll("text.units").remove();
+                            // labels.selectAll('line').remove();
+                            // labels.selectAll("text.value").remove();
+                            // labels.selectAll("text.units").remove();
                         } else {
                             // if the facet had no valid entries then remove the chart
                             svg.selectAll('path').remove();
-                            labels.selectAll('line').remove();
-                            labels.selectAll("text.value").remove();
-                            labels.selectAll("text.units").remove();
+                            // labels.selectAll('line').remove();
+                            // labels.selectAll("text.value").remove();
+                            // labels.selectAll("text.units").remove();
                         }
 
                     }
