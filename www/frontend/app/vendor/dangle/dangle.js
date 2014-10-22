@@ -909,73 +909,73 @@ angular.module('dangle')
                             path.transition().duration(duration).attrTween('d', arcTween);
 
                             // update the label ticks
-                            var ticks = labels.selectAll('line').data(pieData);
-                            ticks.enter().append('line')
-                                .attr('x1', 0)
-                                .attr('x2', 0)
-                                .attr('y1', -outerRadius-3)
-                                .attr('y2', -outerRadius-8)
-                                .attr('stroke', 'grey')
-                                .attr('stroke-width', 2.0)
-                                .attr('transform', function(d) {
-                                    return 'rotate(' + (d.startAngle + d.endAngle)/2 * (180/Math.PI) + ')'; // radians to degrees
-                                })
-                                .each(function(d) {this._current = d;});
+                            // var ticks = labels.selectAll('line').data(pieData);
+                            // ticks.enter().append('line')
+                            //     .attr('x1', 0)
+                            //     .attr('x2', 0)
+                            //     .attr('y1', -outerRadius-3)
+                            //     .attr('y2', -outerRadius-8)
+                            //     .attr('stroke', 'grey')
+                            //     .attr('stroke-width', 2.0)
+                            //     .attr('transform', function(d) {
+                            //         return 'rotate(' + (d.startAngle + d.endAngle)/2 * (180/Math.PI) + ')'; // radians to degrees
+                            //     })
+                            //     .each(function(d) {this._current = d;});
 
-                            // run the transition
-                            ticks.transition()
-                                .duration(750)
-                                .attr("transform", function(d) {
-                                    return "rotate(" + (d.startAngle+d.endAngle)/2 * (180/Math.PI) + ")";
-                            });
+                            // // run the transition
+                            // ticks.transition()
+                            //     .duration(750)
+                            //     .attr("transform", function(d) {
+                            //         return "rotate(" + (d.startAngle+d.endAngle)/2 * (180/Math.PI) + ")";
+                            // });
 
                             // flush old entries
-                            ticks.exit().remove();
+                            // ticks.exit().remove();
 
                             // update the percent labels
-                            var percentLabels = labels.selectAll("text.value").data(pieData)
-                                .attr("dy", function(d) {
-                                    if ((d.startAngle + d.endAngle)/2 > Math.PI/2 && (d.startAngle + d.endAngle)/2 < Math.PI*1.5 ) {
-                                        return 17;
-                                    } else {
-                                        return -17;
-                                    }
-                                })
-                                .attr('text-anchor', findAnchor)
-                                .text(function(d) {
-                                    var percentage = (d.value/sum)*100;
-                                    return percentage.toFixed(1) + "%";
-                                });
+                            // var percentLabels = labels.selectAll("text.value").data(pieData)
+                            //     .attr("dy", function(d) {
+                            //         if ((d.startAngle + d.endAngle)/2 > Math.PI/2 && (d.startAngle + d.endAngle)/2 < Math.PI*1.5 ) {
+                            //             return 17;
+                            //         } else {
+                            //             return -17;
+                            //         }
+                            //     })
+                            //     .attr('text-anchor', findAnchor)
+                            //     .text(function(d) {
+                            //         var percentage = (d.value/sum)*100;
+                            //         return percentage.toFixed(1) + "%";
+                            //     });
 
-                            percentLabels.enter().append("text")
-                                .attr("class", "value")
-                                .attr('font-size', 20)
-                                .attr('font-weight', 'bold')
-                                .attr('fill', '#fff')
-                                .attr("transform", function(d) {
-                                    return "translate(" + 
-                                        Math.cos(((d.startAngle + d.endAngle - Math.PI)/2)) * (outerRadius + textOffset) + "," + 
-                                        Math.sin((d.startAngle + d.endAngle - Math.PI)/2) * (outerRadius + textOffset) + ")";
-                                })
-                                .attr("dy", function(d) {
-                                    if ((d.startAngle+d.endAngle)/2 > Math.PI/2 && (d.startAngle + d.endAngle)/2 < Math.PI*1.5 ) {
-                                        return 17;
-                                    } else {
-                                        return -17;
-                                    }
-                                })
-                                .attr('text-anchor', findAnchor)
-                                .text(function(d){
-                                    var percentage = (d.value/sum)*100;
-                                    return percentage.toFixed(1) + "%";
-                                })
-                                .each(function(d) {this._current = d;});
+                            // percentLabels.enter().append("text")
+                            //     .attr("class", "value")
+                            //     .attr('font-size', 20)
+                            //     .attr('font-weight', 'bold')
+                            //     .attr('fill', '#fff')
+                            //     .attr("transform", function(d) {
+                            //         return "translate(" + 
+                            //             Math.cos(((d.startAngle + d.endAngle - Math.PI)/2)) * (outerRadius + textOffset) + "," + 
+                            //             Math.sin((d.startAngle + d.endAngle - Math.PI)/2) * (outerRadius + textOffset) + ")";
+                            //     })
+                            //     .attr("dy", function(d) {
+                            //         if ((d.startAngle+d.endAngle)/2 > Math.PI/2 && (d.startAngle + d.endAngle)/2 < Math.PI*1.5 ) {
+                            //             return 17;
+                            //         } else {
+                            //             return -17;
+                            //         }
+                            //     })
+                            //     .attr('text-anchor', findAnchor)
+                            //     .text(function(d){
+                            //         var percentage = (d.value/sum)*100;
+                            //         return percentage.toFixed(1) + "%";
+                            //     })
+                            //     .each(function(d) {this._current = d;});
                            
-                            // run the transition
-                            percentLabels.transition().duration(duration).attrTween("transform", textTween);
+                            // // run the transition
+                            // percentLabels.transition().duration(duration).attrTween("transform", textTween);
 
-                            // flush old entries
-                            percentLabels.exit().remove();
+                            // // flush old entries
+                            // percentLabels.exit().remove();
 
                             // update the value labels 
                             var nameLabels = labels.selectAll("text.units").data(pieData)

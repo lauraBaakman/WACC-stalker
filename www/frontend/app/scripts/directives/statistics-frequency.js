@@ -10,7 +10,7 @@ define(['./module'], function(directives) {
                 },
                 templateUrl: '../views/statistics-frequency.html',
                 controller: function(apiService, $scope) {
-                    $scope.legend = {}
+                    $scope.legend = {};
 
                     this.getData = function() {
                         $scope.data = {};
