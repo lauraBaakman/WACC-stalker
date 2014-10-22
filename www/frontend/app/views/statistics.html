@@ -4,11 +4,12 @@
     </h2>
 </div>
 
-<div class="row">
-    <div class="col-xs-12">
-        <div class="alert alert-info alert-dismissible" role="alert">
-            <i class="fa fa-info-circle"></i> Hover on the pies to get percentages and their meaning.
-        </div>
+<div class="row" ng-init="showAlert = true">
+    <div class="col-xs-12" ng-show="showAlert">
+        <alert type="'info'" close="showAlert = false">
+            <i class="fa fa-info-circle"></i> 
+            Hover on the pies to get percentages and their meaning.
+        </alert>
     </div>
 </div>
 
