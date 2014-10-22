@@ -827,10 +827,10 @@ angular.module('dangle')
                 var arcs = svg.append('g')
                     .attr('transform', 'translate(' + w/2 + ',' + h/2 + ') rotate(180) scale(-1, -1)');
 
-                // group for labels
-                var labels = svg.append("g")
-                    .attr("class", "label_group")
-                    .attr("transform", "translate(" + (w/2) + "," + (h/2) + ")");
+                // // group for labels
+                // var labels = svg.append("g")
+                //     .attr("class", "label_group")
+                //     .attr("transform", "translate(" + (w/2) + "," + (h/2) + ")");
 
 
                 // Wrap the main drawing logic in an Angular watch function.
@@ -848,19 +848,19 @@ angular.module('dangle')
                         };
                     }
         
-                    // label tweening
-                    function textTween(d, i) {
-                        var a = (this._current.startAngle + this._current.endAngle - Math.PI)/2;
-                        var b = (d.startAngle + d.endAngle - Math.PI)/2;
+                    // // label tweening
+                    // function textTween(d, i) {
+                    //     var a = (this._current.startAngle + this._current.endAngle - Math.PI)/2;
+                    //     var b = (d.startAngle + d.endAngle - Math.PI)/2;
 
-                        var fn = d3.interpolateNumber(a, b);
-                        return function(t) {
-                            var val = fn(t);
-                            return "translate(" + 
-                                Math.cos(val) * (outerRadius + textOffset) + "," + 
-                                Math.sin(val) * (outerRadius + textOffset) + ")";
-                        };
-                    }
+                    //     var fn = d3.interpolateNumber(a, b);
+                    //     return function(t) {
+                    //         var val = fn(t);
+                    //         return "translate(" + 
+                    //             Math.cos(val) * (outerRadius + textOffset) + "," + 
+                    //             Math.sin(val) * (outerRadius + textOffset) + ")";
+                    //     };
+                    // }
 
                     // determines the anchor point of a label
                     var findAnchor = function(d) {
@@ -871,7 +871,7 @@ angular.module('dangle')
                         }
                     };
 
-                    var textOffset = 14;
+                    // var textOffset = 14;
 
                     // if data is not null
                     if (data) { 
