@@ -31,10 +31,10 @@ define(['./module'], function(controllers) {
                     }             
                 },
 
-                showWell: function(page, name) {
+                showWell: function(pageNumber, name) {
                     return ( 
                         ($scope.stalking && $scope.socialMedia.media[name].loggedIn) ||
-                        (!$scope.stalking && $scope.carousel.isActive(page)));
+                        (!$scope.stalking && $scope.carousel.isActive(pageNumber)));
                 }
             };
 
