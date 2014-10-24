@@ -10,7 +10,7 @@ mongo --port 27017
 
 rs.initiate()
 
-# Kijk naar me veld voor de host
+# Kijk naar "me" veld voor de host
 
 rs.add("host:27018")
 rs.add("host:27019")

@@ -1,11 +1,9 @@
 """ . """
-from flask.ext.restful import Resource, request, fields, marshal, reqparse
+from flask.ext.restful import Resource, fields, marshal, reqparse
 from flask import make_response
 from bson.json_util import dumps
 from bson import ObjectId
 import pymongo
-import itertools
-import sys
 
 import database as db
 import mapreduce as mr
@@ -260,7 +258,6 @@ class StalkersResource(Resource):
             print e
             status_code = 500
             response = {'message': 'Something went terribly wrong.', 'status': status_code}
-
 
         return make_response(dumps(response), status_code)
 
