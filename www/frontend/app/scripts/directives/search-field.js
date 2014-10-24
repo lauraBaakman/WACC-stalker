@@ -79,8 +79,8 @@ define(['./module'], function(directives) {
                     this.searchSubmit = function(noCheck) {
                         noCheck = typeof noCheck !== 'undefined' ? noCheck : false;
                         if (noCheck) { // Submit without validation
-                            console.log('Submitting!');
-                            console.log(searchService);
+                            // get location of the search and submit to the back end
+                            
                             searchService.broadcast({"name": $scope.search.name, "email": $scope.search.email});
                             this.resetForm();
                         } else { // Submit with validation
