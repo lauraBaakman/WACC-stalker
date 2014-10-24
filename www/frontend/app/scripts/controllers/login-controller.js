@@ -4,6 +4,7 @@ define(['./module'], function(controllers) {
 
         function($scope, stalkerService) {
             $scope.error = "";
+            $scope.stalking = false;
             var controller = this;
 
             $scope.carousel = {
@@ -28,17 +29,22 @@ define(['./module'], function(controllers) {
                         loginView: '../views/linkedin/linkedin.html',
                         logo: 'linkedin'
                     }             
+                },
+
+                showWell: function(page, name) {
+                    return ( 
+                        ($scope.stalking && $scope.socialMedia.media[name].loggedIn) ||
+                        (!$scope.stalking && $scope.carousel.isActive(page)));
                 }
             };
 
 
             this.startStalking = function() {
                 if (stalkerService.isLoggedIn()) {
-                    console.log('stalkerService.isLoggedIn returned true');
                     stalkerService.commitStalker();
+                    $scope.stalking = true;
                     $scope.error = "";
                 } else {
-                    console.log('stalkerService.isLoggedIn returned false');
                     $scope.error = " You need to be logged on to at least one social network.";
                 }
             };

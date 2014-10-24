@@ -1,5 +1,9 @@
 <div ng-controller="LoginCtrl as ctrl">
 
+    <div ng-show="stalking">
+        <search-field></search-field>
+    </div>
+
     <!-- ERROR -->
     <div class="row" ng-show="error">
         <div class="col-xs-12">
@@ -9,13 +13,13 @@
         </div>
     </div>
 
-    <div ng-repeat="sm in socialMedia.media">
-        <div class="well well-lg" ng-show="carousel.isActive($index)">
+    <div ng-repeat="(name, sm) in socialMedia.media">
+        <div class="well well-lg" ng-show="carousel.isActive($index)">      
             <ng-include src="sm.loginView"></ng-include>
         </div>
-    </div>    
+    </div>
 
-    <div class="row text-center" id="navigation">
+    <div class="row text-center" id="navigation" ng-hide="stalking">
         <div class="col-lg-8 col-lg-offset-2">
             <div class="btn-group">
                 <!-- Previous -->
@@ -37,7 +41,7 @@
     </div>
 
     <!-- Start Stalking Button -->
-    <div class="row" id="startStalkingButton">
+    <div class="row" id="startStalkingButton" ng-hide="stalking">
         <div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4">
             <button type="button" class="btn btn-block btn-primary" ng-click="ctrl.startStalking()">Start Stalking!</button>
         </div>
