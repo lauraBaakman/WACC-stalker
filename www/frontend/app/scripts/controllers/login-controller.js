@@ -11,14 +11,12 @@ define(['./module'], function(controllers) {
 
             // Caroussel functions
             this.move = function(direction){
-                $scope.activePage = ($scope.activePage + direction + directives.length) % directives.length;
-                return $scope.activePage();
+                $scope.activePage = ($scope.activePage + direction + this.socialMedia.length) % this.socialMedia.length;
+                return $scope.activePage;
             }
 
-
-
-            /* Supported social media and other directives. */
-            var directives = [
+            /* Supported social media and other socialMedia. */
+            this.socialMedia = [
                 {
                     loggedIn: false,
                     loginView: '../views/facebook/facebook.html',
@@ -48,18 +46,18 @@ define(['./module'], function(controllers) {
                 }
             };
 
-            // Keep the directives array up to data, 
+            // Keep the socialMedia array up to data, 
             // TODO: Fix so that it works with the new array
             $scope.$on('loggedInEvent', function (event, data) {
                 console.log(data);
                 $scope.error = "";
-                directives.social[data].loggedIn = true;
+                socialMedia.social[data].loggedIn = true;
             });
 
             $scope.$on('loggedOutEvent', function (event, data) {
                 console.log(data);
                 $scope.error = " You need to be logged on to at least one social network.";
-                directives.social[data].loggedIn = false;
+                socialMedia.social[data].loggedIn = false;
             });            
 
         }

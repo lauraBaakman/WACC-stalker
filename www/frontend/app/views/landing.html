@@ -12,14 +12,17 @@
     <div class="row text-center" id="navigation">
         <div class="col-lg-8 col-lg-offset-2">
             <div class="btn-group">
+            	<!-- Previous -->
                 <label class="btn btn-success" btn-radio="ctrl.move(-1)" ng-model="activePage">
                     <i class="fa fa-fw fa-angle-double-left"></i>
                 </label>
 
-                <label class="btn btn-success" ng-model="activePage" btn-radio="0">0</label>
-                <label class="btn btn-success" ng-model="activePage" btn-radio="1">1</label>
-                <label class="btn btn-success" ng-model="activePage" btn-radio="2">2</label>
+				<!-- Social Media -->
+				<label class="btn btn-success" ng-model="activePage" btn-radio="{{$index}}" ng-repeat="socialMedium in ctrl.socialMedia">
+					<i class="fa fa-fw fa-{{socialMedium.logo}}"></i>
+				</label>
 
+                <!-- Next -->
                 <label class="btn btn-success" btn-radio="ctrl.move(+1)" ng-model="activePage">
                     <i class="fa fa-fw fa-angle-double-right"></i>
                 </label>
