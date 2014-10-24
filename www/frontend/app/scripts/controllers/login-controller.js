@@ -27,18 +27,7 @@ define(['./module'], function(controllers) {
                     loggedIn: false,
                     loginView: '../views/linkedin/linkedin.html',
                     logo: 'linkedin'
-                },
-                {
-                    loggedIn: false,
-                    loginView: '../views/facebook/facebook.html',
-                    logo: 'facebook'
-
-                },                
-                {
-                    loggedIn: false,
-                    loginView: '../views/linkedin/linkedin.html',
-                    logo: 'linkedin'
-                }                
+                }           
             ];
 
             this.startStalking = function(){
