@@ -9,6 +9,12 @@
         </div>
     </div>
 
+    <div ng-repeat="sm in ctrl.socialMedia">
+        <div class="well well-lg" ng-show="carousel.isActive($index)">
+            <ng-include src="sm.loginView"></ng-include>
+        </div>
+    </div>    
+
     <div class="row text-center" id="navigation">
         <div class="col-lg-8 col-lg-offset-2">
             <div class="btn-group">

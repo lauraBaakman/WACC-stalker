@@ -10,6 +10,9 @@ define(['./module'], function(controllers) {
                 activePage: 0,
                 move: function(direction) {
                     return ($scope.carousel.activePage + direction + controller.socialMedia.length) % controller.socialMedia.length;
+                },
+                isActive: function(page) {
+                    return page == $scope.carousel.activePage;
                 }
             };
 
