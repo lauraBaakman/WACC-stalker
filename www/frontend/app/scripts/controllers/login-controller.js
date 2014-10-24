@@ -6,15 +6,14 @@ define(['./module'], function(controllers) {
             $scope.controllername = "LoginCtrl";
             $scope.error = "";
             $scope.carousel = {
-                activePage : null
+                activePage : 0
             };
             var controller = this;      
 
             // Caroussel functions
             this.move = function(direction){
-                $scope.carousel.activePage = ($scope.carousel.activePage + direction + this.socialMedia.length) % this.socialMedia.length;
-                return $scope.carousel.activePage;
-            }
+                return ($scope.carousel.activePage + direction + this.socialMedia.length) % this.socialMedia.length;
+            };
 
             /* Supported social media and other socialMedia. */
             this.socialMedia = [
@@ -28,7 +27,18 @@ define(['./module'], function(controllers) {
                     loggedIn: false,
                     loginView: '../views/linkedin/linkedin.html',
                     logo: 'linkedin'
-                }
+                },
+                {
+                    loggedIn: false,
+                    loginView: '../views/facebook/facebook.html',
+                    logo: 'facebook'
+
+                },                
+                {
+                    loggedIn: false,
+                    loginView: '../views/linkedin/linkedin.html',
+                    logo: 'linkedin'
+                }                
             ];
 
             this.startStalking = function(){
