@@ -9,7 +9,7 @@
         </div>
     </div>
 
-    <div ng-repeat="sm in ctrl.socialMedia">
+    <div ng-repeat="sm in socialMedia.media">
         <div class="well well-lg" ng-show="carousel.isActive($index)">
             <ng-include src="sm.loginView"></ng-include>
         </div>
@@ -24,7 +24,7 @@
                 </label>
 
                 <!-- Social Media -->
-                <label ng-repeat="sm in ctrl.socialMedia" class="btn btn-success" ng-model="carousel.activePage" btn-radio="$index">
+                <label ng-repeat="sm in socialMedia.media" class="btn btn-success" ng-model="carousel.activePage" btn-radio="$index">
                     <i class="fa fa-fw fa-{{sm.logo}}"></i>
                 </label>
 

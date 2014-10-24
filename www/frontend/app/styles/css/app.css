@@ -32,7 +32,6 @@ header {
 	margin-right: 5px;
 }
 
-
 #searchFormSubmit {
 	margin-top: 25px;
 }
@@ -44,11 +43,6 @@ header {
 .statisticsOverview h3, p .description{
 	text-align: center;
 } 
-
-.legend {
-/*	vertical-align: middle;
-	margin-bottom: 20px*/
-}
 
 .legend span {
 	position: relative;

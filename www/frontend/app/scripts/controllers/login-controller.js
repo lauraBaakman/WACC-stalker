@@ -9,24 +9,28 @@ define(['./module'], function(controllers) {
             $scope.carousel = {
                 activePage: 0,
                 move: function(direction) {
-                    return ($scope.carousel.activePage + direction + controller.socialMedia.length) % controller.socialMedia.length;
+                    return ($scope.carousel.activePage + direction + numSocialMedia) % numSocialMedia;
                 },
                 isActive: function(page) {
                     return page == $scope.carousel.activePage;
                 }
             };
 
-            /* Supported social media and other socialMedia. */
-            this.socialMedia = [{
-                loggedIn: false,
-                loginView: '../views/facebook/facebook.html',
-                logo: 'facebook'
+            $scope.socialMedia = {
+                media: {
+                    facebook: {
+                        loggedIn: false,
+                        loginView: '../views/facebook/facebook.html',
+                        logo: 'facebook'
+                    },
+                    linkedIn: {
+                        loggedIn: false,
+                        loginView: '../views/linkedin/linkedin.html',
+                        logo: 'linkedin'
+                    }             
+                }
+            };
 
-            }, {
-                loggedIn: false,
-                loginView: '../views/linkedin/linkedin.html',
-                logo: 'linkedin'
-            }];
 
             this.startStalking = function() {
                 if (stalkerService.isLoggedIn()) {
@@ -53,6 +57,7 @@ define(['./module'], function(controllers) {
                 socialMedia.social[data].loggedIn = false;
             });
 
+            var numSocialMedia = Object.keys($scope.socialMedia.media).length;
         }
     ]);
 });
