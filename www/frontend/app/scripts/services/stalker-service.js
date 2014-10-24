@@ -44,15 +44,11 @@ define(['./module'], function(services) {
                 },
 
                 commitStalker: function() {
-                    console.log('Committing this stalker:');
-                    console.log(this.stalker);
                     apiService.postStalker(this.stalker).then(
                         function(result){
-                            console.log('Logged the stalker succesfully');
                             console.log(result);
                         },
                         function(error){
-                            console.log('An error occurred when logging the stalker.');
                             console.log(error);
                         });
                 }
