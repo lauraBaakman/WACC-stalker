@@ -38,7 +38,7 @@ def add_cors(resp):
 
 # Register the Models.
 db.init()
-#db.init_replicas()
+# db.init_replicas()
 db.connection.register([Stalker, Search, Victim])
 
 # Set up of the actual routing

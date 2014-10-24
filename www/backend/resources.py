@@ -418,7 +418,7 @@ class StatisticsLocationFrequency(Resource):
             'term': fields.String(attribute='_id')
         }
 
-        self.sort_x = [('value', pymongo.DESCENDING)]
+        self.sort_x = [('_id', pymongo.DESCENDING)]
         self.limit_x = 10
 
     def get(self):
@@ -442,7 +442,7 @@ class StatisticsRelationshipFrequency(Resource):
             'term': fields.String(attribute='_id')
         }
 
-        self.sort_x = [('value', pymongo.DESCENDING)]
+        self.sort_x = [('_id', pymongo.DESCENDING)]
         self.limit_x = 10
 
     def get(self):
@@ -466,7 +466,7 @@ class StatisticsGenderRelationshipFrequency(Resource):
             'term': fields.String(attribute='_id')
         }
 
-        self.sort_x = [('value', pymongo.DESCENDING)]
+        self.sort_x = [('_id', pymongo.DESCENDING)]
         self.limit_x = 10
 
     def get(self, gender):
