@@ -3,35 +3,30 @@ define(['./module'], function(controllers) {
     controllers.controller('LoginCtrl', ['$scope', 'stalkerService',
 
         function($scope, stalkerService) {
-            $scope.controllername = "LoginCtrl";
             $scope.error = "";
-            $scope.carousel = {
-                activePage : 0
-            };
-            var controller = this;      
+            var controller = this;
 
-            // Caroussel functions
-            this.move = function(direction){
-                return ($scope.carousel.activePage + direction + this.socialMedia.length) % this.socialMedia.length;
+            $scope.carousel = {
+                activePage: 0,
+                move: function(direction) {
+                    return ($scope.carousel.activePage + direction + controller.socialMedia.length) % controller.socialMedia.length;
+                }
             };
 
             /* Supported social media and other socialMedia. */
-            this.socialMedia = [
-                {
-                    loggedIn: false,
-                    loginView: '../views/facebook/facebook.html',
-                    logo: 'facebook'
+            this.socialMedia = [{
+                loggedIn: false,
+                loginView: '../views/facebook/facebook.html',
+                logo: 'facebook'
 
-                },
-                {
-                    loggedIn: false,
-                    loginView: '../views/linkedin/linkedin.html',
-                    logo: 'linkedin'
-                }           
-            ];
+            }, {
+                loggedIn: false,
+                loginView: '../views/linkedin/linkedin.html',
+                logo: 'linkedin'
+            }];
 
-            this.startStalking = function(){
-                if(stalkerService.isLoggedIn()){
+            this.startStalking = function() {
+                if (stalkerService.isLoggedIn()) {
                     console.log('stalkerService.isLoggedIn returned true');
                     $scope.stalking = true;
                     stalkerService.commitStalker();
@@ -43,17 +38,17 @@ define(['./module'], function(controllers) {
 
             // Keep the socialMedia array up to data, 
             // TODO: Fix so that it works with the new array
-            $scope.$on('loggedInEvent', function (event, data) {
+            $scope.$on('loggedInEvent', function(event, data) {
                 console.log(data);
                 $scope.error = "";
                 socialMedia.social[data].loggedIn = true;
             });
 
-            $scope.$on('loggedOutEvent', function (event, data) {
+            $scope.$on('loggedOutEvent', function(event, data) {
                 console.log(data);
                 $scope.error = " You need to be logged on to at least one social network.";
                 socialMedia.social[data].loggedIn = false;
-            });            
+            });
 
         }
     ]);
