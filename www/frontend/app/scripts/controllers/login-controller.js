@@ -5,14 +5,15 @@ define(['./module'], function(controllers) {
         function($scope, stalkerService) {
             $scope.controllername = "LoginCtrl";
             $scope.error = "";
-            $scope.activePage = 0;
-            $scope.p;
+            $scope.carousel = {
+                activePage : null
+            };
             var controller = this;      
 
             // Caroussel functions
             this.move = function(direction){
-                $scope.activePage = ($scope.activePage + direction + this.socialMedia.length) % this.socialMedia.length;
-                return $scope.activePage;
+                $scope.carousel.activePage = ($scope.carousel.activePage + direction + this.socialMedia.length) % this.socialMedia.length;
+                return $scope.carousel.activePage;
             }
 
             /* Supported social media and other socialMedia. */
@@ -27,12 +28,7 @@ define(['./module'], function(controllers) {
                     loggedIn: false,
                     loginView: '../views/linkedin/linkedin.html',
                     logo: 'linkedin'
-                },
-                {
-                    loggedIn: false,
-                    loginView: '../views/linkedin/linkedin.html',
-                    logo: 'linkedin'
-                }                
+                }
             ];
 
             this.startStalking = function(){
