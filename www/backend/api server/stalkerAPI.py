@@ -6,7 +6,7 @@ import sys
 import optparse
 
 from resources import *
-from models import Stalker, Search, Victim
+
 
 import database as db
 
@@ -36,11 +36,6 @@ def add_cors(resp):
     if app.debug:
         resp.headers['Access-Control-Max-Age'] = '1'
     return resp
-
-# Register the Models.
-db.init()
-# db.init_replicas()
-db.connection.register([Stalker, Search, Victim])
 
 # Set up of the actual routing
 api.add_resource(
@@ -84,37 +79,100 @@ api.add_resource(
 )
 
 # Argument parser
-parser = optparse.OptionParser(description='Stalker REST Api')
-
-parser.add_option(
-    '-t', '--test',
-    action="store_true", dest="test", default=False,
-    help="when provided the api will generate test data. [default: %default]"
+parser = optparse.OptionParser(
+    description='Stalker REST Api',
+    #usage="usage: %prog [options]"
 )
 
 parser.add_option(
+    '-q', '--quiet',
+    action="store_true", dest="quiet", default=False,
+    help="be quiet. [default: %default]"
+)
+
+# Network groups
+network_group = optparse.OptionGroup(
+    parser, "Network Options",
+    "With these options you can set the network setting. "
+)
+
+network_group.add_option(
     '-H', '--host',
     action="store", type="string", dest="host", default="127.0.0.1",
     help="sets host address. [default: %default]"
 )
 
-parser.add_option(
-    '-p', '--port',
+network_group.add_option(
+    '-P', '--port',
     action="store", type="int", dest="port", default="8000",
     help="set port for the host address. [default: %default]"
 )
 
+network_group.add_option(
+    '-r', '--replicaset',
+    action="store_true", dest="replicaset",  default=False,
+    help="if provided the api will use the replica set provided in config.py. [default: %default]"
+)
+
+parser.add_option_group(network_group)
+
+# Development options group
+dev_group = optparse.OptionGroup(
+    parser, "Dangerous Options",
+    "Caution: use these options at your own risk.  "
+)
+dev_group.add_option(
+    '-d', '--debug',
+    action="store_true", dest="debug", default=False,
+    help="if provided the api will run in debug mode. [default: %default]"
+)
+
+dev_group.add_option(
+    '-t', '--test',
+    action="store_true", dest="generate", default=False,
+    help="generate test data. [default: #stalker=500, #victims=200, #searches=700]"
+)
+dev_group.add_option(
+    '-p', '--params',
+    action="store", type="int", nargs=3, dest="params",
+    help="generate test data with user provided parameters. "
+    "[PARAMS: #stalkers #victims #searches]"
+)
+
+parser.add_option_group(dev_group)
+
 if __name__ == '__main__':
+    import test_data as td
 
     options, args = parser.parse_args()
-    print 'Test:', options.test
 
-    # import test_data as td
-    # td.clear(db.connection)
+    if options.replicaset:
+        if not options.quiet:
+            print "DATABASE: Using replica set databse connection."
+        db.init(True)
+    else:
+        if not options.quiet:
+            print "DATABASE: Using single database connection."
+        db.init()
 
-    # if(len(sys.argv) > 1):
-        # print "Generating new test data"
-        # Generate test data
-        # td.clear(db.connection)
-        # td.populate(db.connection)
-    app.run(host="127.0.0.1", port=int("5000"), debug=True)
+    if options.params is not None:
+        td.generate(db.connection, options.params[0], options.params[1], options.params[2])
+        if not options.quiet:
+            print "DATABASE: Using user provided params to generate test data."
+
+    if options.generate:
+        if options.params is None:
+            if not options.quiet:
+                print "DATABASE: Using default params to generate test data."
+            td.generate(db.connection)
+        elif not options.quiet:
+            print "DATABASE: Using user provided params to generate test data."
+
+    if not options.quiet:
+        print "API     : Stalker api listening on {}:{}".format(
+            options.host,
+            str(options.port)
+        )
+        print "API     : debug mode = {}".format(options.debug)
+
+    app.run(host=options.host, port=options.port, debug=options.debug)

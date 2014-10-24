@@ -6,7 +6,7 @@ from faker import Factory
 from models import Stalker, Search, Victim
 
 
-def populate(connection, numStalkers=50, numVictims=20, numSearches=70):
+def populate(connection, numStalkers=500, numVictims=200, numSearches=700):
     """ . """
     relationship_statuses = [
         u'Single',
@@ -267,6 +267,13 @@ def clear(connection):
     connection.wacc.drop_collection('stalkers')
     connection.wacc.drop_collection('searches')
     connection.wacc.drop_collection('victims')
+
+
+def generate(connection, num_stalkers=500, num_victims=200, num_searches=700):
+    """ Generate test data. """
+    clear(connection)
+    populate(connection, num_stalkers, num_victims, num_searches)
+
 
 if __name__ == '__main__':
     import database as db
