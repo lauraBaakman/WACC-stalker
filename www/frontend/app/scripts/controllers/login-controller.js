@@ -35,8 +35,8 @@ define(['./module'], function(controllers) {
             this.startStalking = function() {
                 if (stalkerService.isLoggedIn()) {
                     console.log('stalkerService.isLoggedIn returned true');
-                    $scope.stalking = true;
                     stalkerService.commitStalker();
+                    $scope.error = "";
                 } else {
                     console.log('stalkerService.isLoggedIn returned false');
                     $scope.error = " You need to be logged on to at least one social network.";
@@ -46,15 +46,11 @@ define(['./module'], function(controllers) {
             // Keep the socialMedia array up to data, 
             // TODO: Fix so that it works with the new array
             $scope.$on('loggedInEvent', function(event, data) {
-                console.log(data);
-                $scope.error = "";
-                socialMedia.social[data].loggedIn = true;
+                $scope.socialMedia.media[data].loggedIn = true;
             });
 
             $scope.$on('loggedOutEvent', function(event, data) {
-                console.log(data);
-                $scope.error = " You need to be logged on to at least one social network.";
-                socialMedia.social[data].loggedIn = false;
+                $scope.socialMedia.media[data].loggedIn = false;
             });
 
             var numSocialMedia = Object.keys($scope.socialMedia.media).length;
