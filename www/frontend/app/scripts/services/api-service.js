@@ -38,15 +38,15 @@ define(['./module'], function(services) {
 
                 // POSTS
                 postSearch: function(postData) {
-					return $http.post(this.baseurl + 'search', postData);
+					return $http.post(this.baseurl + 'searches', postData);
                 },
 
                 postStalker: function(postData) {
-                	return $http.post(this.baseurl + 'stalker', postData);
+                	return $http.post(this.baseurl + 'stalkers', postData);
                 },  
 
                 postVictim: function(postData) {
-					return $http.post(this.baseurl + 'victim', postData);
+					return $http.post(this.baseurl + 'victims', postData);
                 }             
             };
         }
