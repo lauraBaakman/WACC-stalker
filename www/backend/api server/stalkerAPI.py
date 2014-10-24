@@ -3,6 +3,7 @@ from flask import Flask, request
 from flask.ext.restful import Api
 from flask.ext.cors import CORS
 import sys
+import optparse
 
 from resources import *
 from models import Stalker, Search, Victim
@@ -82,13 +83,38 @@ api.add_resource(
     '/statistics/gender/location/frequency'
 )
 
-if __name__ == '__main__':
-    import test_data as td
-    td.clear(db.connection)
+# Argument parser
+parser = optparse.OptionParser(description='Stalker REST Api')
 
-    if(len(sys.argv) > 1):
-        print "Generating new test data"
+parser.add_option(
+    '-t', '--test',
+    action="store_true", dest="test", default=False,
+    help="when provided the api will generate test data. [default: %default]"
+)
+
+parser.add_option(
+    '-H', '--host',
+    action="store", type="string", dest="host", default="127.0.0.1",
+    help="sets host address. [default: %default]"
+)
+
+parser.add_option(
+    '-p', '--port',
+    action="store", type="int", dest="port", default="8000",
+    help="set port for the host address. [default: %default]"
+)
+
+if __name__ == '__main__':
+
+    options, args = parser.parse_args()
+    print 'Test:', options.test
+
+    # import test_data as td
+    # td.clear(db.connection)
+
+    # if(len(sys.argv) > 1):
+        # print "Generating new test data"
         # Generate test data
-        td.clear(db.connection)
-        td.populate(db.connection)
-    app.run(debug=True)
+        # td.clear(db.connection)
+        # td.populate(db.connection)
+    app.run(host="127.0.0.1", port=int("5000"), debug=True)
