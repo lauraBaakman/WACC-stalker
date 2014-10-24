@@ -2,7 +2,6 @@
 from flask import Flask, request
 from flask.ext.restful import Api
 from flask.ext.cors import CORS
-import sys
 import optparse
 
 from resources import *
