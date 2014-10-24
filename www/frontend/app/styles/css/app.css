@@ -44,7 +44,7 @@ header {
 	text-align: center;
 }
 
-.statisticsOverview h3, p .description{
+.statisticsOverview h3, h4, p.description{
 	text-align: center;
 } 
 
