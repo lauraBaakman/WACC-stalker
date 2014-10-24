@@ -19,6 +19,10 @@ header {
 	}	
 }
 
+#navigation {
+	margin-bottom: 30px;
+}
+
 .btn i {
 	padding-right: 1em;
 }
