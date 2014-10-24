@@ -17,7 +17,7 @@ require.config({
         'angular-http-loader': '../vendor/angular-http-loader/angular-http-loader',
         'fs-dangle': '../vendor/dangle/dangle',
         'dThree': '../vendor/d3/d3',
-        'bootstrap-ui': '../vendor/bootstrap-custom/ui-bootstrap-custom-tpls-0.10.0'
+        'bootstrap-ui': '../vendor/bootstrap-ui/ui-bootstrap-custom-tpls-0.10.0'
     },
 
     /**
