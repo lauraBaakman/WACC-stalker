@@ -3,9 +3,19 @@ define(['./module'], function(controllers) {
     controllers.controller('LoginCtrl', ['$scope', 'stalkerService',
 
         function($scope, stalkerService) {
-            $scope.controllername = "LoginCtrl"
+            $scope.controllername = "LoginCtrl";
             $scope.error = "";
+            $scope.activePage = 0;
+            $scope.p;
             var controller = this;      
+
+            // Caroussel functions
+            this.move = function(direction){
+                $scope.activePage = ($scope.activePage + direction + directives.length) % directives.length;
+                return $scope.activePage();
+            }
+
+
 
             /* Supported social media and other directives. */
             var directives = [
@@ -19,7 +29,12 @@ define(['./module'], function(controllers) {
                     loggedIn: false,
                     loginView: '../views/linkedin/linkedin.html',
                     logo: 'linkedin'
-                }
+                },
+                {
+                    loggedIn: false,
+                    loginView: '../views/linkedin/linkedin.html',
+                    logo: 'linkedin'
+                }                
             ];
 
             this.startStalking = function(){
@@ -33,6 +48,8 @@ define(['./module'], function(controllers) {
                 }
             };
 
+            // Keep the directives array up to data, 
+            // TODO: Fix so that it works with the new array
             $scope.$on('loggedInEvent', function (event, data) {
                 console.log(data);
                 $scope.error = "";

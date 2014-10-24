@@ -9,7 +9,25 @@
         </div>
     </div>
 
-	<!-- Start Stalking Button -->
+    <div class="row text-center" id="navigation">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="btn-group">
+                <label class="btn btn-success" btn-radio="ctrl.move(-1)" ng-model="activePage">
+                    <i class="fa fa-fw fa-angle-double-left"></i>
+                </label>
+
+                <label class="btn btn-success" ng-model="activePage" btn-radio="0">0</label>
+                <label class="btn btn-success" ng-model="activePage" btn-radio="1">1</label>
+                <label class="btn btn-success" ng-model="activePage" btn-radio="2">2</label>
+
+                <label class="btn btn-success" btn-radio="ctrl.move(+1)" ng-model="activePage">
+                    <i class="fa fa-fw fa-angle-double-right"></i>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Start Stalking Button -->
     <div class="row" id="startStalkingButton">
         <div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4">
             <button type="button" class="btn btn-block btn-primary" ng-click="ctrl.startStalking()">Start Stalking!</button>
