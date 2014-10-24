@@ -18,6 +18,12 @@ define(['./app'], function(app) {
                 //controller: 'MyCtrl1'
             });
 
+            // TEST!
+            $routeProvider.when('/test', {
+                templateUrl: 'views/landing.html',
+                //controller: 'MyCtrl1'
+            });
+
             // NOTE: Partial view for the data (search) statistics
             $routeProvider.when('/statistics', {
                 templateUrl: 'views/statistics.html',

@@ -8,4 +8,5 @@ define([
     './facebook/facebook-controller',
     './linkedin/linkedin-controller',
     './search-controller',
+    './login-controller'
 ], function () {});
