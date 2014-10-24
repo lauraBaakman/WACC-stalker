@@ -1,8 +1,8 @@
 define(['./module'], function(services) {
     'use strict';
     services.service('stalkerService', 
-        ['md5', '$rootScope', '$facebook', '$linkedIn', 'apiService', 'locationService',
-        function(md5, $rootScope, $facebook, $linkedIn, apiService, locationService) {
+        ['md5', '$rootScope', '$facebook', '$linkedIn', 'apiService',
+        function(md5, $rootScope, $facebook, $linkedIn, apiService) {
             return {
                 stalker: {
                     stalker_id: null, // = facebook id
