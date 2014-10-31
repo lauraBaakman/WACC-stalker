@@ -47,3 +47,5 @@ __pycache__/
 *.vrb
 *.xdy
 *.tdo
+*-blx.bib
+*.run.xml
