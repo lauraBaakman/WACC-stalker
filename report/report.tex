@@ -1,6 +1,7 @@
 \documentclass{report}
 \usepackage[english]{babel}
 \usepackage{hyperref}
+\usepackage{cleveref}
 
 %Layout
 \usepackage{titling}
@@ -23,6 +24,7 @@
 \usepackage{todonotes}
 
 \renewcommand{\t}[1]{\texttt{#1}}
+\newcommand{\stalker}{\textsc{stalker}}
 
 \title{\textsc{stalker}}
 \subtitle{Web \& Cloud Computing}
@@ -33,15 +35,19 @@
 \maketitle
 
 \chapter*{Introduction}
+\label{ch:intro}
 \input{0_introduction.tex}
 
 \chapter{Frontend}
-\input{1_frontend.tex}
+\label{ch:frontend}
+% \input{1_frontend.tex}
 
 \chapter{Backend}
-\input{2_backend.tex}
+\label{ch:backend}
+% \input{2_backend.tex}
 
 \chapter{Evaluation}
-\input{3_evaluation}
+\label{ch:eval}
+% \input{3_evaluation}
 
 \end{document}
