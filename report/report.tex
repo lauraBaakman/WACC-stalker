@@ -1,0 +1,93 @@
+\documentclass{report}
+\usepackage[english]{babel}
+\usepackage{hyperref}
+
+%Code
+\usepackage{listings}
+\usepackage{color}
+
+%Plaatjes
+\usepackage{graphicx}
+\usepackage[small,bf]{caption}
+\usepackage{subcaption}
+
+\usepackage{todonotes}
+
+% Code lay-out
+\definecolor{light-gray}{gray}{0.95}
+\usepackage{courier}
+\lstset{language=Matlab, 
+	tabsize = 4, 
+	columns=flexible, 
+	breaklines = true, 
+	backgroundcolor=\color{light-gray},
+	keepspaces=true,
+	showspaces=false,
+	showstringspaces=false,
+	basicstyle=\ttfamily
+}
+
+%Wiskunde
+\usepackage{siunitx}
+
+% Math commands
+\newcommand{\normal}[2]{\ensuremath{\mathcal{N}\left(#1,\, #2\right)}}
+
+% Multi column page layou
+\usepackage{multicol}
+
+\renewcommand{\t}[1]{\texttt{#1}}
+
+\title{Some title}
+\author{Rick van Veen (s1883933) \& Laura Baakman (s1869140)}
+
+\begin{document}
+
+\maketitle
+
+\chapter*{Introduction}
+	\todo{What is it}
+	\todo{What are we going to discuss}
+
+\chapter{Frontend}
+
+\section{Technology Stack}
+
+% Per ding
+\subsection{Description}
+
+\subsection{Motivation}
+
+\section{Design}
+Hoe werkt de techonoglie samen in de frontend, dus flow or whatever....
+
+\subsection{Search}
+
+\subsection{Statistics}
+
+\chapter{Backend}
+
+\section{Technology Stack}
+
+% Per ding
+\subsection{Description}
+
+\subsection{Motivation}
+
+\section{Design}
+Hoe werkt de techonoglie samen in de frontend, dus flow or whatever....
+
+\subsection{REST API}
+
+\subsection{Map Reduce}
+
+\section{Scalability}
+Mongo replicasets enzo...
+
+\chapter{Evaluation}
+
+\section{Frontend}
+
+\section{Backend}
+
+\end{document}
