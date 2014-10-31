@@ -43,7 +43,7 @@ This chapter discusses the front-end. We start by presenting the technology stac
 	\label{ssec:1:bootstrapUI}
 		UI Bootstrap is an Angular version of the JavaScript part of Bootstrap. As far as we could find there are no alternatives other than building the directives yourself. 
 
-		In the end we had to write the carousel at the login window ourselves since the custom buttons we wanted were not supported by UI Bootstrap. \todo{Refer to the image of the login carousel with, vref?, that at some point will be added to the design section.}
+		In the end we had to write the carousel at the login window, see \vref{fig:1:viewLogIn}, ourselves since the custom buttons we wanted were not supported by UI Bootstrap.
 
 	\subsection{Dangle}
 	\label{ssec:1:dangle}
@@ -51,9 +51,7 @@ This chapter discusses the front-end. We start by presenting the technology stac
 		``Dangle is a set of AngularJS directives that provide common visualizations based on D3."\cite{dangle}
 
 		% Why have we used it, mention alternatives
-		We have used it to create the pie charts shown on the statistics page, after practically rewriting the directive. The directives provided by Dangle did not handle long labels, and pie charts with a lot of pieces very well. To solve this we have removed all code from the pie chart directive that added labels and added a separate legend, see \todo{refer to figure of the statistics page in design section}. The one upside of Dangle was that it expected its input in the same format our map-reduce-operations returned it. \\
-
-		\missingfigure{Plaatje van oude pie chart en plaatje van nieuwe pie chart. Staat vast nog ergens in een oude branch en anders source opnieuw laden.}
+		We have used it to create the pie charts shown on the statistics page, after practically rewriting the directive. The directives provided by Dangle did not handle long labels, and pie charts with a lot of pieces very well. To solve this we have removed all code from the pie chart directive that added labels and added a separate legend, see \vref{fig:1:viewStat}. The one upside of Dangle was that it expected its input in the same format our map-reduce-operations returned it. \\
 
 		% Would we make the same choice again?
 		In hindsight we should have chosen something other than Dangle, however we did not look further since Dangle played nice with AngularJS. 
@@ -61,14 +59,96 @@ This chapter discusses the front-end. We start by presenting the technology stac
 	\subsection{RequireJS}
 	\label{ssec:1:requirejs}
 		% What is it
-		RequireJS is a JavaScript file and module loader that is optimized for in-browser use. Neither one of us had any experience with anything like it and since RequireJS was mentioned during the lectures we chose to use it. It helped that we found a boilerplate project that combined AngularJS and RequireJS. \todo{Where did we get the boilerplate?}
+		RequireJS is a JavaScript file and module loader that is optimized for in-browser use. Neither one of us had any experience with anything like it and since RequireJS was mentioned during the lectures we chose to use it. It helped that we found a boilerplate project that combined AngularJS and RequireJS. \todo{Where did we get the boilerplate?}	
 
 \section{Design}
 \label{sec:1:design}
-	Hoe werkt de techonoglie samen in de frontend, dus flow or whatever....
+	In this section we will discuss the control flow in the front end upon certain actions of the user. 
 
 	\subsection{Log In}
+		As mentioned earlier users have to log in to a social network before being allowed to stalk somebody on that network. Since we store the ID of the user and we have not implemented an api call that adds for example the LinkedIn identification to a user that we have already stored with its Facebook identification. 
 
-	\subsection{Search}
+		\Cref{fig:1:controlflowLogIn} presents the flow of control when a users logs in. The views that are presented to the user before and after logging in are presented in \cref{fig:1:viewLogIn}.
 
-	\subsection{Statistics}
+		\todo{Begeleidend verhaaltje schrijven.}	
+
+		\begin{figure}
+			\missingfigure{Control flow of logging in}
+			\caption{A schematic overview of the control flow when a user logs in.}
+			\label{fig:1:controlflowLogIn}
+		\end{figure}
+
+		\begin{figure}
+			\begin{subfigure}{\textwidth}
+				\missingfigure{Screenshot of the application when a user is not logged into LinkedIn.}
+				\caption{The view when the user is not logged into LinkedIn.}
+				\label{fig:1:viewLogIn:linkedin}
+			\end{subfigure}
+			\begin{subfigure}{\textwidth}
+				\missingfigure{Screenshots of the application when a user is logged into facebook.}	
+				\caption{The view when the user is logged into Facebook.}
+				\label{fig:1:viewLogIn:facebook}
+			\end{subfigure}		
+			
+			\caption{Screen shots of the application when \subref{fig:1:viewLogIn:facebook} the user still has not yet logged into LinkedIn and \subref{fig:1:viewLogIn:linkedin} the user has logged in into Facebook.}
+			\label{fig:1:viewLogIn}
+		\end{figure}	
+
+	\subsection{Log Out}	
+			The control flow when a user logs out is presented in \cref{fig:1:controlflowLogOut}. 
+			\todo{Begeleidend verhaaltje schrijven.}	
+
+			\begin{figure}
+				\missingfigure{Control flow of logging out}
+				\caption{A schematic overview of the control flow when a user logs out.}
+				\label{fig:1:controlflowLogOut}
+			\end{figure}		
+
+	\subsection{Stalk}
+		\Cref{fig:1:controlflowStalk} presents the flow of control when a user searches for somebody on the social networks that he has logged in to. The views presented to the user are shown in \autoref{fig:1:viewStalk}.
+
+		\todo{Begeleidend verhaaltje schrijven}
+
+			\begin{figure}
+				\missingfigure{Control flow of stalking}
+				\caption{A schematic overview of the control flow when a user stalks somebody.}
+				\label{fig:1:controlflowStalk}
+			\end{figure}	
+
+			\begin{figure}
+				\begin{subfigure}{\textwidth}
+					\missingfigure{Screenshot of the application when a user has to start filled out data, and is about to press the stalk button.}
+					\caption{The view when the user is about to press the stalk button.}
+					\label{fig:1:viewStalk:startStalk}
+				\end{subfigure}
+				\begin{subfigure}{\textwidth}
+					\missingfigure{Screenshot with a list of results.}	
+					\caption{The view when all victims are found.}
+					\label{fig:1:viewStalk:allVictims}
+				\end{subfigure}		
+				\begin{subfigure}{\textwidth}
+					\missingfigure{Screenshot with a one result}	
+					\caption{The view with the details of one victim.}
+					\label{fig:1:viewStalk:oneVictim}
+				\end{subfigure}						
+				
+				\caption{Screen shots of the application when \subref{fig:1:viewStalk:startStalk} the user is about to press the stalk button, \subref{fig:1:viewStalk:allVictims} the list of all victims, \subref{fig:1:viewStalk:oneVictim} the details of one victim.}
+				\label{fig:1:viewStalk}
+			\end{figure}
+
+	\subsection{View Statistics}
+		The control flow when a user views statistics is presented in \cref{fig:1:controlflowStat}. \Cref{fig:1:viewStat} shows how the statistics are presented to the user.
+
+		\todo{Begeidend verhaaltje schrijven}
+
+		\begin{figure}
+			\missingfigure{Control flow of statistics}
+			\caption{A schematic overview of the control flow of requesting the statistics and showing them to the user.}
+			\label{fig:1:controlflowStat}
+		\end{figure}
+
+		\begin{figure}
+			\missingfigure{View statistics}
+			\caption{The view when the user has requested statistics.}
+			\label{fig:1:viewStat}
+		\end{figure}
