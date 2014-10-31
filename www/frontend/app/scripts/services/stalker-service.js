@@ -18,6 +18,10 @@ define(['./module'], function(services) {
                     linkedIn: false
                 },
 
+                getStalkerId: function(){
+                    return this.stalker.stalker_id;
+                },
+
                 setFacebookStalker: function(data) {
                     this.stalker.stalker_id = md5.createHash(data.id);
                     this.stalker.gender = data.gender;
@@ -46,10 +50,8 @@ define(['./module'], function(services) {
 
                 commitStalker: function() {
                     apiService.postStalker(this.stalker).then(
-                        function(result){
-                        },
-                        function(error){
-                        });
+                        function(result){},
+                        function(error){});
                 }
             };
         }

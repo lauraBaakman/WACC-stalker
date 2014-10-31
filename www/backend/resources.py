@@ -97,8 +97,8 @@ class SearchesResource(Resource):
         Parameters:
             JSon object with the keys:
                 stalker_id:        required, string
-                lat:                required, float
-                long:               required, float
+                latitude:                required, float
+                longitude:               required, float
                 country_code:       required, three letter string
                 victim_id:             optional, string, default: ""
         Return codes:
@@ -115,8 +115,8 @@ class SearchesResource(Resource):
             search = db.connection.Search()
 
             search.stalker_id = args['stalker_id']
-            search.location['lat'] = args['lat']
-            search.location['long'] = args['long']
+            search.location['lat'] = args['latitude']
+            search.location['long'] = args['longitude']
             search.location['country_code'] = args['country_code']
 
             # Optional parameters

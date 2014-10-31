@@ -5,25 +5,25 @@ define(['./module'], function(services) {
         function($http) {
             return {
 
-                getLocationFromIp: function() {
+                getLocationFromIP: function() {
                     var location = {
                         latitude: null,
                         longitude: null,
                         country_code: null
                     };
 
-                    $http.get('http://freegeoip.net/json/').then(
+                    return $http.get('http://freegeoip.net/json/').then(
                         function(result) {
-                            console.log(result);
-                            location.country_code = result.Data.country_code;
-                            location.latitude = result.Data.latitude;
-                            location.longitude = result.Data.longitude;
+                            location.country_code = result.data.country_code;
+                            location.latitude = result.data.latitude;
+                            location.longitude = result.data.longitude;
+                            return location;
                         },
                         function(error) {
-                            //Return the empty location
+                            console.log(error);
+                            return location;
                         }
                     );
-                    return location;
                 }
             };
         }

@@ -1,7 +1,7 @@
 define(['./module'], function(directives) {
     'use strict';
-    directives.directive('searchField', ['searchService',
-        function(searchService, $scope) {
+    directives.directive('searchField', ['apiService', 'stalkerService', 'locationService', 'searchService',
+        function(apiService, stalkerService, locationService, searchService, $scope) {
             return {
                 restrict: 'E',
                 templateUrl: '../views/search-field.html',
@@ -80,7 +80,23 @@ define(['./module'], function(directives) {
                         noCheck = typeof noCheck !== 'undefined' ? noCheck : false;
                         if (noCheck) { // Submit without validation
                             // get location of the search and submit to the back end
-                            
+                            var search = {};
+                            locationService.getLocationFromIP().then(
+                                function(result){
+                                    search = result;
+                                }
+                            );
+                            console.log(search);
+                            search.stalker_id = stalkerService.getStalkerId();
+                            apiService.postSearch(search).then(
+                                function(result){
+                                    console.log(result);
+                                },
+                                function(error){
+                                    //do nothing
+                                }
+                            );
+
                             searchService.broadcast({"name": $scope.search.name, "email": $scope.search.email});
                             this.resetForm();
                         } else { // Submit with validation
