@@ -1,5 +1,6 @@
 \documentclass{report}
 \usepackage[english]{babel}
+\usepackage{varioref}
 \usepackage{hyperref}
 \usepackage{cleveref}
 
@@ -17,37 +18,43 @@
 \usepackage[small,bf]{caption}
 \usepackage{subcaption}
 
-%Wiskunde
-\usepackage{siunitx}
-
 % Temp
 \usepackage{todonotes}
 
+% References
+\usepackage[backend=bibtex]{biblatex}
+\usepackage{csquotes}
+\bibliography{biblio}
+
+% Some commands
 \renewcommand{\t}[1]{\texttt{#1}}
 \newcommand{\stalker}{\textsc{stalker}}
 
+% Title page
 \title{\textsc{stalker}}
 \subtitle{Web \& Cloud Computing}
 \author{Rick van Veen (s1883933)\\Laura Baakman (s1869140)}
 
 \begin{document}
 
-\maketitle
+% \maketitle
 
-\chapter*{Introduction}
-\label{ch:intro}
-\input{0_introduction.tex}
+% \chapter*{Introduction}
+% \label{ch:intro}
+% \input{0_introduction.tex}
 
-\chapter{Frontend}
+\chapter{Front-End}
 \label{ch:frontend}
-% \input{1_frontend.tex}
+\input{1_frontend.tex}
 
-\chapter{Backend}
-\label{ch:backend}
+% \chapter{Back-End}
+% \label{ch:backend}
 % \input{2_backend.tex}
 
-\chapter{Evaluation}
-\label{ch:eval}
+% \chapter{Evaluation}
+% \label{ch:eval}
 % \input{3_evaluation}
+
+\printbibliography
 
 \end{document}
