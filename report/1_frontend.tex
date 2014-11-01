@@ -63,17 +63,17 @@ This chapter discusses the front-end. We start by presenting the technology stac
 
 \section{Design}
 \label{sec:1:design}
-	In this section we will discuss the control flow in the front end upon certain actions of the user. 
+	In this section we will discuss the control flow in the front end upon certain actions of the user. To avoid a lengthy report we will only discuss the flow of successful cases.
 
 	\subsection{Log In}
-		As mentioned earlier users have to log in to a social network before being allowed to stalk somebody on that network. Since we store the ID of the user and we have not implemented an api call that adds for example the LinkedIn identification to a user that we have already stored with its Facebook identification. 
+		As mentioned earlier users have to log in to a social network before being allowed to stalk somebody on that network. Since we store the ID of the user and we have not implemented an api call that adds for example the LinkedIn identification to a user that we have already stored with its Facebook identification.
 
 		\Cref{fig:1:controlflowLogIn} presents the flow of control when a users logs in. The views that are presented to the user before and after logging in are presented in \cref{fig:1:viewLogIn}.
 
 		\todo{Begeleidend verhaaltje schrijven.}	
 
 		\begin{figure}
-			\missingfigure{Control flow of logging in}
+			\includegraphics[width=\textwidth]{./img/1_login_flow}
 			\caption{A schematic overview of the control flow when a user logs in.}
 			\label{fig:1:controlflowLogIn}
 		\end{figure}
