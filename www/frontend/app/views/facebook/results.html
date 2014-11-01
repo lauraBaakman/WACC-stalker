@@ -1,24 +1,30 @@
 <div ng-include src="'views/facebook/logged-in-header.html'"></div>
 
-<div>
-	<table ng-show="facebookCtrl.hasResults()" class="table table-striped">
-		<tr>
-			<th class="col-sm-11">Name</th> <th class="col-sm-1">Search</th>
-		</tr>
-		<tr ng-repeat="result in results | limitTo:10">
-			<td>{{result.name}}</td> <td><button ng-click="facebookCtrl.detailsCall(result.id)" class="btn btn-default">Go!</button>
-		</tr>
-	</table>
+<div class="row">
+	<div class="xs-col-12">
+	    <table ng-show="facebookCtrl.hasResults()" class="table table-striped">
+	        <tr>
+	            <th class="col-sm-11">Name</th>
+	            <th class="col-sm-1">Search</th>
+	        </tr>
+	        <tr ng-repeat="result in results | limitTo:10">
+	            <td>{{result.name}}</td>
+	            <td>
+	                <button ng-click="facebookCtrl.detailsCall(result.id)" class="btn btn-default">Go!</button>
+				</td>
+	        </tr>
+	    </table>
 
-	<div ng-hide="facebookCtrl.hasResults()">
-		<h4>No results</h4>
-	</div>
+	    <div ng-hide="facebookCtrl.hasResults()">
+	        <h4>No results</h4>
+	    </div>
 
-	<div ng-show="facebookCtrl.hasError()" class="row">
-		<div class="col-xs-12">
-	        <div class="alert alert-error" role="alert">
-	            <strong>Error!</strong>{{error}}
-	        </div>		
-		</div>
-	</div>
+	    <div ng-show="facebookCtrl.hasError()" class="row">
+	        <div class="col-xs-12">
+	            <div class="alert alert-error" role="alert">
+	                <strong>Error!</strong>{{error}}
+	            </div>
+	        </div>
+	    </div>
+    </div>
 </div>
