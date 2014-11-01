@@ -79,20 +79,12 @@ define(['./module'], function(directives) {
                     this.searchSubmit = function(noCheck) {
                         noCheck = typeof noCheck !== 'undefined' ? noCheck : false;
                         if (noCheck) { // Submit without validation
-                            // get location of the search and submit to the back end
                             var search = {};
                             locationService.getLocationFromIP().then(
                                 function(result) {
                                     search = result;
                                     search.stalker_id = stalkerService.getStalkerId();
-                                    apiService.postSearch(search).then(
-                                        function(result) {
-                                            console.log(result);
-                                        },
-                                        function(error) {
-                                            //do nothing
-                                        }
-                                    );
+                                    apiService.postSearch(search);
                                 }
                             );
                             searchService.broadcast({
@@ -100,7 +92,8 @@ define(['./module'], function(directives) {
                                 "email": $scope.search.email
                             });
                             this.resetForm();
-                        } else { // Submit with validation
+                        } else { 
+                            // Submit with validation
                             this.validate();
                         }
                     };
