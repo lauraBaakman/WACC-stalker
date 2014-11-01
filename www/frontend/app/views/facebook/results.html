@@ -14,17 +14,21 @@
 				</td>
 	        </tr>
 	    </table>
+    </div>
+</div>
 
+<div class="row">
+	<div class="col-xs-12">
 	    <div ng-hide="facebookCtrl.hasResults()">
 	        <h4>No results</h4>
-	    </div>
+	    </div>		
+	</div>	
+</div>
 
-	    <div ng-show="facebookCtrl.hasError()" class="row">
-	        <div class="col-xs-12">
-	            <div class="alert alert-error" role="alert">
-	                <strong>Error!</strong>{{error}}
-	            </div>
-	        </div>
-	    </div>
+<div ng-show="facebookCtrl.hasError()" class="row">
+    <div class="col-xs-12">
+        <div class="alert alert-error" role="alert">
+            <strong>Error!</strong>{{error}}
+        </div>
     </div>
 </div>
