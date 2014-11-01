@@ -3,15 +3,21 @@
 <div class="row">
 	<div class="xs-col-12">
 	    <table ng-show="facebookCtrl.hasResults()" class="table table-striped">
-	        <tr>
-	            <th class="col-sm-11">Name</th>
-	            <th class="col-sm-1">Search</th>
-	        </tr>
+<!-- 	        <tr>
+	            <th></th>
+	            <th></th>
+	            <th></th>
+	        </tr> -->
 	        <tr ng-repeat="result in results | limitTo:10">
-	            <td>{{result.name}}</td>
-	            <td>
-	                <button ng-click="facebookCtrl.detailsCall(result.id)" class="btn btn-default">Go!</button>
-				</td>
+	        	<td ng-click="facebookCtrl.detailsCall(result.id)">
+					<i class="fa fa-info-circle fa-lg"></i>
+	        	</td>
+	        	<td ng-click="facebookCtrl.setVictim(result.id)">
+					<i class="fa fa-check-circle fa-lg"></i>
+	        	</td>	        	
+	            <td ng-click="facebookCtrl.detailsCall(result.id)">
+	            	{{result.name}}
+	            </td>
 	        </tr>
 	    </table>
     </div>

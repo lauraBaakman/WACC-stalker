@@ -1,7 +1,7 @@
 define(['../module'], function(controllers, ngFacebook) {
     'use strict';
-    controllers.controller('FacebookController', ['$scope', '$facebook', 'searchService', 'stalkerService',
-        function($scope, $facebook, searchService, stalkerService) {
+    controllers.controller('FacebookController', ['$scope', '$facebook', 'searchService', 'stalkerService', 'apiService',
+        function($scope, $facebook, searchService, stalkerService, apiService) {
 
             var controller = this;
 
@@ -19,6 +19,7 @@ define(['../module'], function(controllers, ngFacebook) {
             $scope.results = null;
             $scope.person = null;
             $scope.error = null;
+            this.victim = {};
 
             $scope.user = null;
 
@@ -130,6 +131,22 @@ define(['../module'], function(controllers, ngFacebook) {
                 });
 
             };
+
+            this.setVictim = function(id){
+                // post victim
+                this.victim.victim_id = id;
+                console.log(this.victim);
+                apiService.postVictim(this.victim).then(
+                    function(){
+                        console.log('posted victim');
+                        // search_id = get search id
+                        // apiService.putSearch()
+                        // update the class of the button of the current victim
+                    }, 
+                    function(){
+                        $scope.error = "Something went wrong, your victim has not been stored.";
+                    });
+            }
 
 
             /* ------------------ Handle Search messages ------------------ */
