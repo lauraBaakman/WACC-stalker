@@ -49,9 +49,7 @@ define(['./module'], function(services) {
                 },
 
                 commitStalker: function() {
-                    apiService.postStalker(this.stalker).then(
-                        function(result){},
-                        function(error){});
+                    apiService.postStalker(this.stalker);
                 }
             };
         }
