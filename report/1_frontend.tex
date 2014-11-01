@@ -28,7 +28,6 @@ This chapter discusses the front-end. We start by presenting the technology stac
 				\item[ngFacebook] provides an interface between AngularJS and the Facebook API. We have adapted the source of this service in some places to make it better suited to our purposes and to keep it consistent with \t{ngLinkedIn}.
 				\item[ngLinkedIn] is for LinkedIn what \t{ngFacebook} is for Facebook. We have also adapted its source code to extend its functionality and to keep it consistent with \t{ngFacebook}.
 				\item[angular-md5] is a service that computes MD5 hashes. We use it to hash the Facebook and LinkedIn identifier of our users, so that we can find multiple searches of one user without storing the actual user. 
-				% \item[angular-http-loader] %we don't seem to use it?ng.httpLoader
 			\end{description}
 
 	\subsection{Bootstrap}
@@ -59,7 +58,7 @@ This chapter discusses the front-end. We start by presenting the technology stac
 	\subsection{RequireJS}
 	\label{ssec:1:requirejs}
 		% What is it
-		RequireJS is a JavaScript file and module loader that is optimized for in-browser use. Neither one of us had any experience with anything like it and since RequireJS was mentioned during the lectures we chose to use it. It helped that we found a boilerplate project that combined AngularJS and RequireJS. \todo{Where did we get the boilerplate?}	
+		RequireJS is a JavaScript file and module loader that is optimized for in-browser use. Neither one of us had any experience with anything like it and since RequireJS was mentioned during the lectures we chose to use it. We used the project structure suggested by \textcite{angularjsbook}.	
 
 \section{Design}
 \label{sec:1:design}
