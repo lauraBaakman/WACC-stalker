@@ -16,7 +16,7 @@ define(['./module'], function(directives) {
 
                     $scope.search = angular.copy(search);
 
-                    $scope.error = "";
+                    $scope.warning = "";
 
                     // Check if all the fields are empty
                     this.isSearchEmpty = function() {
@@ -30,7 +30,7 @@ define(['./module'], function(directives) {
                     // Apply bootstrap classes based on angular error classes
                     $("input").change(function(event) {
                         // Clear error
-                        $scope.error = "";
+                        $scope.warning = "";
 
                         // Avoid validating empty inputs
                         if (!$(this).val().length) {
@@ -45,7 +45,7 @@ define(['./module'], function(directives) {
                     // Remove error class on focus
                     $("input").focus(function(event) {
                         // Clear error
-                        $scope.error = "";
+                        $scope.warning = "";
 
                         $(this).parent().removeClass('has-error');
                     });
@@ -53,7 +53,7 @@ define(['./module'], function(directives) {
                     this.resetForm = function() {
                         // $scope.searchForm.$setPristine();
                         $scope.search = angular.copy(search);
-                        $scope.error = "";
+                        $scope.warning = "";
 
                         // Reset on all angularmagic
                         $scope.searchForm.$setPristine();
@@ -66,11 +66,11 @@ define(['./module'], function(directives) {
 
                     this.validate = function() {
                         if (this.isSearchEmpty()) {
-                            $scope.error = " We need at least a name or an email address in order to search.";
+                            $scope.warning = " We need at least a name or an email address in order to search.";
                         } else if ($scope.search.name.isEmpty()) {
-                            $scope.error = " We need a name for some social networks.";
+                            $scope.warning = " We need a name for some social networks.";
                         } else if ($scope.search.email.isEmpty()) {
-                            $scope.error = " We need an email address for some social networks.";
+                            $scope.warning = " We need an email address for some social networks.";
                         } else {
                             this.resetForm();
                         }
