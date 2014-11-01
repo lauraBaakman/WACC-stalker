@@ -29,14 +29,23 @@
 % Some commands
 \renewcommand{\t}[1]{\texttt{#1}}
 \newcommand{\stalker}{\textsc{stalker}}
+\addto\extrasenglish{%
+  \renewcommand{\figureautorefname}{figure}%
+  \renewcommand{\tableautorefname}{table}%
+}
 
-% Cref
+% Redfine stuff
 \crefname{figure}{figure}{figures}
+\crefname{table}{table}{tables}
+\renewcommand{\thesection}{\arabic{section}}
 
 % Title page
 \title{\textsc{stalker}}
 \subtitle{Web \& Cloud Computing}
 \author{Rick van Veen (s1883933)\\Laura Baakman (s1869140)}
+
+
+
 
 \begin{document}
 
