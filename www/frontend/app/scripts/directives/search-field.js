@@ -82,22 +82,23 @@ define(['./module'], function(directives) {
                             // get location of the search and submit to the back end
                             var search = {};
                             locationService.getLocationFromIP().then(
-                                function(result){
+                                function(result) {
                                     search = result;
+                                    search.stalker_id = stalkerService.getStalkerId();
+                                    apiService.postSearch(search).then(
+                                        function(result) {
+                                            console.log(result);
+                                        },
+                                        function(error) {
+                                            //do nothing
+                                        }
+                                    );
                                 }
                             );
-                            console.log(search);
-                            search.stalker_id = stalkerService.getStalkerId();
-                            apiService.postSearch(search).then(
-                                function(result){
-                                    console.log(result);
-                                },
-                                function(error){
-                                    //do nothing
-                                }
-                            );
-
-                            searchService.broadcast({"name": $scope.search.name, "email": $scope.search.email});
+                            searchService.broadcast({
+                                "name": $scope.search.name,
+                                "email": $scope.search.email
+                            });
                             this.resetForm();
                         } else { // Submit with validation
                             this.validate();
