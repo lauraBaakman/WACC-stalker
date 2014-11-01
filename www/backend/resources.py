@@ -26,18 +26,18 @@ class SearchesResource(Resource):
             help='stalker_id is required'
         )
         self.req_parser.add_argument(
-            'lat',
+            'latitude',
             required=True,
             type=float,
             location='json',
-            help='lat is required'
+            help='latitude is required'
         )
         self.req_parser.add_argument(
-            'long',
+            'longitude',
             required=True,
             type=float,
             location='json',
-            help='long is required'
+            help='longitude is required'
         )
         self.req_parser.add_argument(
             'country_code',
