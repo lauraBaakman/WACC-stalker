@@ -70,7 +70,7 @@ This chapter discusses the front-end. We start by presenting the technology stac
 
 		\Cref{fig:1:controlflowLogIn} presents the flow of control when a users logs in. The views that are presented to the user before and after logging in are presented in \cref{fig:1:viewLogIn}.
 
-		\todo{Begeleidend verhaaltje schrijven.}	
+		The \t{loggedIn}, and its not shown equivalent \t{loggedOut}, event ensure that the \t{searchController} knows that a user is logged in. The \t{Facebook Service}, \t{ngFacebook}, is discussed \vref{ssec:1:angularjs}.
 
 		\begin{figure}
 			\includegraphics[width=\textwidth]{./img/1_login_flow}
@@ -80,16 +80,15 @@ This chapter discusses the front-end. We start by presenting the technology stac
 
 		\begin{figure}
 			\begin{subfigure}{\textwidth}
-				\missingfigure{Screenshot of the application when a user is not logged into LinkedIn.}
+				\includegraphics[width=\textwidth]{./img/1_login_view_logged_out}
 				\caption{The view when the user is not logged into LinkedIn.}
 				\label{fig:1:viewLogIn:linkedin}
 			\end{subfigure}
 			\begin{subfigure}{\textwidth}
-				\missingfigure{Screenshots of the application when a user is logged into facebook.}	
+				\includegraphics[width=\textwidth]{./img/1_login_view_logged_in}
 				\caption{The view when the user is logged into Facebook.}
 				\label{fig:1:viewLogIn:facebook}
-			\end{subfigure}		
-			
+			\end{subfigure}			
 			\caption{Screen shots of the application when \subref{fig:1:viewLogIn:facebook} the user still has not yet logged into LinkedIn and \subref{fig:1:viewLogIn:linkedin} the user has logged in into Facebook.}
 			\label{fig:1:viewLogIn}
 		\end{figure}	
