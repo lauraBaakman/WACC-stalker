@@ -23,6 +23,10 @@ header {
 	margin-bottom: 30px;
 }
 
+.table td.icon-column {
+   text-align: center;   
+}
+
 .btn i {
 	padding-right: 1em;
 }
