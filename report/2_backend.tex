@@ -50,9 +50,9 @@ Because API calls to the social media API's are done in the frontend (see \autor
 \end{description}
 
 \begin{figure}
-    \includegraphics[width=\textwidth]{./img/database_models}   
-    \caption{A overview of the database models. The attributes that are required and should be always available are marked with the red *. Not all information is available from the social media API's.}
-    \label{fig:2:datamodel}
+\includegraphics[width=\textwidth]{./img/database_models}   
+\caption{A overview of the database models. The attributes that are required and should be always available are marked with the red *. Not all information is available from the social media API's.}
+\label{fig:2:datamodel}
 \end{figure}
 
 The statistics are generated with the map reduce methods described in \autoref{sssec:2:mapreduce}.
@@ -68,9 +68,9 @@ Example of map-reduce in our project. When the front-end requests a statistic e.
 This section describes a way MongoDB handles replication, see the image shown in \autoref{fig:2:replicationset}. All write calls from the REST API (see \autoref{ssec:2:restapi}) to the database are done to the primary MongoDb instance. This data is then replicated to the secondary instances (That run on different machines). Read operation can be load balanced to any of the instances. 
 
 \begin{figure}
-    \includegraphics[width=\textwidth]{./img/replica_set}   
-    \caption{Replication implementation MongoDB}
-    \label{fig:2:replicationset}
+\includegraphics[width=\textwidth]{./img/replica_set}   
+\caption{Replication implementation MongoDB}
+\label{fig:2:replicationset}
 \end{figure}
 
 All instances know of the other instances and send heartbeat message to each other to ensure this. Whenever the other detect the primary stopped running they decide which one of them becomes the new primary (the first secondary that receives a majority votes becomes the new primary). When you have three database instances you can handle one faulty instance, so if another one stops the communication between the database and REST Api is gone. 
@@ -79,20 +79,55 @@ We chose for three databases because this number was according to the MongoDB we
 
 \subsection{REST API}
 \label{ssec:2:restapi}
-This section describes the part of the back-end that implements all the server calls and is the part that does the communication with the database(s). A RESTful api is a 
+This section describes the part of the back-end that implements all the server calls and is the part that does the communication with the database(s). We chose to build a REST Api because it is a stateless architecture which gives it good performance and scalability properties. It is very easy to run multiple instances of a REST Api, because it does not know anything about the previous requests and does not store a state.
 
-\todo[inline]{Possible api calls table?}
-\todo[inline]{Motivation why we used a REST APi}
+% Please add the following required packages to your document preamble:
+% \usepackage[table,xcdraw]{xcolor}
+% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
+\begin{table}[ht]
+\begin{tabularx}{\textwidth}{rXX}
+\hline
+\multicolumn{3}{l}{\cellcolor[HTML]{C0C0C0}\textbf{Stalker REST API Specification}} \\ \hline
+\multicolumn{1}{l}{\textit{Resource + methods}} & \textit{Input} & \textit{Output} \\ \hline
+\multicolumn{3}{l}{\cellcolor[HTML]{EFEFEF}/searches} \\ \hline
+GET &  & Returns: A list of JSON Search objects \\ \hline
+POST & Input: JSON Search object* & Returns: The id of the created Search object \\ \hline
+\multicolumn{3}{l}{\cellcolor[HTML]{EFEFEF}/search/\textless string:id\textgreater} \\ \hline
+PUT & Input: JSON object with victim\_id and in the url a search id & Info: Updates a search object \\ \hline
+\multicolumn{3}{l}{\cellcolor[HTML]{EFEFEF}/stalkers} \\ \hline
+GET &  & Returns: A list of JSON Stalker objects \\ \hline
+POST & Input: JSON Stalker object* &  \\ \hline
+\multicolumn{3}{l}{\cellcolor[HTML]{EFEFEF}/victims} \\ \hline
+GET &  & Returns: A list of JSON victim objects \\ \hline
+POST & Input: JSON vicim object* &  \\ \hline
+\multicolumn{3}{l}{\cellcolor[HTML]{EFEFEF}/statistics/location/frequency} \\ \hline
+GET & Info: Counts searches per locationa & Returns: A list of JSON location frequency objects \\ \hline
+\multicolumn{3}{l}{\cellcolor[HTML]{EFEFEF}/statistics/relationship/frequency} \\ \hline
+GET & Info: Counts the relationships of stalkers who search & Returns: A list of JSON relationship frequency objects \\ \hline
+\multicolumn{3}{l}{\cellcolor[HTML]{EFEFEF}/statistics/gender/relationship/frequency/\textless string:gender\textgreater} \\ \hline
+GET & Input: Male/Female & Returns: A list of JSON gender relationship objects \\ \hline
+\multicolumn{3}{l}{\cellcolor[HTML]{EFEFEF}/statistics/gender/location/frequency} \\ \hline
+GET & Info: Males/Females followed by a list of locations & Returns: A list of JSON gender location objects \\ \hline
+\end{tabularx}
+\end{table}
 
 \subsubsection{Load balancing}
 \label{sssec:2:loadbalancing}
-
-\section{Scalability}
-REST API
-Mongo replicasets enzo...
+The REST Api can be run on different machine and load balanced using HAProxy. This proces is best described using an image, this image is included in figure \ref{fig:2:haproxy}. HAProxy knows about all the api servers and when it gets a request for the REST service it will send the request to one of the three (in our case) REST services running.
 
 \begin{figure}
-    \missingfigure{Overview image of how the back-end is structured}    
-    \caption{A schematic overview of the control flow when a user logs in.}
-    \label{fig:2:overview}
+\centering
+\includegraphics[height=6cm]{./img/haproxy}  
+\caption{This image shows the structure of what HAProxy does.}
+\label{fig:2:haproxy}
+\end{figure}
+
+If one of the REST service stops this is not a problem for HAProxy and it will keep sending the requests to the other machines. Because the services are REST services it doesn't matter if first a create POST for a search was done on server x and the update of that same search was done to another server y. This illustrates the power of the stateless web services.
+
+\subsection{Overview}
+When we combine all the back-end elements. We get an image like the image in \autoref{fig:2:overview}
+\begin{figure}
+\includegraphics[width=\textwidth]{./img/overview} 
+\caption{A schematic overview of the control flow when a user logs in.}
+\label{fig:2:overview}
 \end{figure}
