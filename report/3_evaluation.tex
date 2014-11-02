@@ -8,9 +8,8 @@
 	Concerning Angular, we are not sure if it was the right choice. If we had to start over we would choose once again for choose for Angular, because of the experience argument. However we would like to chance to experience some of the competing frameworks before stating that Angular definitely was the right tool for this project.
 
 \section{Back End}
+	As with every project where you have the time constraint you can't always, when you actually do learn the way to do it right, go back and fix it. This has also happened during the development of the back end. 
 
+	Besides the obvious refactoring that needs to done: A lot of the resources are now stored in one file etc, the API does nothing that has to do with security. Also a few methods that should be idempotent aren't e.g. the api will gladly create multiple stalkers with the same ID for you. MongoDB was a very nice database to work with with excellent and very easy replication options. 
 
-\begin{itemize}
-\item Security
-\item Check on data $\rightarrow$ idempotent post actions  
-\end{itemize}
+	If we would do this project again I think we would not change the choice of using Flask (or python for that matter) for our back end. I think we learned a lot and if we were to tackle a similar project we now know better what to do. 

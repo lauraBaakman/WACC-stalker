@@ -1,6 +1,6 @@
 %!TEX root = report.tex
 
-This chapter discusses the back-end. This includes the REST API plus the database storing all the statistics data. We will first discuss the technologies that where used to build these component then how together these technologies and components form the back-end.
+This chapter discusses the back end. This includes the REST API plus the database storing all the statistics data. We will first discuss the technologies that where used to build these component then how together these technologies and components form the back end.
 
 \section{Technology Stack}
 \label{sec:2:technologyStack}
@@ -8,7 +8,7 @@ In this section we will describes as in section \ref{sec:1:technologyStack} what
 
 \subsection{Flask}
 \label{ssec:2:flask}
-Flask \cite{flask} is a python micro framework for the web. Flask is based on Werkzeug \cite{werkzeug} and Jinja2 \cite{jinja2}. We have used the Flask framework as a base, but mostly used it's extensions described below. We choose Flask for our back-end because one of us already had some experience with Flask and both of us had worked (a little bit) with python before.
+Flask \cite{flask} is a python micro framework for the web. Flask is based on Werkzeug \cite{werkzeug} and Jinja2 \cite{jinja2}. We have used the Flask framework as a base, but mostly used it's extensions described below. We choose Flask for our back end because one of us already had some experience with Flask and both of us had worked (a little bit) with python before.
 
 \subsubsection{Extensions}
 To make our development easier we decided to use already existing solutions for building a REST API using Flask and MongoDb (\autoref{ssec:2:mongodb}). In this section we will describe the used extensions.
@@ -27,7 +27,7 @@ MongoDB (from``humongous'') is an open-source, document based, NoSQL database wi
 \begin{description}
 \item[Replication \& High Availability] A replica set in MongoDB is a group of mongod processes that maintain the same data set. Replica sets provide redundancy and high availability, and are the basis for all production deployments. Because of this feature and the requirement for the project to be fault tolerant we found this to be a positive point for choosing MongoDB. The actual implementation of this feature in our project will be discussed in \autoref{sssec:2:replication}.
 
-\item[Map/Reduce] MongoDB provides an easy way to use map/reduce functionality. The map and reduce function can be written in JavaScript. In the Flask back-end it is very easy to apply these function to the database. This functionality was a requirement for the project and will be discussed in \autoref{sssec:2:mapreduce}.
+\item[Map/Reduce] MongoDB provides an easy way to use map/reduce functionality. The map and reduce function can be written in JavaScript. In the Flask back end it is very easy to apply these function to the database. This functionality was a requirement for the project and will be discussed in \autoref{sssec:2:mapreduce}.
 \end{description}
 
 \subsection{HAProxy}
@@ -38,10 +38,10 @@ HAProxy is a load balancing solution pointed out by one of the student assistant
 
 \section{Design}
 
-This section describes the design of the back-end of the STALKER project. 
+This section describes the design of the back end of the STALKER project. 
 
 \subsection{Database}
-Because API calls to the social media API's are done in the frontend (see \autoref{sec:1:design}) the back-end only has to worry about the statistics. We will first describe the database models. Below a list of descriptions of the used terminology is provided. In \autoref{fig:2:datamodel} we give a more detailed overview of the data models.
+Because API calls to the social media API's are done in the frontend (see \autoref{sec:1:design}) the back end only has to worry about the statistics. We will first describe the database models. Below a list of descriptions of the used terminology is provided. In \autoref{fig:2:datamodel} we give a more detailed overview of the data models.
 
 \begin{description}
 \item[Stalker] A person who uses the STALKER application to search other people.
@@ -61,7 +61,7 @@ The statistics are generated with the map reduce methods described in \autoref{s
 \label{sssec:2:mapreduce}
 Map-reduce is a paradigm invented by google and is inspired by the functional programming functions map and reduce. The map-reduce method thus consists of a map function which performs filtering and sorting of the data. The reduce method then performs a summary operations and in our case reduces the data to some nice statistic. 
 
-Example of map-reduce in our project. When the front end requests a statistic e.g. the number of searches done per location. The map function will filter the data stored in the collection that stores the searches and will emit per search every location with a count of one. The reduce function will then reduce this list of locations into a list of unique locations. The reduce function does this by merging (taking the sum of) the counts when encountering double locations, this has as result a list of unique location and the number of searches done from those locations. This statistic is then shown in the front end see \autoref{fig:1:viewStat}.
+Example of map-reduce in our project. When the front end requests a statistic e.g. the number of searches done per location. The map function will filter the data stored in the collection that stores the searches and will emit per search every location with a count of one. The reduce function will then reduce this list of locations into a list of unique locations. The reduce function does this by merging (taking the sum of) the counts when encountering double locations, this has as result a list of unique location and the number of searches done from those locations. This statistic is then shown in the front end.
 
 \subsubsection{Replication}
 \label{sssec:2:replication}
@@ -79,7 +79,7 @@ We chose for three databases because this number was according to the MongoDB we
 
 \subsection{REST API}
 \label{ssec:2:restapi}
-This section describes the part of the back-end that implements all the server calls and is the part that does the communication with the database(s). We chose to build a REST Api because it is a stateless architecture which gives it good performance and scalability properties. It is very easy to run multiple instances of a REST Api, because it does not know anything about the previous requests and does not store a state.
+This section describes the part of the back end that implements all the server calls and is the part that does the communication with the database(s). We chose to build a REST Api because it is a stateless architecture which gives it good performance and scalability properties. It is very easy to run multiple instances of a REST Api, because it does not know anything about the previous requests and does not store a state.
 
 % Please add the following required packages to your document preamble:
 % \usepackage[table,xcdraw]{xcolor}
@@ -113,19 +113,22 @@ GET & Info: Males/Females followed by a list of locations & Returns: A list of J
 
 \subsubsection{Load balancing}
 \label{sssec:2:loadbalancing}
-The REST Api can be run on different machine and load balanced using HAProxy. This proces is best described using an image, this image is included in figure \ref{fig:2:haproxy}. HAProxy knows about all the api servers and when it gets a request for the REST service it will send the request to one of the three (in our case) REST services running.
-
-\begin{figure}
-\centering
-\includegraphics[height=6cm]{./img/haproxy}  
-\caption{This image shows the structure of what HAProxy does.}
-\label{fig:2:haproxy}
-\end{figure}
+The REST Api can be run on different machine and load balanced using HAProxy. This proces is best described using an image, this image is included in figure \ref{fig:2:overview} steps 2 and 3. HAProxy knows about all the api servers and when it gets a request for the REST service it will send the request to one of the three (in our case) REST services running.
 
 If one of the REST service stops this is not a problem for HAProxy and it will keep sending the requests to the other machines. Because the services are REST services it doesn't matter if first a create POST for a search was done on server x and the update of that same search was done to another server y. This illustrates the power of the stateless web services.
 
+\pagebreak
+
 \subsection{Overview}
-When we combine all the back-end elements. We get an image like the image in \autoref{fig:2:overview}
+When we combine all the back end elements. We get an image like the image in \autoref{fig:2:overview}. This image gives a global overview of the whole project.
+
+\begin{enumerate}
+\item The user request the front end.
+\item The front end does a request to the back end to store a stalker
+\item HAProxy sends the request to one of the REST Api's
+\item The write action from the REST Api is send to the MongoDB primary database and the data is then replicated to the other instances. 
+\end{enumerate}
+
 \begin{figure}
 \includegraphics[width=\textwidth]{./img/overview} 
 \caption{A schematic overview of the control flow when a user logs in.}
