@@ -1,56 +1,57 @@
-	This section devotes on section to each technology on the front-ends stack. For each technology we will describe what it does and why we opted to use this technology in favour of other options.
+%!TEX root = report.tex
+This section devotes on section to each technology on the front-ends stack. For each technology we will describe what it does and why we opted to use this technology in favour of other options.
 
-	\subsection{AngularJS}
-	\label{ssec:1:angularjs}
-		% What is it
-		AngularJS is a web application framework by Google for creating dynamic web applications. 
+\subsection{AngularJS}
+\label{ssec:1:angularjs}
+	% What is it
+	AngularJS is a web application framework by Google for creating dynamic web applications. 
 
-		AngularJS depends on JQuery, thus we had to include that to. We have also used JQuery in some places for the removing and adding of classes where to resulted in neater code than using Angular directives.\\
+	AngularJS depends on JQuery, thus we had to include that to. We have also used JQuery in some places for the removing and adding of classes where to resulted in neater code than using Angular directives.\\
 
-		% Why have we used this technology, mention alternatives
-		We chose to use AngularJS since one of us had some experience with it. We considered Backbone as an alternative but dropped it for its flexibility, which may be great if you are an experiences web developer and know exactly what you want, but would have been too much for us. Furthermore it is advised to add a framework on top Backbone which would have added to the learning curve for Backbone \cite{AComparisonofAngularBackboneCanJSandEmber}. 
+	% Why have we used this technology, mention alternatives
+	We chose to use AngularJS since one of us had some experience with it. We considered Backbone as an alternative but dropped it for its flexibility, which may be great if you are an experiences web developer and know exactly what you want, but would have been too much for us. Furthermore it is advised to add a framework on top Backbone which would have added to the learning curve for Backbone \cite{AComparisonofAngularBackboneCanJSandEmber}. 
 
-		Apart from the previous experience the fact that AngularJS was specifically developed for single page applications is what made us decide in favour of AngularjS.\\
+	Apart from the previous experience the fact that AngularJS was specifically developed for single page applications is what made us decide in favour of AngularjS.\\
 
-		% Would we make the same choice again?
-		One of the downsides of AngularJS is that its learning curve, after learning the basic features is quite steep. The documentation is rife with Angular-specific terms which makes it hard to read.
+	% Would we make the same choice again?
+	One of the downsides of AngularJS is that its learning curve, after learning the basic features is quite steep. The documentation is rife with Angular-specific terms which makes it hard to read.
 
-		\subsubsection*{Extensions}
-		We have used some extensions to Angular. We list them and shortly describe their functionality.
+	\subsubsection*{Extensions}
+	We have used some extensions to Angular. We list them and shortly describe their functionality.
 
-			\begin{description}
-				\item[ngRoute] provides routing and deep-linking services and directives for angular applications \cite{angulardocsngRoute}. We use it to make it possible to store a link to a specific part of our application. 
-				\item[ngFacebook] provides an interface between AngularJS and the Facebook API. We have adapted the source of this service in some places to make it better suited to our purposes and to keep it consistent with \t{ngLinkedIn}.
-				\item[ngLinkedIn] is for LinkedIn what \t{ngFacebook} is for Facebook. We have also adapted its source code to extend its functionality and to keep it consistent with \t{ngFacebook}.
-				\item[angular-md5] is a service that computes MD5 hashes. We use it to hash the Facebook and LinkedIn identifier of our users, so that we can find multiple searches of one user without storing the actual user. 
-			\end{description}
+		\begin{description}
+			\item[ngRoute] provides routing and deep-linking services and directives for angular applications \cite{angulardocsngRoute}. We use it to make it possible to store a link to a specific part of our application. 
+			\item[ngFacebook] provides an interface between AngularJS and the Facebook API. We have adapted the source of this service in some places to make it better suited to our purposes and to keep it consistent with \t{ngLinkedIn}.
+			\item[ngLinkedIn] is for LinkedIn what \t{ngFacebook} is for Facebook. We have also adapted its source code to extend its functionality and to keep it consistent with \t{ngFacebook}.
+			\item[angular-md5] is a service that computes MD5 hashes. We use it to hash the Facebook and LinkedIn identifier of our users, so that we can find multiple searches of one user without storing the actual user. 
+		\end{description}
 
-	\subsection{Bootstrap}
-	\label{ssec:1:bootstrap}
-		% What is it
-		Bootstrap is a framework by Twitter which places emphasis on responsive design. 
+\subsection{Bootstrap}
+\label{ssec:1:bootstrap}
+	% What is it
+	Bootstrap is a framework by Twitter which places emphasis on responsive design. 
 
-		% Why have we used, mention alternatives
-		Although there are alternatives to Boostrap, i.e. Zimit, InK or Pure, we did not really consider them since we were both familiar with Bootstrap and felt that we had enough new technologies to worry about. We did however use a different theme from \url{http://bootswatch.com} to avoid the distinctive Bootstrap look and feel. We add Font Awesome for the icons it provides. 
+	% Why have we used, mention alternatives
+	Although there are alternatives to Boostrap, i.e. Zimit, InK or Pure, we did not really consider them since we were both familiar with Bootstrap and felt that we had enough new technologies to worry about. We did however use a different theme from \url{http://bootswatch.com} to avoid the distinctive Bootstrap look and feel. We add Font Awesome for the icons it provides. 
 
-	\subsection{UI Bootstrap}
-	\label{ssec:1:bootstrapUI}
-		UI Bootstrap is an Angular version of the JavaScript part of Bootstrap. As far as we could find there are no alternatives other than building the directives yourself. 
+\subsection{UI Bootstrap}
+\label{ssec:1:bootstrapUI}
+	UI Bootstrap is an Angular version of the JavaScript part of Bootstrap. As far as we could find there are no alternatives other than building the directives yourself. 
 
-		In the end we had to write the carousel at the login window, see \vref{fig:1:viewLogIn}, ourselves since the custom buttons we wanted were not supported by UI Bootstrap.
+	In the end we had to write the carousel at the login window, see \vref{fig:1:viewLogIn}, ourselves since the custom buttons we wanted were not supported by UI Bootstrap.
 
-	\subsection{Dangle}
-	\label{ssec:1:dangle}
-		% What is it
-		``Dangle is a set of AngularJS directives that provide common visualizations based on D3."\cite{dangle}
+\subsection{Dangle}
+\label{ssec:1:dangle}
+	% What is it
+	``Dangle is a set of AngularJS directives that provide common visualizations based on D3."\cite{dangle}
 
-		% Why have we used it, mention alternatives
-		We have used it to create the pie charts shown on the statistics page, after practically rewriting the directive. The directives provided by Dangle did not handle long labels, and pie charts with a lot of pieces very well. To solve this we have removed all code from the pie chart directive that added labels and added a separate legend, see \vref{fig:1:viewStat}. The one upside of Dangle was that it expected its input in the same format our map-reduce-operations returned it. \\
+	% Why have we used it, mention alternatives
+	We have used it to create the pie charts shown on the statistics page, after practically rewriting the directive. The directives provided by Dangle did not handle long labels, and pie charts with a lot of pieces very well. To solve this we have removed all code from the pie chart directive that added labels and added a separate legend. The one upside of Dangle was that it expected its input in the same format our map-reduce-operations returned it. \\
 
-		% Would we make the same choice again?
-		In hindsight we should have chosen something other than Dangle, however we did not look further since Dangle played nice with AngularJS. 
+	% Would we make the same choice again?
+	In hindsight we should have chosen something other than Dangle, however we did not look further since Dangle played nice with AngularJS. 
 
-	\subsection{RequireJS}
-	\label{ssec:1:requirejs}
-		% What is it
-		RequireJS is a JavaScript file and module loader that is optimized for in-browser use. Neither one of us had any experience with anything like it and since RequireJS was mentioned during the lectures we chose to use it. We used the project structure suggested by \textcite{angularjsbook}.
+\subsection{RequireJS}
+\label{ssec:1:requirejs}
+	% What is it
+	RequireJS is a JavaScript file and module loader that is optimized for in-browser use. Neither one of us had any experience with anything like it and since RequireJS was mentioned during the lectures we chose to use it. We used the project structure suggested by \textcite{angularjsbook}.
