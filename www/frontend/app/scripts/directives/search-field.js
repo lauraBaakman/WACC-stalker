@@ -84,7 +84,14 @@ define(['./module'], function(directives) {
                                 function(result) {
                                     search = result;
                                     search.stalker_id = stalkerService.getStalkerId();
-                                    apiService.postSearch(search);
+                                    apiService.postSearch(search).then(
+                                        function(result){
+                                            stalkerService.setMostRecentSearch(result.data.data);
+                                        },
+                                        function(error){
+                                            stalkerService.setMostRecentSearch(null);
+                                        }
+                                    );
                                 }
                             );
                             searchService.broadcast({
