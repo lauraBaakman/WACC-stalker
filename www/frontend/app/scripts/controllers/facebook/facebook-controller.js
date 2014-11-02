@@ -109,6 +109,7 @@ define(['../module'], function(controllers, ngFacebook) {
                 $facebook.api("/search?q='" + name + "'&type=user").
                 	then(
 						function(results) {
+                            console.log(results);
 	                    	$scope.results = results.data;
 	                    	controller.setPage($scope.pages.results);
 	                    	$scope.loading = false;
@@ -134,20 +135,23 @@ define(['../module'], function(controllers, ngFacebook) {
 
             this.setVictim = function(id){
                 // post victim
+                console.log("controller.victim:");
+                console.log(controller.victim)
+                console.log("victim:");
+                // Request search id from stalker service
                 var victim = {
                     victim_id : id
                 };
-                apiService.postVictim(victim).then(
+                console.log(victim);
+                var search_id = "54563b04c65b7d03ce92d411";
+                apiService.putSearch(victim, search_id).then(
                     function(){
                         console.log('posted victim');
                         if(this.victim){
-                            $('#' + this.victim.victim_id).removeClass('success');
+                            $('#' + controller.victim.victim_id).removeClass('success');
                         }
                         this.victim = victim;
-                        $('#' + this.victim.victim_id).addClass('success');
-                        // search_id = get search id
-                        // apiService.putSearch()
-                        // update the class of the button of the current victim
+                        $('#' + controller.victim.victim_id).addClass('success');
                     }, 
                     function(){
                         $scope.error = "Something went wrong, your victim has not been stored.";
