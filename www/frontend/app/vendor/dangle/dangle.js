@@ -804,8 +804,8 @@ angular.module('dangle')
                 }
 
                 // width/height (based on giveb radius)
-                var w = (outerRadius * 3) + 30;
-                var h = outerRadius * 3;
+                var w = (outerRadius * 2) + 30;
+                var h = outerRadius * 2;
 
                 // arc generator 
                 var arc = d3.svg.arc()
@@ -827,12 +827,6 @@ angular.module('dangle')
                 var arcs = svg.append('g')
                     .attr('transform', 'translate(' + w/2 + ',' + h/2 + ') rotate(180) scale(-1, -1)');
 
-                // group for labels
-                var labels = svg.append("g")
-                    .attr("class", "label_group")
-                    .attr("transform", "translate(" + (w/2) + "," + (h/2) + ")");
-
-
                 // Wrap the main drawing logic in an Angular watch function.
                 // This will get called whenever our data attribute changes.
                 scope.$watch('bind', function(data) {
@@ -847,31 +841,6 @@ angular.module('dangle')
                             return arc(i(t));
                         };
                     }
-        
-                    // label tweening
-                    function textTween(d, i) {
-                        var a = (this._current.startAngle + this._current.endAngle - Math.PI)/2;
-                        var b = (d.startAngle + d.endAngle - Math.PI)/2;
-
-                        var fn = d3.interpolateNumber(a, b);
-                        return function(t) {
-                            var val = fn(t);
-                            return "translate(" + 
-                                Math.cos(val) * (outerRadius + textOffset) + "," + 
-                                Math.sin(val) * (outerRadius + textOffset) + ")";
-                        };
-                    }
-
-                    // determines the anchor point of a label
-                    var findAnchor = function(d) {
-                        if ((d.startAngle + d.endAngle)/2 < Math.PI ) {
-                            return "beginning";
-                        } else {
-                            return "end";
-                        }
-                    };
-
-                    var textOffset = 14;
 
                     // if data is not null
                     if (data) { 
@@ -899,150 +868,20 @@ angular.module('dangle')
                                     .attr('cursor', 'pointer')
                                     .style('fill', function(d) { return color(d.data.term); })
                                     .each(function(d) { this._current = d; })
-                                    .on('mousedown', function(d) {
+                                    .on('mouseenter', function(d) {
                                         scope.$apply(function() {
-                                            (scope.onClick || angular.noop)(attrs.field, d.data.term);
+                                            (scope.onClick || angular.noop)(d.data, color(d.data.term), sum);
                                         });
                                     });
 
                             // run the transition
                             path.transition().duration(duration).attrTween('d', arcTween);
+                            scope.onClick(data[0], color(data[0].term), sum);
 
-                            // update the label ticks
-                            var ticks = labels.selectAll('line').data(pieData);
-                            ticks.enter().append('line')
-                                .attr('x1', 0)
-                                .attr('x2', 0)
-                                .attr('y1', -outerRadius-3)
-                                .attr('y2', -outerRadius-8)
-                                .attr('stroke', 'grey')
-                                .attr('stroke-width', 2.0)
-                                .attr('transform', function(d) {
-                                    return 'rotate(' + (d.startAngle + d.endAngle)/2 * (180/Math.PI) + ')'; // radians to degrees
-                                })
-                                .each(function(d) {this._current = d;});
-
-                            // run the transition
-                            ticks.transition()
-                                .duration(750)
-                                .attr("transform", function(d) {
-                                    return "rotate(" + (d.startAngle+d.endAngle)/2 * (180/Math.PI) + ")";
-                            });
-
-                            // flush old entries
-                            ticks.exit().remove();
-
-                            // update the percent labels
-                            var percentLabels = labels.selectAll("text.value").data(pieData)
-                                .attr("dy", function(d) {
-                                    if ((d.startAngle + d.endAngle)/2 > Math.PI/2 && (d.startAngle + d.endAngle)/2 < Math.PI*1.5 ) {
-                                        return 17;
-                                    } else {
-                                        return -17;
-                                    }
-                                })
-                                .attr('text-anchor', findAnchor)
-                                .text(function(d) {
-                                    var percentage = (d.value/sum)*100;
-                                    return percentage.toFixed(1) + "%";
-                                });
-
-                            percentLabels.enter().append("text")
-                                .attr("class", "value")
-                                .attr('font-size', 20)
-                                .attr('font-weight', 'bold')
-                                .attr('fill', '#fff')
-                                .attr("transform", function(d) {
-                                    return "translate(" + 
-                                        Math.cos(((d.startAngle + d.endAngle - Math.PI)/2)) * (outerRadius + textOffset) + "," + 
-                                        Math.sin((d.startAngle + d.endAngle - Math.PI)/2) * (outerRadius + textOffset) + ")";
-                                })
-                                .attr("dy", function(d) {
-                                    if ((d.startAngle+d.endAngle)/2 > Math.PI/2 && (d.startAngle + d.endAngle)/2 < Math.PI*1.5 ) {
-                                        return 17;
-                                    } else {
-                                        return -17;
-                                    }
-                                })
-                                .attr('text-anchor', findAnchor)
-                                .text(function(d){
-                                    var percentage = (d.value/sum)*100;
-                                    return percentage.toFixed(1) + "%";
-                                })
-                                .each(function(d) {this._current = d;});
-                           
-                            // run the transition
-                            percentLabels.transition().duration(duration).attrTween("transform", textTween);
-
-                            // flush old entries
-                            percentLabels.exit().remove();
-
-                            // update the value labels 
-                            var nameLabels = labels.selectAll("text.units").data(pieData)
-                                .attr("dy", function(d){
-                                    if ((d.startAngle + d.endAngle)/2 > Math.PI/2 && (d.startAngle+d.endAngle)/2 < Math.PI*1.5 ) {
-                                        return 36;
-                                    } else {
-                                        return 2;
-                                    }
-                                })
-                                .attr("text-anchor", function(d){
-                                    if ((d.startAngle + d.endAngle)/2 < Math.PI ) {
-                                        return "beginning";
-                                    } else {
-                                        return "end";
-                                    }
-                                }).text(function(d) {
-                                    if (d.data.term === 'T') {
-                                        return 'TRUE' + ' (' + d.value + ')';
-                                    } else if (d.data.term === 'F') {
-                                        return 'FALSE'+ ' (' + d.value + ')';
-                                    } else {
-                                        return d.data.term + ' (' + d.value + ')';
-                                    }
-                                });
-
-                            nameLabels.enter().append("text")
-                                .attr("class", "units")
-                                .attr('font-size', 16)
-                                .attr('stroke', 'none')
-                                .attr('fill', '#fff')
-                                .attr("transform", function(d) {
-                                    return "translate(" + 
-                                        Math.cos(((d.startAngle + d.endAngle - Math.PI)/2)) * (outerRadius + textOffset) + "," + 
-                                        Math.sin((d.startAngle + d.endAngle - Math.PI)/2) * (outerRadius + textOffset) + ")";
-                                })
-                                .attr("dy", function(d){
-                                    if ((d.startAngle + d.endAngle)/2 > Math.PI/2 && (d.startAngle + d.endAngle)/2 < Math.PI*1.5 ) {
-                                        return 36;
-                                    } else {
-                                        return 2;
-                                    }
-                                })
-                                .attr('text-anchor', findAnchor)
-                                .text(function(d){
-                                    if (d.data.term === 'T') {
-                                        return 'TRUE' + ' (' + d.value + ')';
-                                    } else if (d.data.term === 'F') {
-                                        return 'FALSE' + ' (' + d.value + ')';
-                                    } else {
-                                        return d.data.term + ' (' + d.value + ')';
-                                    }
-                                })
-                                .each(function(d) {this._current = d;});
-
-                            // run the transition
-                            nameLabels.transition().duration(duration).attrTween("transform", textTween);
-    
-                            // flush old entries
-                            nameLabels.exit().remove();
 
                         } else {
                             // if the facet had no valid entries then remove the chart
                             svg.selectAll('path').remove();
-                            labels.selectAll('line').remove();
-                            labels.selectAll("text.value").remove();
-                            labels.selectAll("text.units").remove();
                         }
 
                     }

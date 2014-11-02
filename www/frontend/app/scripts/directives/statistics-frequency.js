@@ -6,16 +6,16 @@ define(['./module'], function(directives) {
                 restrict: 'E',
                 scope: {
                     searchParameter: '=',
-                    title: '=',
-                    description: '='
+                    optionalSearchParameter: '='
                 },
                 templateUrl: '../views/statistics-frequency.html',
                 controller: function(apiService, $scope) {
+                    $scope.legend = {};
 
                     this.getData = function() {
                         $scope.data = {};
                         $scope.error = "";
-                        apiService.getFrequency($scope.searchParameter).then(
+                        apiService.getFrequency($scope.searchParameter, $scope.optionalSearchParameter).then(
                             function(result) {
                                 $scope.data = {
                                     Data: {
@@ -30,6 +30,15 @@ define(['./module'], function(directives) {
                         );
                     };
 
+                    $scope.updateLegend = function(termObject, color, sum){
+                        $scope.legend.term = termObject.term;
+                        $scope.legend.color = color;
+                        $scope.legend.percentage = ((termObject.count/sum) * 100).toFixed(2);
+                    };
+
+
+
+                    this.getData();
                 },
                 controllerAs: 'freqStatCtrl'
             };

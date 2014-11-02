@@ -1,0 +1,50 @@
+<div ng-controller="SearchCtrl as ctrl">
+
+    <div ng-show="stalking">
+        <search-field></search-field>
+    </div>
+
+    <!-- ERROR -->
+    <div class="row" ng-show="error">
+        <div class="col-xs-12">
+            <alert type="'danger'" close="error=''">
+                <i class="fa fa-exclamation-triangle"></i> {{error}}
+            </alert>
+        </div>
+    </div>
+
+    <div ng-repeat="(name, sm) in socialMedia.media">
+        <div class="well well-lg" ng-show="socialMedia.showWell($index, name)">      
+            <ng-include src="sm.loginView"></ng-include>
+        </div>
+    </div>
+
+    <div class="row text-center" id="navigation" ng-hide="stalking">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="btn-group">
+                <!-- Previous -->
+                <label class="btn btn-success" btn-radio="carousel.move(-1)" ng-model="carousel.activePage">
+                    <i class="fa fa-fw fa-angle-double-left"></i>
+                </label>
+
+                <!-- Social Media -->
+                <label ng-repeat="sm in socialMedia.media" class="btn btn-success" ng-model="carousel.activePage" btn-radio="$index">
+                    <i class="fa fa-fw fa-{{sm.logo}}"></i>
+                </label>
+
+                <!-- Next -->
+                <label class="btn btn-success" btn-radio="carousel.move(+1)" ng-model="carousel.activePage">
+                    <i class="fa fa-fw fa-angle-double-right"></i>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Start Stalking Button -->
+    <div class="row" id="startStalkingButton" ng-hide="stalking">
+        <div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4">
+            <button type="button" class="btn btn-block btn-primary" ng-click="ctrl.startStalking()">Start Stalking!</button>
+        </div>
+    </div>
+
+</div>

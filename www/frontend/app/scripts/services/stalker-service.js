@@ -1,6 +1,7 @@
 define(['./module'], function(services) {
     'use strict';
-    services.service('stalkerService', ['md5', '$rootScope', '$facebook', '$linkedIn', 'apiService',
+    services.service('stalkerService', 
+        ['md5', '$rootScope', '$facebook', '$linkedIn', 'apiService',
         function(md5, $rootScope, $facebook, $linkedIn, apiService) {
             return {
                 stalker: {
@@ -15,6 +16,10 @@ define(['./module'], function(services) {
                 loggedIn: {
                     facebook: false,
                     linkedIn: false
+                },
+
+                getStalkerId: function(){
+                    return this.stalker.stalker_id;
                 },
 
                 setFacebookStalker: function(data) {
@@ -44,17 +49,7 @@ define(['./module'], function(services) {
                 },
 
                 commitStalker: function() {
-                    console.log('Committing this stalker:');
-                    console.log(this.stalker);
-                    apiService.postStalker(this.stalker).then(
-                        function(result){
-                            console.log('Logged the stalker succesfully');
-                            console.log(result);
-                        },
-                        function(error){
-                            console.log('An error occurred when logging the stalker.');
-                            console.log(error);
-                        });
+                    apiService.postStalker(this.stalker);
                 }
             };
         }

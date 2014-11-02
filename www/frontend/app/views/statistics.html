@@ -4,18 +4,56 @@
     </h2>
 </div>
 
-<div class="well well-lg" ng-controller="StatisticsController as statCtrl">
+<div class="row" ng-init="showAlert = true">
+    <div class="col-xs-12" ng-show="showAlert">
+        <alert type="'info'" close="showAlert = false">
+            <i class="fa fa-info-circle"></i> 
+            Hover on the pies to get percentages and their meaning.
+        </alert>
+    </div>
+</div>
 
+<div class="statisticsOverview">
     <div class="row">
-        <statistics-frequency 
-            title="'Location'" 
-            description="'Locations from which users sought most frequently.'"
-            search-parameter="'location'">
-        </statistics-frequency>    
-        <statistics-frequency 
-            title="'Relationship'" 
-            description="'Frequency of relationship status among stalkers.'"
-            search-parameter="'relationship'">
-        </statistics-frequency>    
+        <div class="col-md-6 col-sm-12">
+            <div class="well">
+                <h3>Location</h3>
+                <p class="description">Locations from which users sought most frequently.</p>
+                <statistics-frequency search-parameter="'location'">
+                </statistics-frequency>
+            </div>
+        </div>
+
+
+        <div class="col-md-6 col-sm-12">
+            <div class="well">
+                <h3>Relationship</h3>
+                <p class="description">Frequency of relationship status among stalkers.</p>
+                <statistics-frequency search-parameter="'relationship'">
+                </statistics-frequency>
+            </div>
+        </div>
+    </div>
+
+    <div class="well">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3>Relationship status versus gender</h3>
+                <p class="description">The relationship status of stalkers split by gender.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <h4>Female</h4>
+                <statistics-frequency search-parameter="'gender/relationship'" optional-search-parameter="'female'">
+                </statistics-frequency>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <h4>Male</h4>
+                <statistics-frequency search-parameter="'gender/relationship'" optional-search-parameter="'male'">
+                </statistics-frequency>
+            </div>
+        </div>
     </div>
 </div>

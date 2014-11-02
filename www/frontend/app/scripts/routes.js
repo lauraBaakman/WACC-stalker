@@ -14,14 +14,14 @@ define(['./app'], function(app) {
 
             // NOTE: Partial view for the search and search results
             $routeProvider.when('/', {
-                templateUrl: 'views/search.html',
-                //controller: 'MyCtrl1'
+                templateUrl: 'views/landing.html'
+                    //controller: 'MyCtrl1'
             });
 
             // NOTE: Partial view for the data (search) statistics
             $routeProvider.when('/statistics', {
-                templateUrl: 'views/statistics.html',
-                //controller: 'MyCtrl2'
+                templateUrl: 'views/statistics.html'
+                    //controller: 'MyCtrl2'
             });
 
             // TODO: Build partial 404.html page

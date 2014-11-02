@@ -19,6 +19,10 @@ header {
 	}	
 }
 
+#navigation {
+	margin-bottom: 30px;
+}
+
 .btn i {
 	padding-right: 1em;
 }
@@ -32,13 +36,33 @@ header {
 	margin-right: 5px;
 }
 
-
 #searchFormSubmit {
 	margin-top: 25px;
 }
 
 .spinner {
 	text-align: center;
+}
+
+.statisticsOverview h3, h4, p.description{
+	text-align: center;
+} 
+
+.legend span {
+	position: relative;
+	bottom: 9px;	
+}
+
+.legendColor {
+	display: inline-block;
+	border: 3px solid white;
+	height: inherit;
+	width: 30px;
+	height: 30px;
+	/*background-color: red;*/
+	border-radius: 15px;
+	padding: 6px 0px;
+	margin-right: 10px;
 }
 
 .btn-circle {
@@ -58,8 +82,8 @@ header {
     color: white
 }
 
-/*
-@media (max-width: 768px){
+
+/*@media (max-width: 768px){
 	body {
 		background: pink;
 	}

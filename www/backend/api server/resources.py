@@ -24,18 +24,18 @@ class SearchesResource(Resource):
             help='stalker_id is required'
         )
         self.req_parser.add_argument(
-            'lat',
+            'latitude',
             required=True,
             type=float,
             location='json',
-            help='lat is required'
+            help='latitude is required'
         )
         self.req_parser.add_argument(
-            'long',
+            'longitude',
             required=True,
             type=float,
             location='json',
-            help='long is required'
+            help='longitude is required'
         )
         self.req_parser.add_argument(
             'country_code',
@@ -95,8 +95,8 @@ class SearchesResource(Resource):
         Parameters:
             JSon object with the keys:
                 stalker_id:        required, string
-                lat:                required, float
-                long:               required, float
+                latitude:                required, float
+                longitude:               required, float
                 country_code:       required, three letter string
                 victim_id:             optional, string, default: ""
         Return codes:
@@ -113,8 +113,8 @@ class SearchesResource(Resource):
             search = db.connection.Search()
 
             search.stalker_id = args['stalker_id']
-            search.location['lat'] = args['lat']
-            search.location['long'] = args['long']
+            search.location['lat'] = args['latitude']
+            search.location['long'] = args['longitude']
             search.location['country_code'] = args['country_code']
 
             # Optional parameters

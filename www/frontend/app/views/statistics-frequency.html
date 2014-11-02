@@ -1,22 +1,20 @@
-<div class="col-md-6 col-sm-12">
-    <h3 ng-click="freqStatCtrl.getData()">
-        <i class="btn btn-default btn-circle fa fa-refresh"></i> {{title}}
-    </h3>
+<div ng-include src="'views/spinner.html'" loading></div>
 
-    <p>{{description}}</p>
+<div class="legend" ng-show="legend">
+	<div class="legendColor" style="background:{{legend.color}};"></div>
+	<span>{{legend.term}} ({{legend.percentage}}%)</span>
+</div>
 
-    <div ng-include src="'views/spinner.html'" loading></div>
+<fs:donut 
+	ng-show="data.Data" 
+	outer-radius="150" 
+	inner-radius="50" 
+	bind="data.Data" 
+ 	on-click="updateLegend"
+/>
 
-    <fs:donut 
-    	ng-show="data.Data" 
-    	outer-radius="150" 
-    	inner-radius="50" 
-    	bind="data.Data" 
-    />
-
-    <div ng-show="error">
-        <div class="alert alert-danger" role="alert">
-            <strong>Error!</strong> {{error}}
-        </div>
+<div ng-show="error">
+    <div class="alert alert-danger" role="alert">
+        <strong>Error!</strong> {{error}}
     </div>
 </div>

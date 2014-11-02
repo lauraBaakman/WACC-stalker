@@ -28,24 +28,25 @@ define(['./module'], function(services) {
                     });
                 },
 
-                getFrequency : function(param) {
-                    return $http.get(this.baseurl + 'statistics/' + param + '/frequency');
-                    then(function(result) {
-                        return result.data;
-                    });
+                getFrequency : function(param, optionalParam) {
+                    if(optionalParam){
+                        return $http.get(this.baseurl + 'statistics/' + param + '/frequency/' + optionalParam);    
+                    } else {
+                        return $http.get(this.baseurl + 'statistics/' + param + '/frequency');    
+                    }
                 },
 
                 // POSTS
                 postSearch: function(postData) {
-					return $http.post(this.baseurl + 'search', postData);
+					return $http.post(this.baseurl + 'searches', postData);
                 },
 
                 postStalker: function(postData) {
-                	return $http.post(this.baseurl + 'stalker', postData);
+                	return $http.post(this.baseurl + 'stalkers', postData);
                 },  
 
                 postVictim: function(postData) {
-					return $http.post(this.baseurl + 'victim', postData);
+					return $http.post(this.baseurl + 'victims', postData);
                 }             
             };
         }

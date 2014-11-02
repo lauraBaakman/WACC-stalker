@@ -16,7 +16,8 @@ require.config({
         'angular-mdFive': '../vendor/angular-md5/angular-md5',
         'angular-http-loader': '../vendor/angular-http-loader/angular-http-loader',
         'fs-dangle': '../vendor/dangle/dangle',
-        'dThree': '../vendor/d3/d3'
+        'dThree': '../vendor/d3/d3',
+        'bootstrap-ui': '../vendor/bootstrap-ui/ui-bootstrap-custom-tpls-0.10.0'
     },
 
     /**
@@ -45,7 +46,10 @@ require.config({
         },
         'fs-dangle':{
             deps: ['dThree', 'angular']
-        }        
+        },
+        'bootstrap-ui':{
+            deps: ['jquery', 'angular']
+        }                
     },
     deps: [
         // kick start application... see bootstrap.js
