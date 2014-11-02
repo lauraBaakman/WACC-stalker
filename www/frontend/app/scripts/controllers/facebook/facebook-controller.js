@@ -72,7 +72,6 @@ define(['../module'], function(controllers, ngFacebook) {
                                 stalkerService.setFacebookStalker(result);
                                 $scope.$emit('loggedInEvent', 'facebook');
                                 $facebook.api("/" + result.id + "/picture").then(function(picture) { 
-                                    console.log(picture.data.url);
                                     $scope.stalker.picture = picture.data.url;
                                 });
                             });
@@ -133,15 +132,9 @@ define(['../module'], function(controllers, ngFacebook) {
             };
 
             this.setVictim = function(id){
-                console.log("$scope.victim:");
-                console.log($scope.victim)
-
                 var victim = {
                     victim_id : id
                 };
-
-                console.log("victim:");
-                console.log(victim);
 
                 var search_id = stalkerService.getMostRecentSearch();
 
@@ -152,9 +145,15 @@ define(['../module'], function(controllers, ngFacebook) {
                         }
                         $scope.victim = victim;
                         $('#' + $scope.victim.victim_id).addClass('success');
+                        // TODO: Show victim name in info message!
+                        // TODO: Info message only shows up after first victim selection
+                        // TODO: Show AJAX spinners, the ugly way
+                        $scope.info = "Your victim has been stored.";
+                        $scope.error = "";
                     }, 
                     function(){
                         $scope.error = "Something went wrong, your victim has not been stored.";
+                        $scope.info = "";
                     });
             }
 

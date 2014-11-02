@@ -1,18 +1,17 @@
 <div ng-include src="'views/facebook/logged-in-header.html'"></div>
 
-<!-- <div ng-show="facebookCtrl.hasError()" class="row">
-    <div class="col-xs-12" ng-init>
-        <div class="alert alert-danger" role="alert">
-            <i class="fa fa-exclamation-triangle"></i> {{error}}
-        </div>
+<div class="row" ng-show="info">
+    <div class="col-xs-12">
+        <alert type="'info'" close="info=''">
+            <i class="fa fa-info-circle fa-lg"></i> {{info}}
+        </alert>
     </div>
 </div>
- -->
 
 <div class="row" ng-show="error">
     <div class="col-xs-12">
         <alert type="'danger'" close="error=''">
-            <i class="fa fa-exclamation-triangle"></i> {{error}}
+            <i class="fa fa-exclamation-triangle fa-lg"></i> {{error}}
         </alert>
     </div>
 </div>
