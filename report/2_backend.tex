@@ -25,47 +25,74 @@ To make our development easier we decided to use already existing solutions for 
 MongoDB (from``humongous'') is an open-source, document based, NoSQL database with a lot of cool features, we list a few of these that were important for the choice for MongoDB over other NoSQL database solutions \cite{mongo-db}.
 
 \begin{description}
-\item[Replication \& High Availability] A replica set in MongoDB is a group of mongod processes that maintain the same data set. Replica sets provide redundancy and high availability, and are the basis for all production deployments. Because of this feature and the requirement for the project to be fault tolerant we found this to be a positive point for choosing MongoDB. The actual implementation of this feature in our project will be discussed in \autoref{ssec:2:replication}.
+\item[Replication \& High Availability] A replica set in MongoDB is a group of mongod processes that maintain the same data set. Replica sets provide redundancy and high availability, and are the basis for all production deployments. Because of this feature and the requirement for the project to be fault tolerant we found this to be a positive point for choosing MongoDB. The actual implementation of this feature in our project will be discussed in \autoref{sssec:2:replication}.
 
-\item[Map/Reduce] MongoDB provides an easy way to use map/reduce functionality. The map and reduce function can be written in JavaScript. In the Flask back-end it is very easy to apply these function to the database. This functionality was a requirement for the project and will be discussed in \autoref{ssec:2:mapreduce}.
+\item[Map/Reduce] MongoDB provides an easy way to use map/reduce functionality. The map and reduce function can be written in JavaScript. In the Flask back-end it is very easy to apply these function to the database. This functionality was a requirement for the project and will be discussed in \autoref{sssec:2:mapreduce}.
 \end{description}
 
 \subsection{HAProxy}
 \label{ssec:2:haproxy}
 From the website of HAProxy \cite{ha-proxy}. HAProxy is a free, very fast and reliable solution offering high availability, load balancing, and proxying for TCP and HTTP-based applications. It is particularly suited for very high traffic web sites and powers quite a number of the world's most visited ones. Over the years it has become the de-facto standard opensource load balancer, is now shipped with most mainstream Linux distributions, and is often deployed by default in cloud platforms.
 
-HAProxy is a load balancing solution pointed out by one of the student assistants and we chose to use this because it is according to their website the default solution for any professional cloud platform and beside fairly easy to set up. We will discuss HAProxy further in \autoref{ssec:2:loadbalancing}.
+HAProxy is a load balancing solution pointed out by one of the student assistants and we chose to use this because it is according to their website the default solution for any professional cloud platform and beside fairly easy to set up. We will discuss HAProxy further in \autoref{sssec:2:loadbalancing}.
 
 \section{Design}
 
-This section describes the design of the back-end of the STALKER project. Because API calls to the social media API's are done in the frontend (\autoref{sec:1:design})) the back-end only has to worry about the statistics of the people who use the application to search, we call these persons, humorously, Stalkers. The people whom are being searched are stored as the Victim of a Stalker. This link is stored in what we call a Search. 
+This section describes the design of the back-end of the STALKER project. 
+
+\subsection{Database}
+Because API calls to the social media API's are done in the frontend (see \autoref{sec:1:design}) the back-end only has to worry about the statistics. We will first describe the database models. Below a list of descriptions of the used terminology is provided. In \autoref{fig:2:datamodel} we give a more detailed overview of the data models.
+
+\begin{description}
+\item[Stalker] A person who uses the STALKER application to search other people.
+\item[Victim] A person who is being searches and is marked by the Stalker as the person he/she wanted to find.
+\item[Search] This stores the link between a stalker, search and a victim.
+\end{description}
 
 \begin{figure}
-	\missingfigure{Overview image of how the back-end is structured}	
-	\caption{A schematic overview of the control flow when a user logs in.}
-	\label{fig:2:overview_backend}
+    \includegraphics[width=\textwidth]{./img/database_models}   
+    \caption{A overview of the database models. The attributes that are required and should be always available are marked with the red *. Not all information is available from the social media API's.}
+    \label{fig:2:datamodel}
 \end{figure}
 
+The statistics are generated with the map reduce methods described in \autoref{sssec:2:mapreduce}.
+
+\subsubsection{Map Reduce}
+\label{sssec:2:mapreduce}
+Map-reduce is a paradigm invented by google and is inspired by the functional programming functions map and reduce. The map-reduce method thus consists of a map function which performs filtering and sorting of the data. The reduce method then performs a summary operations and in our case reduces the data to some nice statistic. 
+
+Example of map-reduce in our project. When the front-end requests a statistic e.g. the number of searches done per location. The map function will filter the data stored in the collection that stores the searches and will emit per search every location with a count of one. The reduce function will then reduce this list of locations into a list of unique locations. The reduce function does this by merging (taking the sum of) the counts when encountering double locations, this has as result a list of unique location and the number of searches done from those locations. This statistic is then shown in the front-end see \autoref{fig:1:viewStat}.
+
+\subsubsection{Replication}
+\label{sssec:2:replication}
+This section describes a way MongoDB handles replication, see the image shown in \autoref{fig:2:replicationset}. All write calls from the REST API (see \autoref{ssec:2:restapi}) to the database are done to the primary MongoDb instance. This data is then replicated to the secondary instances (That run on different machines). Read operation can be load balanced to any of the instances. 
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{./img/replica_set}   
+    \caption{Replication implementation MongoDB}
+    \label{fig:2:replicationset}
+\end{figure}
+
+All instances know of the other instances and send heartbeat message to each other to ensure this. Whenever the other detect the primary stopped running they decide which one of them becomes the new primary (the first secondary that receives a majority votes becomes the new primary). When you have three database instances you can handle one faulty instance, so if another one stops the communication between the database and REST Api is gone. 
+
+We chose for three databases because this number was according to the MongoDB website more than enough replication for most problems. Plus this number of processes was still manageable on our development environments.
+
 \subsection{REST API}
+\label{ssec:2:restapi}
+This section describes the part of the back-end that implements all the server calls and is the part that does the communication with the database(s). A RESTful api is a 
+
 \todo[inline]{Possible api calls table?}
 \todo[inline]{Motivation why we used a REST APi}
 
-\subsection{Replication}
-\label{ssec:2:replication}
-
-\subsection{Map Reduce}
-\label{ssec:2:mapreduce}
-\todo[inline]{hmmm...}
-
-\subsection{Load balancing}
-\label{ssec:2:loadbalancing}
+\subsubsection{Load balancing}
+\label{sssec:2:loadbalancing}
 
 \section{Scalability}
 REST API
 Mongo replicasets enzo...
 
 \begin{figure}
-	\missingfigure{Overview image of how the back-end is structured}	
-	\caption{A schematic overview of the control flow when a user logs in.}
-	\label{fig:2:replica_set}
+    \missingfigure{Overview image of how the back-end is structured}    
+    \caption{A schematic overview of the control flow when a user logs in.}
+    \label{fig:2:overview}
 \end{figure}
