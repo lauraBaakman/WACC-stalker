@@ -1,7 +1,14 @@
 %!TEX root = report.tex
-In this section we will discuss the control flow in the front end upon certain actions of the user. To avoid a lengthy report we will only discuss the flow of successful cases.
+In this section we discuss the control flow in the front end upon certain actions of the user. To avoid a lengthy report we will only discuss the flow of successful cases.
 
-\todo{AJAX calls with shadows!}
+\subsection{View Statistics}
+	The control flow when a user views statistics is presented in \cref{fig:1:controlflowStat}. We have defined a directive that displays a pie-chart for a statistic. When the element defined by this directive is loaded the method \t{getData()} is called without inference from the user. 
+
+	\begin{figure}
+		\includegraphics[width=\textwidth]{./img/1_statistics_flow}
+		\caption{A schematic overview of the control flow of requesting the statistics and showing them to the user.}
+		\label{fig:1:controlflowStat}
+	\end{figure}
 
 \subsection{Log In}
 \label{ss:1:login}
@@ -41,7 +48,6 @@ In this section we will discuss the control flow in the front end upon certain a
 	We had to use a broadcast instead of an emit as in \cref{ss:1:login} since we had to down in the scope hierarchy instead of up. \\
 
 	We added the start stalking button to force our users to first login to all social networks they wanted to use before actually stalking somebody. This was one of the concessions we had to make due to time constraints, since this button ensures that we can post complete stalkers, instead of having to update a stalker every time he adds a social network. 
-	\todo{Add setMostRecentSearch() to the figure.}
 
 		\begin{figure}
 			\includegraphics[width=\textwidth]{./img/1_stalking_flow}
@@ -57,14 +63,3 @@ In this section we will discuss the control flow in the front end upon certain a
 			\caption{A schematic overview of the control flow when a user selects somebody as his victim.}
 			\label{fig:1:controlflowVictim}
 		\end{figure}		
-
-\subsection{View Statistics}
-	The control flow when a user views statistics is presented in \cref{fig:1:controlflowStat}.
-
-	\todo{Begeidend verhaaltje schrijven}
-
-	\begin{figure}
-		\missingfigure{Control flow of statistics}
-		\caption{A schematic overview of the control flow of requesting the statistics and showing them to the user.}
-		\label{fig:1:controlflowStat}
-	\end{figure}
