@@ -28,7 +28,6 @@ This chapter discusses the front-end. We start by presenting the technology stac
 				\item[ngFacebook] provides an interface between AngularJS and the Facebook API. We have adapted the source of this service in some places to make it better suited to our purposes and to keep it consistent with \t{ngLinkedIn}.
 				\item[ngLinkedIn] is for LinkedIn what \t{ngFacebook} is for Facebook. We have also adapted its source code to extend its functionality and to keep it consistent with \t{ngFacebook}.
 				\item[angular-md5] is a service that computes MD5 hashes. We use it to hash the Facebook and LinkedIn identifier of our users, so that we can find multiple searches of one user without storing the actual user. 
-				% \item[angular-http-loader] %we don't seem to use it?ng.httpLoader
 			\end{description}
 
 	\subsection{Bootstrap}
@@ -59,7 +58,7 @@ This chapter discusses the front-end. We start by presenting the technology stac
 	\subsection{RequireJS}
 	\label{ssec:1:requirejs}
 		% What is it
-		RequireJS is a JavaScript file and module loader that is optimized for in-browser use. Neither one of us had any experience with anything like it and since RequireJS was mentioned during the lectures we chose to use it. It helped that we found a boilerplate project that combined AngularJS and RequireJS. \todo{Where did we get the boilerplate?}	
+		RequireJS is a JavaScript file and module loader that is optimized for in-browser use. Neither one of us had any experience with anything like it and since RequireJS was mentioned during the lectures we chose to use it. We used the project structure suggested by \textcite{angularjsbook}.	
 
 \section{Design}
 \label{sec:1:design}
@@ -70,7 +69,9 @@ This chapter discusses the front-end. We start by presenting the technology stac
 
 		\Cref{fig:1:controlflowLogIn} presents the flow of control when a users logs in. The views that are presented to the user before and after logging in are presented in \cref{fig:1:viewLogIn}.
 
-		\todo{Begeleidend verhaaltje schrijven.}	
+		The \t{loggedIn}, and its not shown equivalent \t{loggedOut}, event ensure that the \t{searchController} knows that a user is logged in. The \t{Facebook Service}, \t{ngFacebook}, is discussed \vref{ssec:1:angularjs}. 
+
+		Logging out of social network is comparable to logging into it. \Cref{fig:1:controlflowLogIn} uses Facebook, the application works in exactly the same way for e.g. LinkedIn.
 
 		\begin{figure}
 			\includegraphics[width=\textwidth]{./img/1_login_flow}
@@ -80,29 +81,28 @@ This chapter discusses the front-end. We start by presenting the technology stac
 
 		\begin{figure}
 			\begin{subfigure}{\textwidth}
-				\missingfigure{Screenshot of the application when a user is not logged into LinkedIn.}
+				\includegraphics[width=\textwidth]{./img/1_login_view_logged_out}
 				\caption{The view when the user is not logged into LinkedIn.}
 				\label{fig:1:viewLogIn:linkedin}
 			\end{subfigure}
 			\begin{subfigure}{\textwidth}
-				\missingfigure{Screenshots of the application when a user is logged into facebook.}	
+				\includegraphics[width=\textwidth]{./img/1_login_view_logged_in}
 				\caption{The view when the user is logged into Facebook.}
 				\label{fig:1:viewLogIn:facebook}
-			\end{subfigure}		
-			
+			\end{subfigure}			
 			\caption{Screen shots of the application when \subref{fig:1:viewLogIn:facebook} the user still has not yet logged into LinkedIn and \subref{fig:1:viewLogIn:linkedin} the user has logged in into Facebook.}
 			\label{fig:1:viewLogIn}
 		\end{figure}	
 
-	\subsection{Log Out}	
-			The control flow when a user logs out is presented in \cref{fig:1:controlflowLogOut}. 
-			\todo{Begeleidend verhaaltje schrijven.}	
+	\subsection{Start Stalking}
+		\Cref{fig:1:controlflowStartStalk} shows what happens in the front end when the button `start stalking', see \autoref{fig:1:viewLogIn}, is pressed.
 
 			\begin{figure}
-				\missingfigure{Control flow of logging out}
-				\caption{A schematic overview of the control flow when a user logs out.}
-				\label{fig:1:controlflowLogOut}
-			\end{figure}		
+				\missingfigure{Control flow of start stalking}
+				\caption{A schematic overview of the control flow when a presses the `start stalking' button.}
+				\label{fig:1:controlflowStartStalk}
+			\end{figure}
+
 
 	\subsection{Stalk}
 		\Cref{fig:1:controlflowStalk} presents the flow of control when a user searches for somebody on the social networks that he has logged in to. The views presented to the user are shown in \autoref{fig:1:viewStalk}.
