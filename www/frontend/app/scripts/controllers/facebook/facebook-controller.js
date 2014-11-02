@@ -1,7 +1,7 @@
 define(['../module'], function(controllers, ngFacebook) {
     'use strict';
-    controllers.controller('FacebookController', ['$scope', '$facebook', 'searchService', 'stalkerService',
-        function($scope, $facebook, searchService, stalkerService) {
+    controllers.controller('FacebookController', ['$scope', '$facebook', 'searchService', 'stalkerService', 'apiService',
+        function($scope, $facebook, searchService, stalkerService, apiService) {
 
             var controller = this;
 
@@ -19,6 +19,7 @@ define(['../module'], function(controllers, ngFacebook) {
             $scope.results = null;
             $scope.person = null;
             $scope.error = null;
+            $scope.victim = null;
 
             $scope.user = null;
 
@@ -71,7 +72,6 @@ define(['../module'], function(controllers, ngFacebook) {
                                 stalkerService.setFacebookStalker(result);
                                 $scope.$emit('loggedInEvent', 'facebook');
                                 $facebook.api("/" + result.id + "/picture").then(function(picture) { 
-                                    console.log(picture.data.url);
                                     $scope.stalker.picture = picture.data.url;
                                 });
                             });
@@ -131,14 +131,39 @@ define(['../module'], function(controllers, ngFacebook) {
 
             };
 
+            this.setVictim = function(id){
+                var victim = {
+                    victim_id : id
+                };
+
+                var search_id = stalkerService.getMostRecentSearch();
+
+                apiService.putSearch(victim, search_id).then(
+                    function(){
+                        if($scope.victim){
+                            $('#' + $scope.victim.victim_id).removeClass('success');
+                        }
+                        console.log($scope.results)
+                        $scope.victim = victim;
+                        $('#' + $scope.victim.victim_id).addClass('success');
+                        // TODO: Show victim name in info message!
+                        // TODO: Info message only shows up after first victim selection
+                        // TODO: Show AJAX spinners, the ugly way
+                        $scope.info = "Your victim has been stored.";
+                        $scope.error = "";
+                    }, 
+                    function(){
+                        $scope.error = "Something went wrong, your victim has not been stored.";
+                        $scope.info = "";
+                    });
+            }
+
 
             /* ------------------ Handle Search messages ------------------ */
 
             $scope.$on('handleBroadcast', function() {
-                console.log("FACEBOOKCONTROLLER: Search message received");
-
+                $scope.victim = {};
                 $scope.search = searchService.search;
-
                 controller.searchCall($scope.search.name, $scope.search.email);
             });
 

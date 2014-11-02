@@ -1,24 +1,47 @@
 <div ng-include src="'views/facebook/logged-in-header.html'"></div>
 
-<div>
-	<table ng-show="facebookCtrl.hasResults()" class="table table-striped">
-		<tr>
-			<th class="col-sm-11">Name</th> <th class="col-sm-1">Search</th>
-		</tr>
-		<tr ng-repeat="result in results | limitTo:10">
-			<td>{{result.name}}</td> <td><button ng-click="facebookCtrl.detailsCall(result.id)" class="btn btn-default">Go!</button>
-		</tr>
-	</table>
-
-	<div ng-hide="facebookCtrl.hasResults()">
-		<h4>No results</h4>
-	</div>
-
-	<div ng-show="facebookCtrl.hasError()" class="row">
-		<div class="col-xs-12">
-	        <div class="alert alert-error" role="alert">
-	            <strong>Error!</strong>{{error}}
-	        </div>		
-		</div>
-	</div>
+<div class="row" ng-show="info">
+    <div class="col-xs-12">
+        <alert type="'success'" close="info=''">
+            <i class="fa fa-bookmark-o fa-lg"></i> {{info}}
+        </alert>
+    </div>
 </div>
+
+<div class="row" ng-show="error">
+    <div class="col-xs-12">
+        <alert type="'danger'" close="error=''">
+            <i class="fa fa-exclamation-triangle fa-lg"></i> {{error}}
+        </alert>
+    </div>
+</div>
+
+<div class="row">
+    <div class="xs-col-12">
+        <div class="table-responsive" ng-show="facebookCtrl.hasResults()">
+            <table class="table table-striped table-hover">
+                <tr ng-repeat="result in results | limitTo:10" id={{result.id}}>
+                    <td ng-click="facebookCtrl.detailsCall(result.id)" class="col-xs-1 icon-column">
+                        <i class="fa fa-info-circle fa-lg"></i>
+                    </td>
+                    <td ng-click="facebookCtrl.setVictim(result.id)" class="col-xs-1 icon-column">
+                        <i class="fa fa-check-circle fa-lg"></i>
+                    </td>
+                    <td ng-click="facebookCtrl.detailsCall(result.id)" class="col-xs-10">
+                        {{result.name}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div ng-hide="facebookCtrl.hasResults()">
+            <h4>No results</h4>
+        </div>
+    </div>
+</div>
+
+

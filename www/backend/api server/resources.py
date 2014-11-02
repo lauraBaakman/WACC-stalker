@@ -163,6 +163,13 @@ class SearchResource(Resource):
             search = db.connection.wacc.searches.Search.find_one({'_id': ObjectId(id)})
 
             if search is not None:
+                victim = db.connection.wacc.victims.find_one({'victim_id': args['victim_id']})
+
+                if victim is None:
+                    victim = db.connection.Victim()
+                    victim.victim_id = args['victim_id']
+                    victim.save()
+
                 search.victim_id = args['victim_id']
                 search.save()
             else:

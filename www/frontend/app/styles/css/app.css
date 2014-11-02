@@ -23,8 +23,16 @@ header {
 	margin-bottom: 30px;
 }
 
+.table td.icon-column {
+   text-align: center;   
+}
+
 .btn i {
 	padding-right: 1em;
+}
+
+.only-icon {
+	padding-left: 1em;
 }
 
 .socialmedia-info img, .socialmedia-info button {

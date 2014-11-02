@@ -22,6 +22,7 @@
 %Plaatjes
 \usepackage{graphicx}
 \usepackage[small,bf]{caption}
+\usepackage{float}
 \usepackage{subcaption}
 
 % Temp
@@ -36,13 +37,13 @@
 \renewcommand{\t}[1]{\texttt{#1}}
 \newcommand{\stalker}{\textsc{stalker}}
 \addto\extrasenglish{%
-  \renewcommand{\figureautorefname}{figure}%
-  \renewcommand{\tableautorefname}{table}%
+  \renewcommand{\figureautorefname}{Figure}%
+  \renewcommand{\tableautorefname}{Table}%
 }
 
 % Redfine stuff
-\crefname{figure}{figure}{figures}
-\crefname{table}{table}{tables}
+\crefname{figure}{Figure}{figures}
+\crefname{table}{tTable}{tables}
 \renewcommand{\thesection}{\arabic{section}}
 
 % Title page
@@ -61,11 +62,11 @@
 \label{ch:intro}
 \input{0_introduction.tex}
 
-\chapter{Front-End}
+\chapter{Front End}
 \label{ch:frontend}
 \input{1_frontend.tex}
 
-\chapter{Back-End}
+\chapter{Back End}
 \label{ch:backend}
 \input{2_backend.tex}
 

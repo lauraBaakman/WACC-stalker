@@ -4,7 +4,7 @@ define(['./module'], function(services) {
     services.service('apiService', ['$http',
         function($http) {
             return {
-                baseurl: 'http://127.0.0.1:5000/',
+                baseurl: 'http://127.0.0.1:8000/',
 
                 // GETS
                 getAllSearches: function() {
@@ -47,7 +47,12 @@ define(['./module'], function(services) {
 
                 postVictim: function(postData) {
 					return $http.post(this.baseurl + 'victims', postData);
-                }             
+                },
+
+                // PUTS
+                putSearch: function(putData, param) {
+                    return $http.put(this.baseurl + 'search/' + param, putData);
+                }
             };
         }
     ]);
