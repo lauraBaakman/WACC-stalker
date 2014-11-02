@@ -143,6 +143,7 @@ define(['../module'], function(controllers, ngFacebook) {
                         if($scope.victim){
                             $('#' + $scope.victim.victim_id).removeClass('success');
                         }
+                        console.log($scope.results)
                         $scope.victim = victim;
                         $('#' + $scope.victim.victim_id).addClass('success');
                         // TODO: Show victim name in info message!
