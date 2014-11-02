@@ -47,7 +47,13 @@ define(['./module'], function(services) {
 
                 postVictim: function(postData) {
 					return $http.post(this.baseurl + 'victims', postData);
-                }             
+                },
+
+                // PUTS
+                putSearch: function(putData, param) {
+                    console.log(this.baseurl + 'searches/' + param);
+                    return $http.put(this.baseurl + 'searches/' + param, putData);
+                }
             };
         }
     ]);
