@@ -1,6 +1,8 @@
 %!TEX root = report.tex
 In this section we will discuss the control flow in the front end upon certain actions of the user. To avoid a lengthy report we will only discuss the flow of successful cases.
 
+\todo{AJAX calls with shadows!}
+
 \subsection{Log In}
 \label{ss:1:login}
 	As mentioned earlier users have to log in to a social network before being allowed to stalk somebody on that network. Since we store the ID of the user and we have not implemented an api call that adds for example the LinkedIn identification to a user that we have already stored with its Facebook identification.
@@ -39,6 +41,7 @@ In this section we will discuss the control flow in the front end upon certain a
 	We had to use a broadcast instead of an emit as in \cref{ss:1:login} since we had to down in the scope hierarchy instead of up. \\
 
 	We added the start stalking button to force our users to first login to all social networks they wanted to use before actually stalking somebody. This was one of the concessions we had to make due to time constraints, since this button ensures that we can post complete stalkers, instead of having to update a stalker every time he adds a social network. 
+	\todo{Add setMostRecentSearch() to the figure.}
 
 		\begin{figure}
 			\includegraphics[width=\textwidth]{./img/1_stalking_flow}
@@ -47,10 +50,10 @@ In this section we will discuss the control flow in the front end upon certain a
 		\end{figure}	
 
 \subsection{Select Victim}
-	\Cref{fig:1:controlflowVictim} shows the control flow in the front end when a user indicates that one of the found results was his victim. Even tough it does not matter to the user if the addition of his victim to our database has been reported we report success, and failure, since the user has no feedback on his actions otherwise. 
+	\Cref{fig:1:controlflowVictim} shows the control flow in the front end when a user indicates that one of the found results was his victim. Even tough it does not matter to the user if the addition of his victim to our database has been reported we report success, and failure, since the user has no feedback on his actions otherwise. Once again we have chosen Facebook as an example, but the flow of control would be the same with a different social network. 
 
 		\begin{figure}
-			\missingfigure{Control flow of choosing a victim}
+			\includegraphics[width=\textwidth]{./img/1_add_victim_flow}
 			\caption{A schematic overview of the control flow when a user selects somebody as his victim.}
 			\label{fig:1:controlflowVictim}
 		\end{figure}		
