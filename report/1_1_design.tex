@@ -34,25 +34,29 @@ In this section we will discuss the control flow in the front end upon certain a
 
 \subsection{Start Stalking}
 \label{ss:1:startStalking}
-	\Cref{fig:1:controlflowStartStalk} shows what happens in the front end when the button `start stalking', see \autoref{fig:1:viewLogIn}, is pressed. the \t{Stalker Service} contains all information on the stalker. The \texttt{API Service} contains all calls to our own API, we have chosen for a separate service so that we only have to store the address of the API in one place. The Search Service broadcasts the search to the different social media controllers, in \cref{fig:1:controlflowStartStalk} Facebook is shown as an example. Each social network controller does a search call by calling some function in the matching service that interacts with the actual API of that social network.
+	\Cref{fig:1:controlflowStartStalk} shows what happens in the front end when the button `start stalking', see \autoref{fig:1:viewLogIn}, is pressed. 
 
-
-	We had to use a broadcast instead of an emit as in \cref{ss:1:login} since we had to down in the scope hierarchy instead of up. 
+	\todo{Begeleidend verhaaltje schrijven}
 
 		\begin{figure}
-			\includegraphics[width=\textwidth]{./img/1_start_stalking_flow}
+			\missingfigure{Control flow of start stalking}
 			\caption{A schematic overview of the control flow when a presses the `start stalking' button.}
 			\label{fig:1:controlflowStartStalk}
 		\end{figure}
 
 
 \subsection{Stalk}
-	\Cref{fig:1:controlflowStalk} presents the flow of control when a user searches for somebody on the social networks that he has logged in to. The views presented to the user are shown in \autoref{fig:1:viewStalk}.
+	\Cref{fig:1:controlflowStalk} presents the flow of control when a user searches for somebody on the social networks that he has logged in to. The views presented to the user are shown in \autoref{fig:1:viewStalk}. 
 
-	\todo{Begeleidend verhaaltje schrijven}
+	The \t{Stalker Service} contains all information on the stalker. The \texttt{API Service} contains all calls to our own API, we have chosen for a separate service so that we only have to store the address of the API in one place. The Search Service broadcasts the search to the different social media controllers, in \cref{fig:1:controlflowStalk} Facebook is shown as an example. Each social network controller does a search call by calling some function in the matching service that interacts with the actual API of that social network.
+
+
+	We had to use a broadcast instead of an emit as in \cref{ss:1:login} since we had to down in the scope hierarchy instead of up. \\
+
+	We added the start stalking button to force our users to first login to all social networks they wanted to use before actually stalking somebody. This was one of the concessions we had to make due to time constraints, since this button ensures that we can post complete stalkers, instead of having to update a stalker every time he adds a social network. 
 
 		\begin{figure}
-			\missingfigure{Control flow of stalking}
+			\includegraphics[width=\textwidth]{./img/1_stalking_flow}
 			\caption{A schematic overview of the control flow when a user stalks somebody.}
 			\label{fig:1:controlflowStalk}
 		\end{figure}	
