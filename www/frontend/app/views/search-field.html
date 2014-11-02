@@ -14,10 +14,10 @@
     </div>    
 </form>
 
-<div ng-show="!error.isEmpty()" class="row">
+<div ng-show="!warning.isEmpty()" class="row">
     <div class="col-xs-12">
         <div class="alert alert-warning" role="alert">
-            <strong>Warning!</strong>{{error}}
+            <strong>Warning!</strong>{{warning}}
             <span ng-hide="searchCtrl.isSearchEmpty()" ng-click="searchCtrl.searchSubmit(true)" class="alert-link">Continue anyway.</span>
         </div>
     </div>

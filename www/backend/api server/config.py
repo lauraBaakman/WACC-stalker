@@ -8,6 +8,12 @@ DATABASE = {
     'port':  27017
 }
 
+DATABASE_REPLICA = {
+    'name': 'wacc',
+    'replicaset': 'rs_wacc',
+    'hosts': 'localhost:27017, localhost:27018, localhost:27019'
+}
+
 
 def output_json(obj, code, headers=None):
     """

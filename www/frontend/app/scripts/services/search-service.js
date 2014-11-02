@@ -14,7 +14,6 @@ define(['./module'], function (services) {
 
     		send: function() {
     			$rootScope.$broadcast('handleBroadcast');
-    			console.log("Send message!");
     		}
     	};
     }]);

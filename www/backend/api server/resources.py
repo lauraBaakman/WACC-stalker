@@ -1,11 +1,9 @@
 """ . """
-from flask.ext.restful import Resource, request, fields, marshal, reqparse
+from flask.ext.restful import Resource, fields, marshal, reqparse
 from flask import make_response
 from bson.json_util import dumps
 from bson import ObjectId
 import pymongo
-import itertools
-import sys
 
 import database as db
 import mapreduce as mr
@@ -26,18 +24,18 @@ class SearchesResource(Resource):
             help='stalker_id is required'
         )
         self.req_parser.add_argument(
-            'lat',
+            'latitude',
             required=True,
             type=float,
             location='json',
-            help='lat is required'
+            help='latitude is required'
         )
         self.req_parser.add_argument(
-            'long',
+            'longitude',
             required=True,
             type=float,
             location='json',
-            help='long is required'
+            help='longitude is required'
         )
         self.req_parser.add_argument(
             'country_code',
@@ -97,8 +95,8 @@ class SearchesResource(Resource):
         Parameters:
             JSon object with the keys:
                 stalker_id:        required, string
-                lat:                required, float
-                long:               required, float
+                latitude:                required, float
+                longitude:               required, float
                 country_code:       required, three letter string
                 victim_id:             optional, string, default: ""
         Return codes:
@@ -115,8 +113,8 @@ class SearchesResource(Resource):
             search = db.connection.Search()
 
             search.stalker_id = args['stalker_id']
-            search.location['lat'] = args['lat']
-            search.location['long'] = args['long']
+            search.location['lat'] = args['latitude']
+            search.location['long'] = args['longitude']
             search.location['country_code'] = args['country_code']
 
             # Optional parameters
@@ -258,8 +256,8 @@ class StalkersResource(Resource):
                 response.append(marshal(result, output_fields))
         except Exception, e:
             print e
-            response = {'message': 'Something went terribly wrong.', 'status': status_code}
             status_code = 500
+            response = {'message': 'Something went terribly wrong.', 'status': status_code}
 
         return make_response(dumps(response), status_code)
 
@@ -344,8 +342,8 @@ class VictimsResource(Resource):
                 response.append(marshal(result, output_fields))
         except Exception, e:
             print e
-            response = {'message': 'Something went terribly wrong.', 'status': status_code}
             status_code = 500
+            response = {'message': 'Something went terribly wrong.', 'status': status_code}
 
         return make_response(dumps(response), status_code)
 
@@ -379,7 +377,7 @@ class VictimsResource(Resource):
         return {'message': response_msg, 'status': status_code}, status_code
 
 
-def get_by_method(method, output_fields, sort_x=None, limit_x=0, method_options=None):
+def get_by_method(method, output_fields, sort_x=None, limit_x=0, scope=None):
     """
     HTTP GET request.
 
@@ -394,7 +392,7 @@ def get_by_method(method, output_fields, sort_x=None, limit_x=0, method_options=
     response = []
 
     try:
-        top_x_results = method(method_options).find(sort=sort_x, limit=limit_x)
+        top_x_results = method(scope).find(sort=sort_x, limit=limit_x)
 
         for result in top_x_results:
             response.append(marshal(result, output_fields))
@@ -417,7 +415,7 @@ class StatisticsLocationFrequency(Resource):
             'term': fields.String(attribute='_id')
         }
 
-        self.sort_x = [('value', pymongo.DESCENDING)]
+        self.sort_x = [('_id', pymongo.DESCENDING)]
         self.limit_x = 10
 
     def get(self):
@@ -441,7 +439,7 @@ class StatisticsRelationshipFrequency(Resource):
             'term': fields.String(attribute='_id')
         }
 
-        self.sort_x = [('value', pymongo.DESCENDING)]
+        self.sort_x = [('_id', pymongo.DESCENDING)]
         self.limit_x = 10
 
     def get(self):
@@ -465,17 +463,19 @@ class StatisticsGenderRelationshipFrequency(Resource):
             'term': fields.String(attribute='_id')
         }
 
-        self.sort_x = [('value', pymongo.DESCENDING)]
+        self.sort_x = [('_id', pymongo.DESCENDING)]
         self.limit_x = 10
 
     def get(self, gender):
         """ . """
+        scope = {"gender": gender}
+
         return get_by_method(
             mr.gender_relationship_frequency,
             self.output_fields,
             self.sort_x,
             self.limit_x,
-            gender
+            scope
         )
 
 
@@ -498,5 +498,5 @@ class StatisticsGenderLocationFrequency(Resource):
         """ . """
         return get_by_method(
             mr.gender_location_frequency,
-            self.output_fields
+            self.output_fields,
         )
