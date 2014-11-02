@@ -20,10 +20,11 @@ In this section we will discuss the control flow in the front end upon certain a
 \subsection{Start Stalking}
 \label{ss:1:startStalking}
 	\Cref{fig:1:controlflowStartStalk} shows what happens in the front end when the indicates that he has logged in into all social networks he wishes to use. 
-	\todo{Begeleidend verhaaltje schrijven}
+	
+	If the POST to the \t{Stalker API} fails no error is reported to the user, since it does not matter to the user if his information is added to our database. 
 
 		\begin{figure}
-			\missingfigure{Control flow of start stalking}
+			\includegraphics[width=\textwidth]{./img/1_start_stalking_flow}
 			\caption{A schematic overview of the control flow when a presses the `start stalking' button.}
 			\label{fig:1:controlflowStartStalk}
 		\end{figure}
@@ -46,7 +47,7 @@ In this section we will discuss the control flow in the front end upon certain a
 		\end{figure}	
 
 \subsection{Select Victim}
-	\Cref{fig:1:controlflowVictim} shows the control flow in the front end when a user indicates that one of the found results was his victim.
+	\Cref{fig:1:controlflowVictim} shows the control flow in the front end when a user indicates that one of the found results was his victim. Even tough it does not matter to the user if the addition of his victim to our database has been reported we report success, and failure, since the user has no feedback on his actions otherwise. 
 
 		\begin{figure}
 			\missingfigure{Control flow of choosing a victim}
