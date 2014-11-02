@@ -19,7 +19,7 @@ define(['../module'], function(controllers, ngFacebook) {
             $scope.results = null;
             $scope.person = null;
             $scope.error = null;
-            this.victim = null;
+            $scope.victim = null;
 
             $scope.user = null;
 
@@ -109,7 +109,6 @@ define(['../module'], function(controllers, ngFacebook) {
                 $facebook.api("/search?q='" + name + "'&type=user").
                 	then(
 						function(results) {
-                            console.log(results);
 	                    	$scope.results = results.data;
 	                    	controller.setPage($scope.pages.results);
 	                    	$scope.loading = false;
@@ -134,24 +133,25 @@ define(['../module'], function(controllers, ngFacebook) {
             };
 
             this.setVictim = function(id){
-                // post victim
-                console.log("controller.victim:");
-                console.log(controller.victim)
-                console.log("victim:");
-                // Request search id from stalker service
+                console.log("$scope.victim:");
+                console.log($scope.victim)
+
                 var victim = {
                     victim_id : id
                 };
+
+                console.log("victim:");
                 console.log(victim);
-                var search_id = "54563b04c65b7d03ce92d411";
+
+                var search_id = stalkerService.getMostRecentSearch();
+
                 apiService.putSearch(victim, search_id).then(
                     function(){
-                        console.log('posted victim');
-                        if(this.victim){
-                            $('#' + controller.victim.victim_id).removeClass('success');
+                        if($scope.victim){
+                            $('#' + $scope.victim.victim_id).removeClass('success');
                         }
-                        this.victim = victim;
-                        $('#' + controller.victim.victim_id).addClass('success');
+                        $scope.victim = victim;
+                        $('#' + $scope.victim.victim_id).addClass('success');
                     }, 
                     function(){
                         $scope.error = "Something went wrong, your victim has not been stored.";

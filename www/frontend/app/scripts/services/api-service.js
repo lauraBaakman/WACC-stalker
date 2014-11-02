@@ -51,8 +51,7 @@ define(['./module'], function(services) {
 
                 // PUTS
                 putSearch: function(putData, param) {
-                    console.log(this.baseurl + 'searches/' + param);
-                    return $http.put(this.baseurl + 'searches/' + param, putData);
+                    return $http.put(this.baseurl + 'search/' + param, putData);
                 }
             };
         }
