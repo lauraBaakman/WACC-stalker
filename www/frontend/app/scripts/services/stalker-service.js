@@ -13,6 +13,8 @@ define(['./module'], function(services) {
                     industry: null
                 },
 
+                most_recent_search : null,
+
                 loggedIn: {
                     facebook: false,
                     linkedIn: false
@@ -20,6 +22,14 @@ define(['./module'], function(services) {
 
                 getStalkerId: function(){
                     return this.stalker.stalker_id;
+                },
+
+                setMostRecentSearch: function(search_id){
+                    this.most_recent_search = search_id;
+                },
+
+                getMostRecentSearch: function(){
+                    return this.most_recent_search;
                 },
 
                 setFacebookStalker: function(data) {

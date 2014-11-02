@@ -27,7 +27,7 @@ def add_cors(resp):
     """
     resp.headers['Access-Control-Allow-Origin'] = request.headers.get('Origin', '*')
     resp.headers['Access-Control-Allow-Credentials'] = 'true'
-    resp.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS, GET'
+    resp.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS, GET, PUT'
     resp.headers['Access-Control-Allow-Headers'] = request.headers.get(
         'Access-Control-Request-Headers', 'Authorization'
     )

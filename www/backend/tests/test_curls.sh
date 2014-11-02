@@ -1,4 +1,4 @@
-#!/bin/bash
+ #!/bin/bash
 # API test script
 
 # Dependencies (MAC):
