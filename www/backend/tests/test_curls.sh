@@ -10,7 +10,7 @@
 clear
 
 # Set the default url 
-API=http://localhost:5000
+API=http://localhost:8000
 
 echo -e "Checking for a clean slate. Everything should be empty. \n"
 # GET all the searches (Should return an array)
@@ -33,10 +33,10 @@ curl -s -X POST -H "Content-Type: application/json" -d '{"stalker_id": "0002", "
 
 echo -e "\nAfter a user is signed in this user can use the search field to search. When the search button is clicked we can save the search.\n"
 
-echo -e 'INPUT:\n{"stalker": "0002", "lat": 50.0, "long": 60.0, "country_code": "NED"}'
+echo -e 'INPUT:\n{"stalker": "0002", "latitude": 50.0, "longitude": 60.0, "country_code": "NED"}'
 
 # POST a new search to the api, this will respond in a message including the id of the search we need to update it.
-ID=$(curl -s -X POST -H "Content-Type: application/json" -d '{"stalker_id": "0002", "lat": 50.0, "long": 60.0, "country_code": "NED"}' $API/searches | jsawk 'return this.data;')
+ID=$(curl -s -X POST -H "Content-Type: application/json" -d '{"stalker_id": "0002", "latitude": 50.0, "longitude": 60.0, "country_code": "NED"}' $API/searches | jsawk 'return this.data;')
 
 echo -e "\nGET on all the data to see what is inserted.\n (victims should still be empty and search should not have a victim_id)"
 
@@ -59,7 +59,7 @@ echo -e '\nUdating search with INPUT: $ID and {"victim_id":"0004"}'
 
 echo -e "OUTPUT:"
 
-curl -s -X PUT -H "Content-Type: application/json" -d '{"victim_id": "0004"}' $API/search/$ID
+curl -s -X PUT -H "Content-Type: application/json" -d '{"victim_id": "0005"}' $API/search/$ID
 
 echo -e "\nFinal database state: \n"
 
