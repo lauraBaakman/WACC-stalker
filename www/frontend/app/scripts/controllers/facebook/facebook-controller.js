@@ -135,10 +135,7 @@ define(['../module'], function(controllers, ngFacebook) {
             /* ------------------ Handle Search messages ------------------ */
 
             $scope.$on('handleBroadcast', function() {
-                console.log("FACEBOOKCONTROLLER: Search message received");
-
                 $scope.search = searchService.search;
-
                 controller.searchCall($scope.search.name, $scope.search.email);
             });
 
