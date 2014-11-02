@@ -1,11 +1,17 @@
 %!TEX root = report.tex
+
+This chapter discusses the back-end. This includes the REST API plus the database storing all the statistics data. We will first discuss the technologies that where used to build these component then how together these technologies and components form the back-end.
+
 \section{Technology Stack}
 \label{sec:2:technologyStack}
+In this section we will describes as in section \ref{sec:1:technologyStack} what technologies where used and why we decided to used these above others.
 
 \subsection{Flask}
 \label{ssec:2:flask}
+Flask \cite{flask} is a python micro framework for the web. Flask is based on Werkzeug \cite{werkzeug} and Jinja2 \cite{jinja2}. We have used the Flask framework as a base, but mostly used it's extensions described below. We choose Flask for our back-end because one of us already had some experience with Flask and both of us had worked (a little bit) with python before.
 
 \subsection{Extensions}
+To make our development easier we decided to use already existing solutions for building a REST API using Flask and MongoDb (\autoref{ssec:2:mongodb}). In this section we will describe the used extensions.
 
 \begin{description}
 
