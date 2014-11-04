@@ -30,14 +30,14 @@ define([
         'app.directives',
         'app.filters',
         'app.services',
-        'ngRoute',
+        'ngRoute'
     ]).config(function($facebookProvider, $linkedInProvider, httpMethodInterceptorProvider) {
     	httpMethodInterceptorProvider.whitelistDomain('facebook.com');
     	httpMethodInterceptorProvider.whitelistDomain('linkedin.com');
         $facebookProvider.setAppId('717667088304140');
         $facebookProvider.setCustomInit({
             version: 'v2.1',
-            xfbml: false,
+            xfbml: false
         });
         $facebookProvider.setPermissions("user_birthday,user_relationship_details");
 
