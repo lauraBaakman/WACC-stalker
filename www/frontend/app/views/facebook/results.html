@@ -1,8 +1,17 @@
 <div ng-include src="'views/facebook/logged-in-header.html'"></div>
 
+<div class="row" ng-init="showAlert = true">
+    <div class="col-xs-12" ng-show="showAlert">
+        <alert type="'info'" close="showAlert = false">
+            <i class="fa fa-info-circle fa-lg"></i> 
+            Use <i class="fa fa-check-circle"></i> to indicate that you found who you were looking for.
+        </alert>
+    </div>
+</div>
+
 <div class="row" ng-show="info">
     <div class="col-xs-12">
-        <alert type="'success'" close="info=''">
+        <alert type="'success'">
             <i class="fa fa-bookmark-o fa-lg"></i> {{info}}
         </alert>
     </div>

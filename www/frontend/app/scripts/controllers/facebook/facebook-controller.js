@@ -137,25 +137,26 @@ define(['../module'], function(controllers, ngFacebook) {
                 };
 
                 var search_id = stalkerService.getMostRecentSearch();
+                if(search_id) {
+                    apiService.putSearch(victim, search_id).then(
+                        function(){
+                            if($scope.victim){
+                                $('#' + $scope.victim.victim_id).removeClass('success');
+                            }
+                            $scope.victim = victim;
+                            $('#' + $scope.victim.victim_id).addClass('success');
+                            $scope.info = "Your selection has been stored.";
+                            $scope.error = "";
+                        },
+                        function() {
+                            $scope.error = "Something went wrong.";
+                            $scope.info = "";
+                        });
 
-                apiService.putSearch(victim, search_id).then(
-                    function(){
-                        if($scope.victim){
-                            $('#' + $scope.victim.victim_id).removeClass('success');
-                        }
-                        console.log($scope.results)
-                        $scope.victim = victim;
-                        $('#' + $scope.victim.victim_id).addClass('success');
-                        // TODO: Show victim name in info message!
-                        // TODO: Info message only shows up after first victim selection
-                        // TODO: Show AJAX spinners, the ugly way
-                        $scope.info = "Your victim has been stored.";
-                        $scope.error = "";
-                    }, 
-                    function(){
-                        $scope.error = "Something went wrong, your victim has not been stored.";
-                        $scope.info = "";
-                    });
+                } else {
+                    $scope.error = "Something went wrong.";
+                    $scope.info = "";
+                }
             }
 
 
