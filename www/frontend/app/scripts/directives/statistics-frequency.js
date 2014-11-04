@@ -34,6 +34,11 @@ define(['./module'], function(directives) {
                         $scope.legend.term = termObject.term;
                         $scope.legend.color = color;
                         $scope.legend.percentage = ((termObject.count/sum) * 100).toFixed(2);
+
+                    $scope.showLegend = function(){
+                        return  Object.keys($scope.legend).length !== 0 && 
+                                Object.keys($scope.data).length !== 0;
+                    };
                 };
 
                     this.getData();

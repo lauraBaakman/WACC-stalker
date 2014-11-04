@@ -1,6 +1,6 @@
 <div ng-include src="'views/spinner.html'" loading></div>
 
-<div class="legend" ng-show="legend">
+<div class="legend" ng-show="showLegend()">
 	<div class="legendColor" style="background:{{legend.color}};"></div>
 	<span>{{legend.term}} ({{legend.percentage}}%)</span>
 </div>
