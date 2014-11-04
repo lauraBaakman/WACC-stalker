@@ -31,7 +31,6 @@ define(['./module'], function(directives) {
                     };
 
                     $scope.updateLegend = function(termObject, color, sum){
-                        console.log("Updating legend: " + termObject + color + sum);
                         $scope.legend.term = termObject.term;
                         $scope.legend.color = color;
                         $scope.legend.percentage = ((termObject.count/sum) * 100).toFixed(2);
