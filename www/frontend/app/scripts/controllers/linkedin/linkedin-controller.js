@@ -77,6 +77,12 @@ define(['../module'], function(controllers, ngLinkedin) {
 
             /* ------------------ Stalker LinkedIn views navigation ------------------ */
 
+            $scope.$on('handleBroadcast', function() {
+                $scope.victim = {};
+                $scope.search = searchService.search;
+                // controller.searchCall($scope.search.name, $scope.search.email);
+            });
+
             var currentPage = $scope.pages.login;
 
             this.isSelected = function(checkPage) {
