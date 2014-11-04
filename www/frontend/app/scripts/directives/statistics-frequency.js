@@ -30,6 +30,10 @@ define(['./module'], function(directives) {
                         );
                     };
 
+                    $scope.hasData = function(){
+                        return Object.keys($scope.data.Data.terms).length !== 0;
+                    };
+
                     $scope.updateLegend = function(termObject, color, sum){
                         $scope.legend.term = termObject.term;
                         $scope.legend.color = color;
