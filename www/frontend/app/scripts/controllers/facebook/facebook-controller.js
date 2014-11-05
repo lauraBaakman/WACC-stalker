@@ -83,22 +83,23 @@ define(['../module'], function(controllers, ngFacebook) {
             };
 
             this.logout = function() {
-                console.log("Logging out!")
-                $facebook.getLoginStatus().then(function(response) {
-                    if (!(response.status === "unknown" || response.authResponse === null)) {
-                        $facebook.logout();
+                $facebook.getLoginStatus().then(
+                    function(response) {
+                        if (!(response.status === "unknown" || response.authResponse === null)) {
+                            $facebook.logout();
+                        }
+                            stalkerService.setFacebookLoggedIn(false);
+                            $scope.$emit('loggedOutEvent', 'facebook');
+                            $scope.stalker = {};
+                            controller.setPage($scope.pages.login);
+                            controller.clearResults();
+                            controller.clearPerson();                                                   
+                            $scope.user = null;
+                    },
+                    function(error){
+                        console.log(error);
                     }
-                    stalkerService.setFacebookLoggedIn(false);
-                    $scope.$emit('loggedOutEvent', 'facebook');
-                    $scope.stalker = {};
-                    controller.setPage($scope.pages.login);
-                    controller.clearResults();
-                    controller.clearPerson();                                                   
-                    // controller.clearResults();
-                    // controller.clearPerson();
-                    // $scope.user = null; // Functie?
-                    // controller.setPage($scope.pages.login);
-                });
+                );
             };
 
             /* ------------------ Search API calls ------------------ */
