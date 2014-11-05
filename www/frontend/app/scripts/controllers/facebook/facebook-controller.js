@@ -71,7 +71,6 @@ define(['../module'], function(controllers, ngFacebook) {
                                 $scope.stalker.name = result.name;
                                 stalkerService.setFacebookStalker(result);
                                 $scope.$emit('loggedInEvent', 'facebook');
-                                $scope.stalker.picture = "./question.png";
                                 $facebook.api("/" + result.id + "/picture").then(
                                     function(picture) { 
                                         $scope.stalker.picture = picture.data.url;
@@ -92,6 +91,9 @@ define(['../module'], function(controllers, ngFacebook) {
                     stalkerService.setFacebookLoggedIn(false);
                     $scope.$emit('loggedOutEvent', 'facebook');
                     $scope.stalker = {};
+                    this.setPage($scope.pages.login);
+                    this.clearResults();
+                    this.clearPerson();                                                   
                     // controller.clearResults();
                     // controller.clearPerson();
                     // $scope.user = null; // Functie?
