@@ -70,10 +70,14 @@ define(['../module'], function(controllers, ngFacebook) {
                                 $scope.stalker = {};
                                 $scope.stalker.name = result.name;
                                 stalkerService.setFacebookStalker(result);
-                                $scope.$emit('loggedInEvent', 'facebook');
-                                $facebook.api("/" + result.id + "/picture").then(function(picture) { 
-                                    $scope.stalker.picture = picture.data.url;
-                                });
+                                $facebook.api("/" + result.id + "/picture").then(
+                                    function(picture) { 
+                                        $scope.stalker.picture = picture.data.url;
+                                        $scope.$emit('loggedInEvent', 'facebook');
+                                    },
+                                    function(error){
+                                        $scope.$emit('loggedInEvent', 'facebook');  
+                                    });
                             });
                             //controller.setPage($scope.pages.results);
                         }
