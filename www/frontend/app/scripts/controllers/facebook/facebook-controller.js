@@ -91,9 +91,9 @@ define(['../module'], function(controllers, ngFacebook) {
                     stalkerService.setFacebookLoggedIn(false);
                     $scope.$emit('loggedOutEvent', 'facebook');
                     $scope.stalker = {};
-                    this.setPage($scope.pages.login);
-                    this.clearResults();
-                    this.clearPerson();                                                   
+                    controller.setPage($scope.pages.login);
+                    controller.clearResults();
+                    controller.clearPerson();                                                   
                     // controller.clearResults();
                     // controller.clearPerson();
                     // $scope.user = null; // Functie?
