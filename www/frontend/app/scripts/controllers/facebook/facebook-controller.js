@@ -70,13 +70,11 @@ define(['../module'], function(controllers, ngFacebook) {
                                 $scope.stalker = {};
                                 $scope.stalker.name = result.name;
                                 stalkerService.setFacebookStalker(result);
+                                $scope.$emit('loggedInEvent', 'facebook');
+                                $scope.stalker.picture = "./question.png";
                                 $facebook.api("/" + result.id + "/picture").then(
                                     function(picture) { 
                                         $scope.stalker.picture = picture.data.url;
-                                        $scope.$emit('loggedInEvent', 'facebook');
-                                    },
-                                    function(error){
-                                        $scope.$emit('loggedInEvent', 'facebook');  
                                     });
                             });
                             //controller.setPage($scope.pages.results);
@@ -86,13 +84,14 @@ define(['../module'], function(controllers, ngFacebook) {
             };
 
             this.logout = function() {
+                console.log("Logging out!")
                 $facebook.getLoginStatus().then(function(response) {
                     if (!(response.status === "unknown" || response.authResponse === null)) {
                         $facebook.logout();
-
                     }
                     stalkerService.setFacebookLoggedIn(false);
                     $scope.$emit('loggedOutEvent', 'facebook');
+                    $scope.stalker = {};
                     // controller.clearResults();
                     // controller.clearPerson();
                     // $scope.user = null; // Functie?
