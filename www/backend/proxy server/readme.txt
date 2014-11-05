@@ -5,7 +5,7 @@ The default config file expects three api servers running on ports: 5000, 5001, 
 
 1. Check the config file by running the following command.
 
-	haproxy -c config.conf
+	haproxy -c -f config.conf
 
 2. In order to start the haproxy server run the following command.
 

@@ -21,11 +21,11 @@ These  instructions work on the OS X 10.10 (Yosemite) and can differ from other 
 
 	mongo --port 27017
 
-3. Initiate the replica set with the following command.
+3. Initiate the replica set with the following command. (Not necessary if you done this before)
 
 	rs.initiate()
 
-4. Look at the "me" field for the host and add the host followed by the ports of the other two instances between quotes using the following commands.
+4. Look at the "me" field for the host and add the host followed by the ports of the other two instances between quotes using the following commands. (Not necessary if you done this before)
 
 	rs.add("host:27018")
 	rs.add("host:27019")

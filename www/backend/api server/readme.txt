@@ -9,7 +9,7 @@ For a list of available options type
 
 1. Start an api server instance typing the following command
 
-	python stalkerAPI.py -H localhost -P 8000
+	python stalkerAPI.py -H localhost -P 8000 -r
 
 ## When using HAProxy
 
